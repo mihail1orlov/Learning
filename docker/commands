@@ -1,0 +1,18 @@
+docker images
+docker ps
+docker build -t hello-world .
+docker run hello-world
+docker rm 1d33477c4f0a 
+docker ps -a
+
+docker run --name hello -d --rm hello-world 
+docker run 
+	--name hello 
+	-d // run the container in detached mode (in the background)
+	--rm // удалится после остановки или выполнения
+	hello-world 
+
+docker run -d -p 80:80 docker/getting-started // запуск туториала
+
+docker ps -a -q //вывод id запущеных контейнеров
+docker rm $(docker ps -aq) // удаление всех ранее запущеных контейнеров

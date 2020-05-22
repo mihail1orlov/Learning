@@ -1,0 +1,8 @@
+from python:3.8
+
+run mkdir -p /src/app/
+workdir /src/app/
+
+copy . /src/app/
+
+cmd ["python", "app.py"]
