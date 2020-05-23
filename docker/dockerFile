@@ -4,5 +4,10 @@ run mkdir -p /src/app/
 workdir /src/app/
 
 copy . /src/app/
+run pip install --no-cache-dir -r requirements.txt
+
+#expose 8080
+
+#ENV TZ=Europe/Kiev
 
 cmd ["python", "app.py"]

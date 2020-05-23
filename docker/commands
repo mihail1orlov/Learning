@@ -12,6 +12,14 @@ docker run
 	--rm // удалится после остановки или выполнения
 	hello-world 
 
+docker run --rm --name web -p 8080:8080 -e TZ=Europe/Kiev web-hello
+docker run 
+	--rm 
+	--name web
+	-p 8080:8081 // set out:in port number
+	-e TZ=Europe/Kiev // set timeZone
+	web-hello
+
 docker run -d -p 80:80 docker/getting-started // запуск туториала
 
 docker ps -a -q //вывод id запущеных контейнеров
