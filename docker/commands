@@ -17,7 +17,8 @@ docker run
 	--rm 
 	--name web
 	-p 8080:8081 // set out:in port number
-	-e TZ=Europe/Kiev // set timeZone
+	-e TZ/Europe/Kiev // set timeZone
+	-v d:/repos/Learning/docker/resources:/src/app/resources
 	web-hello
 
 docker run -d -p 80:80 docker/getting-started // запуск туториала
