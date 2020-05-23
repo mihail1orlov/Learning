@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=QF4ZF857m44
+
 docker images
 docker ps
 docker build -t hello-world .
@@ -20,6 +22,11 @@ docker run
 	-e TZ/Europe/Kiev // set timeZone
 	-v d:/repos/Learning/docker/resources:/src/app/resources
 	web-hello
+
+docker volume ls
+docker volume create webVolume
+// связи с внешней папкой не вижу, но все изменения будут сохранены в volume. Возможно можно как-то извлечь
+docker run --rm --name web -p 8080:8080 -e TZ=Europe/Kiev -v webVolume:/src/app/resources web-hello
 
 docker run -d -p 80:80 docker/getting-started // запуск туториала
 
