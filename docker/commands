@@ -4,7 +4,12 @@ docker images
 docker ps
 docker build -t hello-world .
 docker run hello-world
-docker rm 1d33477c4f0a 
+docker rm 1d33477c4f0a
+
+// remove images
+docker rmi name/id
+docker rmi $(docker images -q)
+
 docker ps -a
 
 docker run --name hello -d --rm hello-world 
@@ -27,6 +32,9 @@ docker volume ls
 docker volume create webVolume
 // связи с внешней папкой не вижу, но все изменения будут сохранены в volume. Возможно можно как-то извлечь
 docker run --rm --name web -p 8080:8080 -e TZ=Europe/Kiev -v webVolume:/src/app/resources web-hello
+
+// download and run mongo image
+docker run --rm -d --name mongoWeb -p 27017:27017 mongo
 
 docker run -d -p 80:80 docker/getting-started // запуск туториала
 
