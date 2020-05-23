@@ -1,17 +1,16 @@
-import os
-import json
-import datetime
-from flask import Flask
+import time
+from uuid import uuid4
+from MongodbService import MongodbService
 
-app = Flask(__name__)
+storage = MongodbService.get_instance()
 
-BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
-RESOURCE_DIR = os.path.join(BASE_FOLDER, "resources")
+for _ in range(5):
+    dto = {
+        "_id": str(uuid4()),
+        "payload": str(uuid4()),
+        "field2": str(int(time.time()))
+    }
+    storage.save_data(dto)
 
-@app.route('/')
-def hello_world():
-    with open(os.path.join(RESOURCE_DIR, "response.json")) as f:
-        return "%s - %s" % (json.loads(f.read()).get("payload"), datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+for data in storage.get_data():
+    print(data)

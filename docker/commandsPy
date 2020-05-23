@@ -1,2 +1,5 @@
 // install all dependencies from requirements.txt file
 pip install -r requirements.txt
+
+// install mongo for python
+pip install pymongo
