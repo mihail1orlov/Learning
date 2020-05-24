@@ -1,2 +1,7 @@
 dotnet new webapi -n DockerAPI
 code -r DockerAPI
+dotnet build
+dotnet run
+docker build -t binarythistle/dockerapi .
+docker run --rm -p 8080:80 binarythistle/dockerapi
+http://localhost:8080/weatherforecast
