@@ -1,0 +1,11 @@
+version: 1
+
+volumes:
+  mongodb_volume:
+
+services:
+  name_service:
+    build:
+    restart: always
+    environment:
+      
