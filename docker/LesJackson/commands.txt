@@ -1,0 +1,2 @@
+dotnet new webapi -n DockerAPI
+code -r DockerAPI
