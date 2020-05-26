@@ -40,3 +40,5 @@ docker run -d -p 80:80 docker/getting-started // запуск туториала
 
 docker ps -a -q //вывод id запущеных контейнеров
 docker rm $(docker ps -aq) // удаление всех ранее запущеных контейнеров
+
+docker-compose
