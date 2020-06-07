@@ -1,0 +1,31 @@
+// набор комманд для начальной инициализации linux docker container
+mkdir moon
+cd moon
+touch readme.txt
+apt update
+apt upgrade
+apt install nano
+
+--
+ls
+ls -l
+
+cd ~
+cd ..
+mkdir newFolder
+touch index.php
+nano index.php 
+cat index.php 
+rm index.php 
+mkdir test
+
+top
+ps aux
+ps aux | grep bluetooth
+
+// не поддерживается на mac
+free
+// для mac
+top -l 1 -s 0 | grep PhysMem
+
+cat ~/.bashrc
