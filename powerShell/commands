@@ -1,0 +1,24 @@
+
+    msiexec.exe /I .\far.msi /quiet 
+
+install docker from the powershell
+    // Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+    // about the commands
+        https://www.powershellgallery.com/packages/DockerMsftProvider/1.0.0.8
+    Install-Module -Name "DockerMsftProvider" -Force -Verbose
+
+    Install-Package -Name docker -ProviderName DockerMsftProvider -Verbose
+
+// download and install UI programm
+    $nameExe = "Docker%20Desktop%20Installer.exe"
+    $sourceExe = "https://download.docker.com/win/stable/" + $nameExe
+    $targetExe = "C:\soft\" + $nameExe
+    Invoke-WebRequest $sourceExe -OutFile $targetExe
+    msiexec.exe /I .\$nameExe /quiet 
+
+    $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+    $targetNugetExe = "C:\soft\nuget.exe"
+    Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+    Set-Alias nuget $targetNugetExe -Scope Global -Verbose

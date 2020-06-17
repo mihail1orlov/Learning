@@ -1,0 +1,8 @@
+lessons s1 e5
+    docker run microsoft/dotnet:nanoserver
+    docker pull microsoft/windowsservercore
+
+    docker ps -a --no-trunc
+    docker run -it microsoft/dotnet:nanoserver
+lessons s1 e6
+    

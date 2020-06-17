@@ -1,6 +1,8 @@
-
-
-
-docker run -it mihail1orlov/my-ubuntu:latest
+docker run microsoft/dotnet
+docker run microsoft/dotnet:nanoserver
+docket ps -a --no-trunc
+docker pull ubuntu
+docker run -it ubuntu
 docker commit c7b1179477e2 mihail1orlov/my-ubuntu:latest
 docker login && docker push mihail1orlov/my-ubuntu
+docker run -it mihail1orlov/my-ubuntu:latest
