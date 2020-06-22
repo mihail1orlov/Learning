@@ -1,4 +1,4 @@
-
+get-process
     msiexec.exe /I .\far.msi /quiet 
 
 install docker from the powershell
@@ -7,9 +7,11 @@ install docker from the powershell
 
     // about the commands
         https://www.powershellgallery.com/packages/DockerMsftProvider/1.0.0.8
+        https://github.com/OneGet/MicrosoftDockerProvider/blob/developer/DockerMsftProvider.psm1
     Install-Module -Name "DockerMsftProvider" -Force -Verbose
-
+        // install docker
     Install-Package -Name docker -ProviderName DockerMsftProvider -Verbose
+    Restart-Computer -Force
 
 // download and install UI programm
     $nameExe = "Docker%20Desktop%20Installer.exe"

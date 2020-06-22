@@ -1,8 +1,57 @@
 lessons s1 e5
     docker run microsoft/dotnet:nanoserver
     docker pull microsoft/windowsservercore
+        docker search microsoft
 
     docker ps -a --no-trunc
     docker run -it microsoft/dotnet:nanoserver
 lessons s1 e6
+    instalation the mongoDb
+lessons s1 e7
+    docker run --rm -it -v c:/soft:/moon alpine touch moon/test2.txt
+    docker run --rm -it 
+        -v c:/soft // my folder
+            :
+            /moon // folder destination
+            alpine 
+                touch moon/test2.txt // command after creating container
+        и так что мы получаем? Мы получаем папку из системы в контейнере.
+        Зачем? Сохранение состояния в контейнере или совместное использование шары. Вариантов много.
+
+lessons s1 e12
+    docker images -f dangling=true
+    docker build -t solitaire:nginx-df .
+    docker images | sls nginx
+    docker rmi $(docker images -f dangling=true -q)
+lessons s1 e13
+    при запуске в системе появляется дополнительный диск, который можно открыть в системе, если назначить букву
+lessons s1 e14
+    https://docs.docker.com/engine/reference/run/
+    https://gist.github.com/g0t4/0d97a9595c87736a8a72a2bd21afc0d9
+    weshigbee.com
+lessons s1 e15
+    share images
+    docker tag alpine mihail1orlov/my-alpine:tagTest
+    docker 
+        tag // create new tag
+        alpine name of the repository
+        mihail1orlov/my-alpine:tagTest \\ new name with the new tag
+            // after that we can push this container on docker hub
+lessons s1 e16
+    ipconfig
+lessons s1 e17
+    ls env:\
+        нужно глянуть на computorname и в контейнере это будет container Id
+        DOTNET_SDK_DOWNLOAD_URL        https://dotnetcli.blob.core.windows.net/dotnet/S...
+        DOTNET_SDK_VERSION             1.1.12
+        USERNAME                       ContainerAdministrator
+    ls hklm:\
+    Get-LocalUser
+    New-LocalUser
+    Get-Localuser | select name, sid
+lessons s1 e20
+    Get-Process
+
+
+
     
