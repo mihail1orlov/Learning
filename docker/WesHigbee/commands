@@ -1,3 +1,94 @@
+Docker.S7E10.Cleanup - Removing Dangling Volumes.mp4
+    docker volume ls -f dangling=true
+    docker inspect container
+        "Mounts": [
+                {
+                    "Type": "volume",
+                    "Name": "ddc74223be7f8bb5afd0b0b21a8ac7fee0ee0ac9134b188d026f7f5876cb39c6",
+                    "Source": "/var/lib/docker/volumes/ddc74223be7f8bb5afd0b0b21a8ac7fee0ee0ac9134b188d026f7f5876cb39c6/_data",
+                    "Destination": "/var/lib/mysql",
+                    "Driver": "local",
+                    "Mode": "",
+                    "RW": true,
+                    "Propagation": ""
+                }
+            ],
+
+Docker.S7E06.Using Managed Volumes to Persist Data After Container Destruction.mp4
+    docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+    docker exec -it some-mysql mysql --user=root --password=my-secret-pw
+    docker volume prune
+    docker rm -fv container
+        // remove force with the associated volumes
+
+Docker.S7E05.Docker Managed Volumes.mp4
+    docker volume ls
+
+Docker.S7E02.Running MSSQL 2016 Express in a Container.mp4
+    docker run --rm -d -p 1433:1433 -v D:/tmp:C:/moon -e sa_password=P@ssW0rd_ -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
+
+    docker logs container
+    docker diff container
+
+// some information
+    // sample on the aps.net core
+    https://github.com/friism/MusicStore
+
+    docker load -i my-nginx.tar
+    docker save my-nginx -o my-nginx.tar
+
+Docker.S6E05.Copying Files into a Running Container.mp4
+    docker run --rm -it -p 8081:80 -v d:/tmp/nginx:/usr/share/nginx/html nginx bash
+    docker run --rm --name tmp-nginx-container -d nginx
+    docker cp tmp-nginx-container:/etc/nginx/nginx.conf d:/tmp/host/path/nginx.conf
+    docker exec -it 9b cat usr/share/nginx/html/index.html
+    docker history nginx
+        // можно отследить добавление новых слоев
+            так же можно сохранить в tar и сравнить по содержимому
+            Новые слои видны как на ладони
+    docker history nginx --no-trunc
+
+Docker.S5E11.Converting Videos with ffmpeg in a Container.mp4
+    // unfortunately, this example does not work, but we can see what we can do
+    docker run --rm `
+        --volume ${pwd}:/output `
+        jrottenberg/ffmpeg locally -i http://bit.ly/2fcrRK2 output/Turkey.gif
+    
+Docker.S5E10.Running nmap in a Container.mp4
+    docker run `
+	    weshigbee/nmap -v 192.168.0.0/24
+Docker.S5E07.Manipulating Host Files with Tools Only Installed in a Container.mp4
+    iis.tar
+        tar -xf iis.tar -C extract
+        apk add --no-cache jq
+        cat my.json | jq
+
+Docker.S4E21.Running a Hyper-V Container.mp4
+    Install-WindowsFeature hyper-v
+        fix error
+            Get-VMProcessor -VMName winsrv | fl *
+            Set-VMProcessor -VMName winsrv -ExposeVirtualizationExtensions $true
+
+Docker.S4E20.There Are Two Types of Windows Containers.mp4
+    windows container types
+        1. windows server container
+        2. hyper-v container
+
+Docker.S4E19.Users and Groups Are Isolated.mp4
+    get-localuser
+    new-localuser
+    get-localuser | select name, sid
+
+Docker.S4E18.The Registry Is Isolated.mp4
+    ls hkcu:\
+    get-psdrive
+    ls hklm:\
+
+s3e14 1:14
+    docker inspect iis
+    docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" my-running-site
+
+// до переименования глав в сезоны
 lessons s1 e5
     docker run microsoft/dotnet:nanoserver
     docker pull microsoft/windowsservercore
@@ -23,6 +114,7 @@ lessons s1 e12
     docker build -t solitaire:nginx-df .
     docker images | sls nginx
     docker rmi $(docker images -f dangling=true -q)
+    docker rm $(docker ps -a -q -f status=exited)
 lessons s1 e13
     при запуске в системе появляется дополнительный диск, который можно открыть в системе, если назначить букву
 lessons s1 e14
@@ -31,6 +123,7 @@ lessons s1 e14
     weshigbee.com
 lessons s1 e15
     share images
+
     docker tag alpine mihail1orlov/my-alpine:tagTest
     docker 
         tag // create new tag
@@ -51,7 +144,3 @@ lessons s1 e17
     Get-Localuser | select name, sid
 lessons s1 e20
     Get-Process
-
-
-
-    
