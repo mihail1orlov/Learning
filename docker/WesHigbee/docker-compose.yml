@@ -1,0 +1,39 @@
+# docker run --name db `
+#     -d `
+#     -p 3306:3306 `
+#     -e mysql_root_password=my-secret-pw `
+#     -v db:/var/lib/mysql `
+#     mysql
+
+# docker inspect db # extract ip address
+
+# docker run `
+#     --name web `
+#     -d `
+#     -p 8080:80 `
+#     -e my_db_port=3306 `
+#     -e my_db_host=192.168.0.101
+#     -v /my/php/app:/usr/share/nginx/html `
+#     nginx
+
+version '2'
+
+services:
+    db:
+        image: mysql
+        ports:
+            - 3206:3306
+        environment:
+            - mysql_root_password=my-secret-pw
+        volumes:
+            - db:/var/lib/mysql
+
+    web:
+        image: nginx
+        ports:
+            - 8080:80
+        environment:
+            - my_db_port=3306
+            - my_db_host=db
+        volume:
+            - /my/php/app:/urs/share/nginx/html
