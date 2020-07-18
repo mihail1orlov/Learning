@@ -35,6 +35,8 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
+            applicationBuilder.UseToken("12345678");
+
             StringBuilder sb = null;
             
             var l = 2;
