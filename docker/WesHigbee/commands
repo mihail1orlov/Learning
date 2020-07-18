@@ -1,3 +1,10 @@
+Docker.S8E03.A TeamCity docker-compose.yml with 3 Containers.mp4
+	powershell
+		curl URL -o fileName // копирует фаил по url
+		cat // выводит содержимое файла
+	https://git.io/vPj49 // TeamCity yml
+		
+
 Docker.S7E10.Cleanup - Removing Dangling Volumes.mp4
     docker volume ls -f dangling=true
     docker inspect container
