@@ -22,7 +22,7 @@ services:
     db:
         image: mysql
         ports:
-            - 3206:3306
+            - 3306:3306
         environment:
             - mysql_root_password=my-secret-pw
         volumes:
