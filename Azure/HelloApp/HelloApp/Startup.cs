@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +35,8 @@ namespace HelloApp
 
             applicationBuilder.UseToken("12345678");
             applicationBuilder.UseMiddleware<HomeMiddleware>();
+            applicationBuilder.UseMiddleware<TableMiddleware>();
+            applicationBuilder.UseMiddleware<TableRowMiddleware>();
             
             var key = "age";
             applicationBuilder.MapWhen(context =>
