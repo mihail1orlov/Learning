@@ -58,21 +58,5 @@ namespace HelloApp
                                                   "<a href='/content?age=12'>content for 12</a>");
             });
         }
-
-        private void About(IApplicationBuilder applicationBuilder)
-        {
-            applicationBuilder.Run(async context =>
-            {
-                await context.Response.WriteAsync("<h1>About page</h1>");
-            });
-        }
-
-        private static void Index(IApplicationBuilder applicationBuilder)
-        {
-            applicationBuilder.Run(async context =>
-            {
-                await context.Response.WriteAsync("<a href=/table>Index page</a>");
-            });
-        }
     }
 }
