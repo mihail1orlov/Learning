@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +8,7 @@ namespace HelloApp
 {
     public class Startup
     {
-        IWebHostEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
         //  IWebHostEnvironment (передает информацию о среде, в которой запускается приложение, и его использовать при обработке запроса)
         public Startup(IWebHostEnvironment env)
@@ -39,23 +38,10 @@ namespace HelloApp
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
-            
-            var key = "age";
-            applicationBuilder.MapWhen(context =>
-            {
-                return context.Request.Query.ContainsKey(key)
-                       && int.Parse(context.Request.Query[key]) > 18;
-            }, app =>
-            {
-                app.Run(async context =>
-                {
-                    await context.Response.WriteAsync($"Super content!!!\nFor {context.Request.Query[key]}+");
-                });
-            });
 
             applicationBuilder.Use(async (context, next) =>
             {
-                await context.Response.WriteAsync("<a href='/index.html'>index</a></br>" +
+                await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
                                                   "<a href='/home/content?token=12345678&age=20'>content for 20</a></br>" +
                                                   "<a href='/home/content?token=12345678&age=12'>content for 12</a>");
                 await next.Invoke();
