@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\repos\\test\\HelloApp\\HelloApp\\HelloApp.csproj",
+      "projectUniqueName": "D:\\repos\\Learning\\Azure\\HelloApp\\HelloApp\\HelloApp.csproj",
       "projectName": "HelloApp",
-      "projectPath": "D:\\repos\\test\\HelloApp\\HelloApp\\HelloApp.csproj",
+      "projectPath": "D:\\repos\\Learning\\Azure\\HelloApp\\HelloApp\\HelloApp.csproj",
       "packagesPath": "C:\\Users\\kipish\\.nuget\\packages\\",
-      "outputPath": "D:\\repos\\test\\HelloApp\\HelloApp\\obj\\",
+      "outputPath": "D:\\repos\\Learning\\Azure\\HelloApp\\HelloApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kipish\\AppData\\Roaming\\NuGet\\NuGet.Config",
