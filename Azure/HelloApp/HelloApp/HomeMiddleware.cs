@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace HelloApp
@@ -17,8 +18,9 @@ namespace HelloApp
             var path = context.Request.Path.Value.ToLower();
             if (path.StartsWith("/home"))
             {
-                await context.Response.WriteAsync("<a href='/index'>Index</a></br>" +
-                                                  "<a href='/home/content?token=12345678&age=44'>content</a></br></br>");
+                var token = "token=12345678";
+                await context.Response.WriteAsync($"<a href='/home/info?{token}'>Info</a></br>" +
+                                                  $"<a href='/home/content?{token}&age=44'>content</a></br></br>");
                 if (path.StartsWith("/home/content"))
                 {
                     await context.Response.WriteAsync($"Super content!!!\nFor {context.Request.Query["age"]}+</br>");

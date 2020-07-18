@@ -35,6 +35,7 @@ namespace HelloApp
 
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
+            applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
             applicationBuilder.UseMiddleware<TableMiddleware>();
             applicationBuilder.UseMiddleware<TableRowMiddleware>();
