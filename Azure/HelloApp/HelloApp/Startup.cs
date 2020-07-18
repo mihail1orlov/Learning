@@ -36,56 +36,8 @@ namespace HelloApp
             }
 
             applicationBuilder.UseToken("12345678");
-
-            StringBuilder sb = null;
+            applicationBuilder.UseMiddleware<HomeMiddleware>();
             
-            var l = 2;
-            var d = 3;
-
-            applicationBuilder.Map("/home", home =>
-            {
-                home.Map("/index", Index);
-
-                home.Map("/about", About);
-
-                home.Use(async (context, next) =>
-                {
-                    sb = new StringBuilder();
-                    sb.Append("<a href='/home/index'>Index</a>\n" +
-                              "<a href='/home/about'>About</a>");
-                    await next.Invoke();
-                });
-
-                home.Use(async (context, next) =>
-                {
-                    sb.Append("<table border='2'>");
-
-                    await next.Invoke();
-
-                    sb.Append("</table>");
-                    await context.Response.WriteAsync(sb.ToString());
-                });
-
-                home.Run(async context =>
-                {
-                    for (int i = 0; i < l; i++)
-                    {
-                        sb.Append("<tr>");
-                        for (int j = 0; j < d; j++)
-                        {
-                            sb.Append($"<td>{i}{j}</td>");
-                        }
-
-                        sb.Append("</tr>");
-                    }
-
-                    l++;
-                    d++;
-
-                    await Task.FromResult(0);
-                });
-            });
-
             var key = "age";
             applicationBuilder.MapWhen(context =>
             {

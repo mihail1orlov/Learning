@@ -1,8 +1,53 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace HelloApp
 {
+    public class HomeMiddleware
+    {
+        private readonly RequestDelegate _next;
+
+        public HomeMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var l = 2;
+            var d = 3;
+
+            var path = context.Request.Path.Value.ToLower();
+            if (path.StartsWith("/home"))
+            {
+                var sb = new StringBuilder();
+                sb.Append("<a href='/home/index'>Index</a>\n" +
+                          "<a href='/home/about'>About</a></br></br>");
+
+                sb.Append("<table border='2'>");
+
+                for (int i = 0; i < l; i++)
+                {
+                    sb.Append("<tr>");
+                    for (int j = 0; j < d; j++)
+                    {
+                        sb.Append($"<td>{i}{j}</td>");
+                    }
+
+                    sb.Append("</tr>");
+                }
+
+                sb.Append("</table>");
+
+                await context.Response.WriteAsync(sb.ToString());
+
+                l++;
+                d++;
+            }
+        }
+    }
+
     public class TokenMiddleware
     {
         private readonly RequestDelegate _next;
