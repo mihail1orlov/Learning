@@ -33,13 +33,13 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
+            applicationBuilder.UseStaticFiles();
+
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
-            applicationBuilder.UseMiddleware<TableMiddleware>();
-            applicationBuilder.UseMiddleware<TableRowMiddleware>();
-
+            
             var key = "age";
             applicationBuilder.MapWhen(context =>
             {
@@ -53,12 +53,16 @@ namespace HelloApp
                 });
             });
 
-            applicationBuilder.Run(async context =>
+            applicationBuilder.Use(async (context, next) =>
             {
-                await context.Response.WriteAsync("<a href='/home'>home</a></br>" +
-                                                  "<a href='/content?age=20'>content for 20</a></br>" +
-                                                  "<a href='/content?age=12'>content for 12</a>");
+                await context.Response.WriteAsync("<a href='/index.html'>index</a></br>" +
+                                                  "<a href='/home/content?token=12345678&age=20'>content for 20</a></br>" +
+                                                  "<a href='/home/content?token=12345678&age=12'>content for 12</a>");
+                await next.Invoke();
             });
+
+            applicationBuilder.UseMiddleware<TableMiddleware>();
+            applicationBuilder.UseMiddleware<TableRowMiddleware>();
         }
     }
 }

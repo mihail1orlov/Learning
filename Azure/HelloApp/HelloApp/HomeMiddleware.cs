@@ -23,7 +23,15 @@ namespace HelloApp
                                                   $"<a href='/home/content?{token}&age=44'>content</a></br></br>");
                 if (path.StartsWith("/home/content"))
                 {
-                    await context.Response.WriteAsync($"Super content!!!\nFor {context.Request.Query["age"]}+</br>");
+                    if (int.TryParse(context.Request.Query["age"], out var age) && age > 18)
+                    {
+                        await context.Response.WriteAsync($"Super content 18+</br>For {context.Request.Query["age"]}</br>");
+                    }
+                    else
+                    {
+                        await context.Response.WriteAsync($"Your age is not old enough!!!</br>" +
+                                                          $"For {context.Request.Query["age"]}</br>");
+                    }
                 }
                 else
                 {
