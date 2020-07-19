@@ -26,7 +26,7 @@ namespace HelloApp
             _serviceCollection = serviceCollection;
 
             serviceCollection.AddTransient<IMessageService, SmsMessageService>();
-            serviceCollection.AddTransient<ITimeProvider, TimeProvider>();
+            serviceCollection.AddTimeProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
