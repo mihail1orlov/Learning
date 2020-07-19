@@ -10,7 +10,8 @@ namespace HelloApp
     {
         private readonly IWebHostEnvironment _env;
 
-        //  IWebHostEnvironment (передает информацию о среде, в которой запускается приложение, и его использовать при обработке запроса)
+        //  IWebHostEnvironment (передает информацию о среде, в которой запускается приложение,
+        // и его использовать при обработке запроса)
         public Startup(IWebHostEnvironment env)
         {
             _env = env;
@@ -32,20 +33,39 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
+            applicationBuilder.UseDefaultFiles();
             applicationBuilder.UseStaticFiles();
 
+            bool useMiddleware = true;
+            if (useMiddleware)
+            {
+                applicationBuilder.Use(async (context, next) =>
+                {
+                    await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
+                                                      "<a href='/home?token=12345678'>home</a></br>" +
+                                                      "<a href='/home/content?token=12345678&age=20'>content for 20</a></br>" +
+                                                      "<a href='/home/content?token=12345678&age=12'>content for 12</a>");
+                    await next.Invoke();
+                });
+
+                Middleware(applicationBuilder, env);
+            }
+            else
+            {
+                applicationBuilder.Run(async context =>
+                {
+                    await context.Response.WriteAsync("<h2>Static files mode!</h2>");
+                });
+            }
+        }
+
+        private void Middleware(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
+        {
+            
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
-
-            applicationBuilder.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
-                                                  "<a href='/home/content?token=12345678&age=20'>content for 20</a></br>" +
-                                                  "<a href='/home/content?token=12345678&age=12'>content for 12</a>");
-                await next.Invoke();
-            });
 
             applicationBuilder.UseMiddleware<TableMiddleware>();
             applicationBuilder.UseMiddleware<TableRowMiddleware>();

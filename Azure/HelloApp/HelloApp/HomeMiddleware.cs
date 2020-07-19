@@ -38,7 +38,7 @@ namespace HelloApp
                     await _next.Invoke(context);
                 }
 
-                await context.Response.WriteAsync("<a href='/about'>About</a></br></br>");
+                await context.Response.WriteAsync($"<a href='/about?{token}'>About</a></br></br>");
             }
             else if (path.StartsWith("/about"))
             {
