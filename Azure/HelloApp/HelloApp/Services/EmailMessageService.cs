@@ -4,7 +4,7 @@
     {
         public string Send()
         {
-            var str = "Sent my email";
+            var str = "<h3>Sent my email</h3>";
             return str;
         }
     }

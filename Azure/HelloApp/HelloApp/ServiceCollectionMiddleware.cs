@@ -5,12 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HelloApp
 {
-    internal class ServiceCollection
+    internal class ServiceCollectionMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly IServiceCollection _serviceCollection;
 
-        public ServiceCollection(RequestDelegate next, IServiceCollection serviceCollection)
+        public ServiceCollectionMiddleware(RequestDelegate next, IServiceCollection serviceCollection)
         {
             _next = next;
             _serviceCollection = serviceCollection;

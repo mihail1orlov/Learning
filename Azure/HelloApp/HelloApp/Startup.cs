@@ -25,7 +25,7 @@ namespace HelloApp
         {
             _serviceCollection = services;
 
-            //services.AddTransient<IMessageService, SmsMessageService>();
+            services.AddTransient<IMessageService, SmsMessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,11 +57,13 @@ namespace HelloApp
             {
                 applicationBuilder.Use(async (context, next) =>
                 {
+                    var token = "token=12345678";
                     await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
-                                                      "<a href='/home?token=12345678'>home</a></br>" +
-                                                      "<a href='/home/services?token=12345678'>service collection</a></br>" +
-                                                      "<a href='/home/content?token=12345678&age=20'>content for 20</a></br>" +
-                                                      "<a href='/home/content?token=12345678&age=12'>content for 12</a>");
+                                                      $"<a href='/home?{token}'>home</a></br>" +
+                                                      $"<a href='/home/message?{token}'>send message</a></br>" +
+                                                      $"<a href='/home/services?{token}'>service collection</a></br>" +
+                                                      $"<a href='/home/content?{token}&age=20'>content for 20</a></br>" +
+                                                      $"<a href='/home/content?{token}&age=12'>content for 12</a>");
                     await next.Invoke();
                 });
 
@@ -79,7 +81,8 @@ namespace HelloApp
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
-            applicationBuilder.UseMiddleware<ServiceCollection>(_serviceCollection);
+            applicationBuilder.UseMiddleware<MessageMiddleware>();
+            applicationBuilder.UseMiddleware<ServiceCollectionMiddleware>(_serviceCollection);
             applicationBuilder.UseMiddleware<ErrorMiddleware>();
             applicationBuilder.UseMiddleware<TableMiddleware>();
             applicationBuilder.UseMiddleware<TableRowMiddleware>();
