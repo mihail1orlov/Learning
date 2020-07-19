@@ -21,11 +21,12 @@ namespace HelloApp
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            _serviceCollection = services;
+            _serviceCollection = serviceCollection;
 
-            services.AddTransient<IMessageService, SmsMessageService>();
+            serviceCollection.AddTransient<IMessageService, SmsMessageService>();
+            serviceCollection.AddTransient<ITimeProvider, TimeProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,41 +39,33 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
-            MainModules(applicationBuilder, env);
-        }
-
-        private void MainModules(IApplicationBuilder applicationBuilder,
-            IWebHostEnvironment env)
-        {
             applicationBuilder.UseDirectoryBrowser();
             applicationBuilder.UseStaticFiles();
 
             applicationBuilder.UseStatusCodePages();
 
+            Main(applicationBuilder, env);
+        }
+
+        private void Main(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
+        {
             applicationBuilder.UseExceptionHandler("/error");
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
 
-            bool useMiddleware = true;
-            if (useMiddleware)
+            applicationBuilder.Use(async (context, next) =>
             {
-                applicationBuilder.Use(async (context, next) =>
-                {
-                    var token = "token=12345678";
-                    await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
-                                                      $"<a href='/home?{token}'>home</a></br>" +
-                                                      $"<a href='/home/message?{token}'>send message</a></br>" +
-                                                      $"<a href='/home/services?{token}'>service collection</a></br>" +
-                                                      $"<a href='/home/content?{token}&age=20'>content for 20</a></br>" +
-                                                      $"<a href='/home/content?{token}&age=12'>content for 12</a>");
-                    await next.Invoke();
-                });
+                var token = "token=12345678";
+                await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
+                                                  $"<a href='/home/?{token}'>home</a></br>" +
+                                                  $"<a href='/home/time?{token}'>Time</a></br>" +
+                                                  $"<a href='/home/message?{token}'>send message</a></br>" +
+                                                  $"<a href='/home/services?{token}'>service collection</a></br>" +
+                                                  $"<a href='/home/content?{token}&age=20'>content for 20</a></br>" +
+                                                  $"<a href='/home/content?{token}&age=12'>content for 12</a>");
+                await next.Invoke();
+            });
 
-                Middleware(applicationBuilder, env);
-            }
-            else
-            {
-                applicationBuilder.Run(async context => { await context.Response.WriteAsync("<h2>Static files mode!</h2>"); });
-            }
+            Middleware(applicationBuilder, env);
         }
 
         private void Middleware(IApplicationBuilder applicationBuilder,
@@ -81,6 +74,7 @@ namespace HelloApp
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
+            applicationBuilder.UseTime();
             applicationBuilder.UseMiddleware<MessageMiddleware>();
             applicationBuilder.UseMiddleware<ServiceCollectionMiddleware>(_serviceCollection);
             applicationBuilder.UseMiddleware<ErrorMiddleware>();
