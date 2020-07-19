@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using HelloApp.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,8 @@ namespace HelloApp
         public void ConfigureServices(IServiceCollection services)
         {
             _serviceCollection = services;
+
+            //services.AddTransient<IMessageService, SmsMessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +38,12 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
+            MainModules(applicationBuilder, env);
+        }
+
+        private void MainModules(IApplicationBuilder applicationBuilder,
+            IWebHostEnvironment env)
+        {
             applicationBuilder.UseDirectoryBrowser();
             applicationBuilder.UseStaticFiles();
 
@@ -60,14 +69,12 @@ namespace HelloApp
             }
             else
             {
-                applicationBuilder.Run(async context =>
-                {
-                    await context.Response.WriteAsync("<h2>Static files mode!</h2>");
-                });
+                applicationBuilder.Run(async context => { await context.Response.WriteAsync("<h2>Static files mode!</h2>"); });
             }
         }
 
-        private void Middleware(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
+        private void Middleware(IApplicationBuilder applicationBuilder,
+            IWebHostEnvironment env)
         {
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
