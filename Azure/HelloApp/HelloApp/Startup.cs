@@ -37,11 +37,12 @@ namespace HelloApp
             applicationBuilder.UseDirectoryBrowser();
             applicationBuilder.UseStaticFiles();
 
-            applicationBuilder.UseExceptionHandler("/error");
+            applicationBuilder.UseStatusCodePages();
 
+            applicationBuilder.UseExceptionHandler("/error");
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
 
-            bool useMiddleware = false;
+            bool useMiddleware = true;
             if (useMiddleware)
             {
                 applicationBuilder.Use(async (context, next) =>
@@ -59,8 +60,6 @@ namespace HelloApp
             {
                 applicationBuilder.Run(async context =>
                 {
-                    var x = 0;
-                    var y = 5 / x;
                     await context.Response.WriteAsync("<h2>Static files mode!</h2>");
                 });
             }
@@ -71,7 +70,7 @@ namespace HelloApp
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
-
+            applicationBuilder.UseMiddleware<ErrorMiddleware>();
             applicationBuilder.UseMiddleware<TableMiddleware>();
             applicationBuilder.UseMiddleware<TableRowMiddleware>();
         }
