@@ -1,4 +1,6 @@
-﻿using HelloApp.Services;
+﻿using HelloApp.Extensions;
+using HelloApp.Middleware;
+using HelloApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,10 +46,10 @@ namespace HelloApp
 
             applicationBuilder.UseStatusCodePages();
 
-            Main(applicationBuilder, env);
+            MiddlewareModules(applicationBuilder, env);
         }
 
-        private void Main(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
+        private void MiddlewareModules(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
         {
             applicationBuilder.UseExceptionHandler("/error");
             applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
@@ -55,22 +57,18 @@ namespace HelloApp
             applicationBuilder.Use(async (context, next) =>
             {
                 var token = "token=12345678";
-                await context.Response.WriteAsync("<a href='/static/index.html'>index</a></br>" +
+                await context.Response.WriteAsync($"<a href='/error/?{token}'>Error</a></br>" +
+                                                  $"<a href='/about?{token}'>About</a></br>" +
                                                   $"<a href='/home/?{token}'>home</a></br>" +
                                                   $"<a href='/home/time?{token}'>Time</a></br>" +
                                                   $"<a href='/home/message?{token}'>send message</a></br>" +
                                                   $"<a href='/home/services?{token}'>service collection</a></br>" +
                                                   $"<a href='/home/content?{token}&age=20'>content for 20</a></br>" +
-                                                  $"<a href='/home/content?{token}&age=12'>content for 12</a>");
+                                                  $"<a href='/home/content?{token}&age=12'>content for 12</a></br>" +
+                                                  "<a href='/static/index.html'>index</a></br>");
                 await next.Invoke();
             });
 
-            Middleware(applicationBuilder, env);
-        }
-
-        private void Middleware(IApplicationBuilder applicationBuilder,
-            IWebHostEnvironment env)
-        {
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();

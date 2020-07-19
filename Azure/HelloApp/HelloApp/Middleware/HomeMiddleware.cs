@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace HelloApp
+namespace HelloApp.Middleware
 {
     public class HomeMiddleware
     {
@@ -15,6 +14,8 @@ namespace HelloApp
 
         public async Task InvokeAsync(HttpContext context)
         {
+            await _next.Invoke(context);
+
             var path = context.Request.Path.Value.ToLower();
             if (path.StartsWith("/home"))
             {
@@ -33,13 +34,6 @@ namespace HelloApp
                                                           $"For {context.Request.Query["age"]}</br>");
                     }
                 }
-                else
-                {
-                    await _next.Invoke(context);
-                }
-
-                await context.Response.WriteAsync($"<a href='/about?{token}'>About</a></br>" +
-                                                  $"<a href='/error/?{token}'>Error</a></br>");
             }
             else if (path.StartsWith("/about"))
             {

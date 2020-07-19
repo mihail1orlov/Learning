@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using HelloApp.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace HelloApp
+namespace HelloApp.Middleware
 {
     public class TimeMiddleware
     {
@@ -17,12 +17,13 @@ namespace HelloApp
 
         public async Task InvokeAsync(HttpContext context)
         {
+            await _next.Invoke(context);
+
             var path = context.Request.Path;
             if (path.StartsWithSegments("/home/time"))
             {
-                await _next.Invoke(context);
-                await context.Response.WriteAsync($"<h2>Time: " +
-                                                  $"{_timeProvider.GetTime()}</h2>");
+                await context.Response.WriteAsync($"<h2>Time: {_timeProvider.GetTime()}</h2>" +
+                                                  $"<h3>timeProvider.GetHashCode: {_timeProvider.GetHashCode()}</h3>");
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace HelloApp
+﻿namespace HelloApp.Models
 {
     public interface ITimeProvider
     {

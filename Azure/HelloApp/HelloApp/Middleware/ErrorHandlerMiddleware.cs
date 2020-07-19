@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace HelloApp
+namespace HelloApp.Middleware
 {
     public class ErrorHandlerMiddleware
     {

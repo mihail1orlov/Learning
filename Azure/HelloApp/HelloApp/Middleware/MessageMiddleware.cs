@@ -2,7 +2,7 @@
 using HelloApp.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace HelloApp
+namespace HelloApp.Middleware
 {
     internal class MessageMiddleware
     {
@@ -17,11 +17,11 @@ namespace HelloApp
 
         public async Task InvokeAsync(HttpContext context)
         {
+            await _next.Invoke(context);
+
             var path = context.Request.Path;
             if (path.StartsWithSegments("/home/message"))
             {
-                await _next.Invoke(context);
-
                 await context.Response.WriteAsync(_service.Send());
             }
         }

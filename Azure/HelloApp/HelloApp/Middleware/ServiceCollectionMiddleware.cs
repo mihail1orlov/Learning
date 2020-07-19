@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HelloApp
+namespace HelloApp.Middleware
 {
     internal class ServiceCollectionMiddleware
     {
