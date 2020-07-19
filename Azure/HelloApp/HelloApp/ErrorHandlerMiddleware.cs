@@ -13,6 +13,13 @@ namespace HelloApp
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var path = context.Request.Path;
+            if (path.StartsWithSegments("/error"))
+            {
+                await context.Response.WriteAsync("Error handler page");
+                return;
+            }
+
             await _next.Invoke(context);
 
             if (context.Response.StatusCode == 403)

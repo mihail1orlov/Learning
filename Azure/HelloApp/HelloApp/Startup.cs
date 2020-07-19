@@ -28,21 +28,20 @@ namespace HelloApp
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
         {
             // если приложение в процессе разработки
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsEnvironment("Development111"))
             {
                 // то выводим информацию об ошибке, при наличии ошибки
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
-            var options = new DefaultFilesOptions
-            {
-                DefaultFileNames = new List<string> {"home.html"}
-            };
-
-            applicationBuilder.UseDefaultFiles(options);
+            applicationBuilder.UseDirectoryBrowser();
             applicationBuilder.UseStaticFiles();
 
-            bool useMiddleware = true;
+            applicationBuilder.UseExceptionHandler("/error");
+
+            applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
+
+            bool useMiddleware = false;
             if (useMiddleware)
             {
                 applicationBuilder.Use(async (context, next) =>
@@ -60,6 +59,8 @@ namespace HelloApp
             {
                 applicationBuilder.Run(async context =>
                 {
+                    var x = 0;
+                    var y = 5 / x;
                     await context.Response.WriteAsync("<h2>Static files mode!</h2>");
                 });
             }
@@ -67,8 +68,6 @@ namespace HelloApp
 
         private void Middleware(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
         {
-            
-            applicationBuilder.UseMiddleware<ErrorHandlerMiddleware>();
             applicationBuilder.UseMiddleware<MyAuthenticationMiddleware>("12345678");
             applicationBuilder.UseMiddleware<InfoMiddleware>(_env);
             applicationBuilder.UseHome();
