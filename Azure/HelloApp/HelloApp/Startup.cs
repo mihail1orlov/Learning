@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +34,12 @@ namespace HelloApp
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 
-            applicationBuilder.UseDefaultFiles();
+            var options = new DefaultFilesOptions
+            {
+                DefaultFileNames = new List<string> {"home.html"}
+            };
+
+            applicationBuilder.UseDefaultFiles(options);
             applicationBuilder.UseStaticFiles();
 
             bool useMiddleware = true;
