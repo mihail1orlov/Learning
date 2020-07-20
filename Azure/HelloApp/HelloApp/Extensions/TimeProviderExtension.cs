@@ -1,13 +1,13 @@
 ﻿using HelloApp.Models;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HelloApp.Middleware
+namespace HelloApp.Extensions
 {
     public static class TimeProviderExtension
     {
         public static void AddTimeProvider(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<ITimeProvider, TimeProvider>();
+            serviceCollection.AddTransient<ITimeProvider, TimeProvider>();
         }
     }
 }
