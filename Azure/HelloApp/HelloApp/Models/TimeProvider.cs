@@ -1,12 +1,17 @@
-﻿using System;
-
-namespace HelloApp.Models
+﻿namespace HelloApp.Models
 {
-    class TimeProvider : ITimeProvider
+    public class TimeProvider : ITimeProvider
     {
-        public string GetTime()
+        private readonly ITime _time;
+
+        public TimeProvider(ITime time)
         {
-            return DateTime.Now.ToString("T");
+            _time = time;
+        }
+
+        public string GetTime(string format)
+        {
+            return _time.GetTime(format);
         }
     }
 }

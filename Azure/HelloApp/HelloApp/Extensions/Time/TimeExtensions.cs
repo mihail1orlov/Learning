@@ -1,7 +1,7 @@
 ﻿using HelloApp.Middleware;
 using Microsoft.AspNetCore.Builder;
 
-namespace HelloApp.Extensions
+namespace HelloApp.Extensions.Time
 {
     public static class TimeExtensions
     {

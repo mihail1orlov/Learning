@@ -20,7 +20,7 @@ namespace HelloApp.Middleware
             var path = context.Request.Path;
             if (path.StartsWithSegments("/home/time"))
             {
-                await context.Response.WriteAsync($"<h2>Time: {timeProvider.GetTime()}</h2>" +
+                await context.Response.WriteAsync($"<h2>Time: {timeProvider.GetTime("T")}</h2>" +
                                                   $"<h3>timeProvider.GetHashCode: {timeProvider.GetHashCode()}</h3>");
             }
         }

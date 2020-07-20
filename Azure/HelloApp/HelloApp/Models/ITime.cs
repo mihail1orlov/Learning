@@ -1,6 +1,6 @@
 ﻿namespace HelloApp.Models
 {
-    public interface ITimeProvider
+    public interface ITime
     {
         string GetTime(string format);
     }
