@@ -1,0 +1,5 @@
+// auto create component
+ng g c componentName
+  ng - angurar
+  g - generate
+  c - component  
