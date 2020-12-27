@@ -1,5 +1,5 @@
 // auto create component
-ng g c componentName
+ng g c componentName --skipTests
   ng - angurar
   g - generate
   c - component  
