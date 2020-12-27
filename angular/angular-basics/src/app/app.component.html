@@ -1,12 +1,20 @@
 <h1>Test</h1>
 
-<p>{{ title }}</p>
+<!-- this is interpolation -->
+<img src="{{ img1 }}" alt=""/>
 
+<!-- this is binding -->
+<!-- html -> ts -->
+<img [src]="img" alt=""/>
+
+<hr/>
+
+<p>{{ title }}</p>
 <p><strong>{{ number - 2 }}</strong></p>
 <p><strong>{{ arr }}</strong></p>
 <p><strong>{{ user }}</strong></p>
 <p><strong>{{ user.doc.id }}</strong></p>
-<p><strong>{{ 'Hello ' + user.name }}</strong></p>
+<p><strong>{{ 'Hello  ' + user.name }}</strong></p>
 
 <hr/>
 
