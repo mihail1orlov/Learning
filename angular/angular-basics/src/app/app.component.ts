@@ -14,6 +14,8 @@ export class AppComponent {
   index = 0;
   img = this.images[this.index];
   img1 = this.images[this.arr.length - 1];
+  inputValue = 'input text';
+  inputValueBlur = 'blur input';
 
   constructor() {
     const callback = () => {
@@ -25,5 +27,18 @@ export class AppComponent {
     };
 
     callback();
+  }
+
+  onInput(e?: any){
+    this.inputValue = e.target.value;
+  }
+
+  onClick() {
+    this.inputValue = 'empty value';
+    this.inputValueBlur = 'empty value';
+  }
+
+  onBlur(value: string) {
+    this.inputValueBlur = value;
   }
 }

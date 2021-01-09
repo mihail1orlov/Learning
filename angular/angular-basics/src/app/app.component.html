@@ -1,12 +1,30 @@
 <h1>Test</h1>
 
+<p>
+  <input type="text" [(ngModel)]="title"/>
+<p><strong>{{title}}</strong></p>
+<hr/>
+
+<button (click)="onClick()">Clear inputs</button>
+<p><input
+  #MyInput
+  type="text"
+  value="some text"
+  (input)="onInput($event)"
+  (blur)="onBlur(MyInput.value)"
+  (keydown.enter)="onBlur(MyInput.value)"
+/></p>
+<p><strong>{{inputValue}}</strong></p>
+<p><strong>{{inputValueBlur}}</strong></p>
+
 <!-- this is interpolation -->
-<img src="{{ img1 }}" alt=""/>
+<p style="background-color: green">
+  <img src="{{ img1 }}" alt=""/>
 
-<!-- this is binding -->
-<!-- html -> ts -->
-<img [src]="img" alt=""/>
-
+  <!-- this is binding -->
+  <!-- html -> ts -->
+  <img [src]="img" alt=""/>
+</p>
 <hr/>
 
 <p>{{ title }}</p>
