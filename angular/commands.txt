@@ -1,3 +1,6 @@
+// istall angular
+npm install --save-dev @angular-devkit/build-angular
+
 // auto create component
 ng g c componentName --skipTests
   ng - angurar
