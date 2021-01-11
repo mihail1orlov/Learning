@@ -14,14 +14,26 @@
         }
         .wrapper {
             display: grid;
-            grid-template-columns: 75% 25%;
-
             grid-template-columns: 3fr 2fr 1fr;
             grid-gap: 1em;
+            grid-auto-rows: minmax(100px, auto);
             /*!*grid-column-gap: 1em;*!
             !*grid-row-gap: 1em;*!
             grid-gap: 1em;*/
         }
+
+        .included {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1em;
+            grid-auto-rows: 100px;
+        }
+
+        .included > div {
+            padding: 1em;
+            background-color: #d07a09
+        }
+
         .wrapper > div {
             padding: 1em;
             background-color: #2d562d
@@ -46,6 +58,11 @@
 <body>
     <div class="wrapper">
         <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at blanditiis consequatur, cumque dolore dolorum ea earum eligendi enim error, esse ex expedita illum impedit incidunt ipsam iure laborum magnam minus natus odio officia pariatur perferendis possimus provident quas quisquam quod recusandae repellat reprehenderit sapiente sed sit sunt temporibus, veniam vero voluptate. Alias corporis culpa ex, id inventore libero magnam nihil nobis optio perferendis porro possimus, quam quibusdam velit, voluptates.</div>
+        <div class="included">
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, quibusdam!</div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, quibusdam!</div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, quibusdam!</div>
+        </div>
         <div class="light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis eaque ex fugit ipsa porro, possimus quisquam vero. Aspernatur beatae, consectetur culpa cumque deserunt dolorem eaque hic iste provident quod?</div>
         <div class="darkseagreen">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, autem cum nihil optio porro voluptatibus. Incidunt non omnis quidem recusandae repudiandae. Ea eligendi eos magnam quam repudiandae sint! Animi assumenda at consectetur dolor dolores enim fugiat illum, iusto molestiae nemo, placeat rerum similique sint soluta vel? Cupiditate dolorum fugit illum ipsum laboriosam molestias omnis porro qui quia, repellendus reprehenderit veritatis.</div>
         <div class="aquamarine">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad illum ipsum nemo repellendus temporibus. Ab aperiam consectetur cum deserunt distinctio ducimus eius eveniet ex excepturi fugit illo impedit incidunt iste laboriosam libero magni molestias mollitia neque odio officiis porro provident quaerat quam ratione reprehenderit sapiente, soluta tempora ut velit voluptate. Accusamus consequuntur deleniti dolorum eaque error est excepturi explicabo itaque laborum libero maxime necessitatibus odio perferendis porro provident, quia quibusdam repellat rerum soluta vel voluptates!</div>
