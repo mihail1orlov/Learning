@@ -1,0 +1,24 @@
+<section class="main" >
+  <h1>Tabs</h1>
+
+  <app-tabs-group>
+    <app-tab>
+      <strong *appTabLabel >Tab 1</strong>
+      <ng-container *appTabContent >
+        Tab 1 content <app-test></app-test>
+      </ng-container>
+    </app-tab>
+    <app-tab label="Tab 2" >
+      <ng-container *appTabContent >
+        Tab 2 content <app-test></app-test>
+      </ng-container>
+    </app-tab>
+    <app-tab label="Tab 3" >Tab 3 content</app-tab>
+  </app-tabs-group>
+
+  <app-tabs-group>
+    <app-tab label="Tab 4" >Tab 4 content</app-tab>
+    <app-tab label="Tab 5" >Tab 5 content</app-tab>
+    <app-tab label="Tab 6" >Tab 6 content</app-tab>
+  </app-tabs-group>
+</section>

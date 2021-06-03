@@ -1,0 +1,17 @@
+<div class="labels">
+  <div
+    *ngFor="let label of labels$ | async; let index = index"
+    (click)="onClickTab(index)"
+    [class.active]="(activeIndex$ | async) === index"
+  >
+    <ng-container *ngIf="label.stringValue" >
+      {{ label.stringValue }}
+    </ng-container>
+    <ng-container *ngIf="label.templateRef" >
+      <ng-container *ngTemplateOutlet="label.templateRef" ></ng-container>
+    </ng-container>
+  </div>
+</div>
+<div class="content">
+  <ng-content></ng-content>
+</div>
