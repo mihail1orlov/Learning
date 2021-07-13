@@ -1,3 +1,5 @@
 npm i -D @types/lodash
 npm i lodash
 $ sudo npm install -g typescript
+
+https://youtu.be/ahCwqrYpIuM
