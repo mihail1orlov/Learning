@@ -1,0 +1,2 @@
+npm i lodash
+$ sudo npm install -g typescript
