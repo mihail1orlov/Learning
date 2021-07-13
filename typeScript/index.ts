@@ -1,6 +1,14 @@
+function pow(b, e) {
+    return Math.pow(b, e);
+}
+
+pow(34, '222'); // error
+
+//-----
 interface Person {
     first: string,
     last: string,
+
     [key: string]: any
 }
 
