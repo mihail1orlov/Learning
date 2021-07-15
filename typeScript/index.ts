@@ -1,3 +1,11 @@
+// tuples
+type MyArray = [number, string, boolean?];
+
+const myArr: MyArray[] = [];
+
+myArr.push([1, "11", true])
+myArr.push([1, "11"])
+
 // Arrays
 
 const arr: Person[] = [];
