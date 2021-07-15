@@ -1,9 +1,12 @@
 // Arrays
 
-const arr = [1]; // initialization with a literal
+const arr: Person[] = [];
 
-arr.push(1);
-arr.push('11'); // error
+arr.push({
+    first: "Bill",
+    last: "Bush"
+});
+arr.push({name: "Bill", sName: "Bush"}); // error
 arr.push(true); // error
 
 //-----
