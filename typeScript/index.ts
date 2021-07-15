@@ -1,10 +1,10 @@
 // Arrays
 
-const arr = []; // arr has the any[] type
+const arr = [1]; // initialization with a literal
 
 arr.push(1);
-arr.push('11');
-arr.push(true);
+arr.push('11'); // error
+arr.push(true); // error
 
 //-----
 function pow(b, e): number {
