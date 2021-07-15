@@ -1,8 +1,8 @@
-function pow(b, e) {
+function pow(b, e): number {
     return Math.pow(b, e);
 }
 
-pow(34, '222'); // error
+let res = pow(34, '222'); // error
 
 //-----
 interface Person {
