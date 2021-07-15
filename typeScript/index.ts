@@ -1,3 +1,12 @@
+// Arrays
+
+const arr = []; // arr has the any[] type
+
+arr.push(1);
+arr.push('11');
+arr.push(true);
+
+//-----
 function pow(b, e): number {
     return Math.pow(b, e);
 }
