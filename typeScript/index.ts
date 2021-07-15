@@ -1,3 +1,11 @@
+// generics
+class MyClass<T> {
+    constructor(public value: T) {
+    }
+}
+
+let x: MyClass<number> = new MyClass(11)
+
 // tuples
 type MyArray = [number, string, boolean?];
 
