@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import {PostComponent} from './post/post.component';
 import {Post4Component} from './post4/post4.component';
 import {FormsModule} from "@angular/forms";
+import { TestRefreshComponent } from './test-refresh/test-refresh.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostComponent,
-    Post4Component
+    Post4Component,
+    TestRefreshComponent
   ],
   imports: [
     BrowserModule,
