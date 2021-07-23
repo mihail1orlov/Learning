@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TimechartsComponent } from './timecharts/timecharts.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TimechartsComponent
   ],
   imports: [
     BrowserModule,
