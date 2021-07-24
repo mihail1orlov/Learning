@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimechartsComponent } from './timecharts/timecharts.component';
 
+import { PlotlyModule } from 'angular-plotly.js';
+import * as PlotlyJS from 'plotly.js-dist';
+PlotlyModule.plotlyjs = PlotlyJS;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,7 +16,8 @@ import { TimechartsComponent } from './timecharts/timecharts.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PlotlyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,6 @@
+https://github.com/plotly/angular-plotly.js/blob/master/README.md
+
+Warning!
+  - This sample only works for the old version of plotly
+  - You need to rename the node_modules/@types/plotly.js folder to plotly.js-dist
+  - And I still haven't figured out how I can make a working version of this product without the manual changes
