@@ -1,3 +1,8 @@
+Step 2
+  installing angular-audio-context from the site https://www.npmjs.com/package/angular-audio-context
+
+  Comments: there is no way to add any sound
+Step 1
 https://github.com/plotly/angular-plotly.js/blob/master/README.md
 
 Warning!
