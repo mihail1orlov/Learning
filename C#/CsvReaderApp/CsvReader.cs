@@ -1,18 +1,11 @@
-﻿using System;
-using System.Reflection;
-
-namespace CsvReaderApp
+﻿namespace CsvReaderApp
 {
     internal static class CsvReader
     {
         private const string Separator = ",";
-        private const string MethodName = "TryParse";
 
-        public static T[][] Read<T>(string[] lines) where T : new()
+        public static T[][] Read<T>(string[] lines) where T : struct
         {
-            Type[] argTypes = {typeof(string), typeof(T).MakeByRefType()};
-            MethodInfo tryParse = typeof(T).GetMethod(MethodName, argTypes);
-
             var results = new T[lines.Length][];
             
             for (var i = 0; i < lines.Length; i++)
@@ -22,19 +15,11 @@ namespace CsvReaderApp
 
                 for (var j = 0; j < items.Length; j++)
                 {
-                    results[i][j] = GetCellValue<T>(items[j], tryParse);
+                    results[i][j] = StringConverter.TryParse<T>(items[j]);
                 }
             }
 
             return results;
-        }
-
-        private static T GetCellValue<T>(string item, MethodBase tryParse) where T : new()
-        {
-            var result = new T();
-            var parameters = new object[] {item, result};
-            tryParse.Invoke(null, parameters);
-            return (T)parameters[1];
         }
     }
 }
