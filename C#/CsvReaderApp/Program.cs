@@ -1,12 +1,14 @@
-﻿using System;
+﻿using System.IO;
 
 namespace CsvReaderApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            var path = @"../../../data/data.csv";
+            var lines = File.ReadAllLines(path);
+            var cells = CsvReader.Read<double>(lines);
         }
     }
 }
