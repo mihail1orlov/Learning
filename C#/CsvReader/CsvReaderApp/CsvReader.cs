@@ -1,10 +1,17 @@
 ﻿namespace CsvReaderApp
 {
-    internal static class CsvReader
+    public class CsvReader : ICsvReader
     {
         private const string Separator = ",";
 
-        public static T[][] Read<T>(string[] lines) where T : struct
+        private readonly IStringConverter _stringConverter;
+
+        public CsvReader(IStringConverter stringConverter)
+        {
+            _stringConverter = stringConverter;
+        }
+
+        public T[][] Read<T>(string[] lines) where T : struct
         {
             var result = new T[lines.Length][];
             
@@ -15,7 +22,7 @@
 
                 for (var j = 0; j < items.Length; j++)
                 {
-                    result[i][j] = StringConverter.TryParse<T>(items[j]);
+                    result[i][j] = _stringConverter.TryParse<T>(items[j]);
                 }
             }
 

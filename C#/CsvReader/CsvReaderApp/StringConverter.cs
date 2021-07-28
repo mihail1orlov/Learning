@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace CsvReaderApp
 {
-    internal class StringConverter
+    public class StringConverter : IStringConverter
     {
         private const string MethodName = "TryParse";
 
-        public static T TryParse<T>(string str) where T : new()
+        public T TryParse<T>(string str) where T : new()
         {
             MethodInfo tryParse = typeof(T)
                 .GetMethod(MethodName, new[]
