@@ -17,7 +17,7 @@
     YouTube: https://www.youtube.com/brianlough
     Tindie: https://www.tindie.com/stores/brianlough/
     Twitter: https://twitter.com/witnessmenow
- *******************************************************************/
+*******************************************************************/
 
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
@@ -28,6 +28,7 @@
 #define WIFI_PASSWORD ""
 // Telegram BOT Token (Get from Botfather)
 #define BOT_TOKEN ""
+#define CHAT_ID ""
 
 const unsigned long BOT_MTBS = 1000; // mean time between scan messages
 
@@ -40,7 +41,8 @@ void handleNewMessages(int numNewMessages)
 {
   for (int i = 0; i < numNewMessages; i++)
   {
-    bot.sendMessage(bot.messages[i].chat_id, bot.messages[i].text, "");
+    bot.sendMessage(CHAT_ID, "message from: " + bot.messages[i].chat_id, "");
+    bot.sendMessage(CHAT_ID, bot.messages[i].text, "");
   }
 }
 
@@ -83,7 +85,8 @@ void loop()
 
     while (numNewMessages)
     {
-      Serial.println("got response");
+      Serial.print("numNewMessages: ");
+      Serial.println(numNewMessages);
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
