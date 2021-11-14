@@ -1,0 +1,5 @@
+- setup access point
+- after setup, connect to WiFi
+  - start web server
+    - show availble WiFi networks
+  - setup WiFi connection

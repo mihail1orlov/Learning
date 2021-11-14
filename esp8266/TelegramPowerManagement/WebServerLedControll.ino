@@ -1,8 +1,13 @@
+/*********
+  Rui Santos
+  Complete project details at https://randomnerdtutorials.com  
+*********/
+
 // Load Wi-Fi library
-#include "ESP8266WiFi.h"
+#include <ESP8266WiFi.h>
 
 // Replace with your network credentials
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* ssid     = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 // Set web server port number to 80
@@ -28,11 +33,9 @@ const long timeoutTime = 2000;
 
 void setup() {
   Serial.begin(115200);
-
   // Initialize the output variables as outputs
   pinMode(output5, OUTPUT);
   pinMode(output4, OUTPUT);
-
   // Set outputs to LOW
   digitalWrite(output5, LOW);
   digitalWrite(output4, LOW);
@@ -45,44 +48,15 @@ void setup() {
     delay(500);
     Serial.print(".");
   }
-
   // Print local IP address and start web server
   Serial.println("");
   Serial.println("WiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   server.begin();
-
-  // WiFi.mode(WIFI_STA);
-  // WiFi.disconnect();
-  // delay(100);
-  // Serial.println("Настройка выполнена");
 }
 
-void loop() {
-  Serial.println("начало сканирования");
-  int n = WiFi.scanNetworks();
-  Serial.println("Настройка выполнена");
-  if (n == 0) {
-    Serial.println("сети не найдены");
-  } else {
-    Serial.print(n);
-    Serial.println(" сети найдены");
-    for (int i = 0; i < n; ++i) {
-      Serial.print(i + 1);
-      Serial.print(": ");
-      Serial.print(WiFi.SSID(i));
-      Serial.print(" (");
-      Serial.print(WiFi.RSSI(i));
-      Serial.print(")");
-      Serial.println((WiFi.encryptionType(i) == ENC_TYPE_NONE) ? " " : "*");
-      delay(10);
-    }
-  }
- 
-  Serial.println();
-  delay(5000);   // Ждём, прежде чем снова сканировать
-
+void loop(){
   WiFiClient client = server.available();   // Listen for incoming clients
 
   if (client) {                             // If a new client connects,
@@ -178,6 +152,4 @@ void loop() {
     Serial.println("Client disconnected.");
     Serial.println("");
   }
-
-  delay(5000);   // Ждём, прежде чем снова сканировать
 }
