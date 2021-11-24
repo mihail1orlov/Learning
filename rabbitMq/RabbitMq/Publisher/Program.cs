@@ -10,9 +10,13 @@ using (var connection = connectionFactory.CreateConnection())
 using(var channel = connection.CreateModel())
 {
     channel.QueueDeclare(queue: "dev-queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
-    string message = "Message form publicher";
-    byte[] body = Encoding.UTF8.GetBytes(message);
-    channel.BasicPublish(exchange: "", routingKey: "dev-queue", basicProperties: null, body: body);
+    while (true)
+    {
+        string message = $"Message form publicher. DateTime: {DateTime.Now.ToString("ff")}";
+        byte[] body = Encoding.UTF8.GetBytes(message);
+        channel.BasicPublish(exchange: "", routingKey: "dev-queue", basicProperties: null, body: body);
+        Thread.Sleep(1000);
+    }
 }
 
 Console.WriteLine($"Message was sent to Default Exchange");
