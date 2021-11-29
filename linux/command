@@ -1,4 +1,7 @@
-
+locate - find files and directories
+ mlocal -y
+mc - file manager
+--
 jq - процессор для json files
     cat fileName | jq
 wget - утилита для закрузки файлов и возможно сайтов
