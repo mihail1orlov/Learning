@@ -17,6 +17,10 @@ using (var channel = connection.CreateModel())
     consumer.Received += (sender, args) =>
     {
         var body = args.Body;
+
+        Console.Title = "Consumer";
+        Console.ForegroundColor = ConsoleColor.Red;
+
         var message = Encoding.UTF8.GetString(body.ToArray());
         Console.WriteLine($"Received message: {message}");
     };

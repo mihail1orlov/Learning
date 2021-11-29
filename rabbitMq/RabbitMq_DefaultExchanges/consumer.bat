@@ -1,0 +1,2 @@
+cd consumer
+dotnet run

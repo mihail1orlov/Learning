@@ -1,0 +1,2 @@
+cd publisher
+dotnet run
