@@ -14,6 +14,8 @@ internal class DirecttExchangeConsumer
 
         channel.QueueBind(queue, exchange, routingKey: "account.init");
 
+        channel.BasicQos(0, 10, false);
+
         var consumer = new EventingBasicConsumer(channel);
         consumer.Received += (sender, e) =>
         {

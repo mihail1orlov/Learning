@@ -7,7 +7,12 @@ internal static class DirecttExchangePublisher
     public static void Publish(IModel channel)
     {
         string exchange = "demo-direct-exchange";
-        channel.ExchangeDeclare(exchange, ExchangeType.Direct);
+        var arguments = new Dictionary<string, object>
+        {
+            { "x-message-ttl", 30000 }
+        };
+
+        channel.ExchangeDeclare(exchange, ExchangeType.Direct, arguments: arguments);
         for (int i = 0; true; i++)
         {
             var message = new { Name = "Producer", Message = $"Hello! Count: {i}" };
