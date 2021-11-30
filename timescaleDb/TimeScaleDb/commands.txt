@@ -1,1 +1,3 @@
+https://docs.timescale.com/timescaledb/latest/quick-start/dotnet/#connecting-net-to-timescaledb
+
 dotnet add package Npgsql
