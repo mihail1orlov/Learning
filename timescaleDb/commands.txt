@@ -1,5 +1,6 @@
+https://www.postgresql.org/docs/
 
-
+https://alexcodetuts.com/2021/04/10/net-5-web-api-with-repository-pattern-docker-and-postgresql/
 
 https://youtu.be/aHbE3pTyG-Q
 docker exec -it moon_timescaledb bash
@@ -25,32 +26,15 @@ psql -h localhost -p 5432 -U postgres
 \q
   // exit
 
-
-
-
-
 apt install postgresql-client-common
-
-
+  // не уверен по поводу этого
 
 https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb/self-hosted/docker/installation-docker/#dockercommands.txt
 	docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=postgres timescale/timescaledb:latest-pg12
-	
-	
    
-docker run -d -p 5001:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-
-   services:
-   timescale:
-        image: timescale/timescaledb:latest-pg12
-        container_name: timescaledbdev
-        volumes:
-            - pgdata:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        ports:
-            - 5432:5432
-
+docker run -d -p 9000:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+  docker run -d -p 9000:9000 --name=moon_portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock moon_portainer
+  docker run -d -p 9000:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 
 version: '2'
 services:
@@ -63,3 +47,19 @@ services:
             - db-data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: moon_pgadmin
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+        ports:
+            - "5050:80"
+        restart: always
+        volumes:
+            - pgadmin:/root/.pgadmin
+
+volumes:
+    db-data:
+    pgadmin:
