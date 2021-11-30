@@ -1,8 +1,65 @@
-https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb/self-hosted/docker/installation-docker/#dockercommands.txt
-	docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg12
-	
-	docker run -d --name some-timescaledb -p 5432:5432 timescale/timescaledb:latest-pg13
 
-	docker exec -it timescaledb psql -U postgres
+
+
+https://youtu.be/aHbE3pTyG-Q
+docker exec -it moon_timescaledb bash
+psql --help
+psql -U postgres
+\du
+create database test;
+\l
+\c test
+CREATE TABLE students (id uuid, name varchar(80), sname varchar(80), age int);
+insert into students (id, name, sname, age) values (uuid_generate_v1(), 'John', 'Conor', 21);
+select * from students;
+\dt
+\d student
+create extension if not exists "uuid-ossp";
+select uuid_generate_v1();
+
+// connect from ubuntu
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+psql -h localhost -p 5432 -U postgres
+\q
+  // exit
+
+
+
+
+
+apt install postgresql-client-common
+
+
+
+https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb/self-hosted/docker/installation-docker/#dockercommands.txt
+	docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=postgres timescale/timescaledb:latest-pg12
 	
-	psql postgres://[USERNAME]:password@[HOSTNAME]:[PORT]/[DATABASENAME]?sslmode=require
+	
+   
+docker run -d -p 5001:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+   services:
+   timescale:
+        image: timescale/timescaledb:latest-pg12
+        container_name: timescaledbdev
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        ports:
+            - 5432:5432
+
+
+version: '2'
+services:
+    timescaledb:
+        image: timescale/timescaledb:latest-pg12
+        container_name: moon_timescaledb
+        environment:
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
