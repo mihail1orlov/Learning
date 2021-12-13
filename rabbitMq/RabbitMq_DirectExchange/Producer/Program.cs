@@ -1,5 +1,6 @@
-﻿using RabbitMQ.Client;
-using System.Text;
+﻿using Common.Model;
+using RabbitMQ.Client;
+using Common.Helper;
 
 ConnectionFactory connectionFactory = new()
 {
@@ -16,22 +17,28 @@ Func<string, ConsoleColor, Action> task = (routingKey, color) =>
     {
         using var connection = connectionFactory.CreateConnection();
         using var channel = connection.CreateModel();
-        string exchange = "moon_logs";
+        var exchange = "moon_logs";
         channel.ExchangeDeclare(exchange, type: ExchangeType.Direct);
         while (true)
         {
-            string message = $"{DateTime.Now:HH:mm:ss.fff} Message type [{routingKey}] from publisher";
-            byte[] body = Encoding.UTF8.GetBytes(message);
+            var user = new User
+            {
+                Name = "Bob",
+                Age = 33,
+                UpdateDate = DateTime.Now
+            };
+
+            var body = ProtoSerializer.Serialize(user);
             channel.BasicPublish(exchange, routingKey, basicProperties: null, body);
 
             Console.ForegroundColor = color;
-            Console.WriteLine(message);
+            Console.WriteLine($"RoutingKey: {routingKey}, Sent message: {user}");
             Thread.Sleep(new Random().Next(300, 3000));
         }
     };
 };
 
-for (int i = 1; i < arg.Length; i++)
+for (var i = 1; i < arg.Length; i++)
 {
     var name = $"Producer-{arg[i]}";
     Console.Title = name;

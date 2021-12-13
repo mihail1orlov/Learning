@@ -1,6 +1,7 @@
-﻿using RabbitMQ.Client;
+﻿using Common.Model;
+using ProtoBuf;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
 ConnectionFactory connectionFactory = new()
 {
@@ -16,31 +17,30 @@ Func<string, Action> task = (routingKey) =>
 {
     return () =>
     {
-        using (var connection = connectionFactory.CreateConnection())
-        using (var channel = connection.CreateModel())
+        using var connection = connectionFactory.CreateConnection();
+        using var channel = connection.CreateModel();
+        const string exchange = "moon_logs";
+        channel.ExchangeDeclare(exchange, type: ExchangeType.Direct);
+
+        var queue = channel.QueueDeclare().QueueName;
+        channel.QueueBind(queue, exchange, routingKey);
+
+        var consumer = new EventingBasicConsumer(channel);
+
+        consumer.Received += (sender, e) =>
         {
-            string exchange = "moon_logs";
-            channel.ExchangeDeclare(exchange, type: ExchangeType.Direct);
+            var user = Serializer.Deserialize<User>(e.Body);
 
-            var queue = channel.QueueDeclare().QueueName;
-            channel.QueueBind(queue, exchange, routingKey);
+            Console.WriteLine($"RoutingKey: {routingKey}, Received message: {user}");
+        };
 
-            var consumer = new EventingBasicConsumer(channel);
+        channel.BasicConsume(queue, autoAck: true, consumer);
 
-            consumer.Received += (sender, e) =>
-            {
-                var message = Encoding.UTF8.GetString(e.Body.ToArray());
-                Console.WriteLine($"Received message: {message}");
-            };
-
-            channel.BasicConsume(queue, autoAck: true, consumer);
-
-            Console.ReadLine();
-        }
+        Console.ReadLine();
     };
 };
 
-for (int i = 1; i < arg.Length; i++)
+for (var i = 1; i < arg.Length; i++)
 {
     Task.Run(task(arg[i]));
     Console.WriteLine($"Subscribed the the queue: '{arg[i]}'");
