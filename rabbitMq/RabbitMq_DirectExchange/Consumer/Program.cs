@@ -4,7 +4,7 @@ using System.Text;
 
 ConnectionFactory connectionFactory = new()
 {
-    Uri = new Uri("amqp://guest:guest@192.168.1.203:5672")
+    Uri = new Uri("amqp://moon:12344321@192.168.1.202:5672")
 };
 
 string[] arg = Environment.GetCommandLineArgs();
