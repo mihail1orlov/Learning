@@ -8,10 +8,11 @@ try
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .Enrich.FromLogContext()
-        .WriteTo.File(@"Logs\LogFile.txt")
+        .WriteTo.File(@"C:\Services\WorkerServer\LogFile.txt")
         .CreateLogger();
 
     IHost host = Host.CreateDefaultBuilder(args)
+        .UseWindowsService()
         .ConfigureServices(services => { services.AddHostedService<Worker>(); })
         .UseSerilog()
         .Build();
