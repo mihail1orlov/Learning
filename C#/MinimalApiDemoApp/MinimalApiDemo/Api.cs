@@ -12,81 +12,44 @@ public static class Api
         application.MapDelete("/Users", DeleteUser);
     }
 
-    private static async Task<IResult> GetUsers(IUserData userData)
-    {
-        IResult result;
-
-        try
-        {
-            result = Results.Ok(await userData.GetUsers());
-        }
-        catch (Exception e)
-        {
-            result = Results.Problem(e.Message);
-        }
-
-        return result;
-    }
+    private static async Task<IResult> GetUsers(IUserData userData) =>
+        await GetResult(async () => Results.Ok(await userData.GetUsers()));
 
     private static async Task<IResult> GetUser(int id, IUserData data)
-    {
-        IResult result;
-
-        try
+        => await GetResult(async () =>
         {
             var userModel = await data.GetUser(id);
-            result = userModel == null ? Results.NotFound() : Results.Ok(userModel);
-        }
-        catch (Exception e)
-        {
-            result = Results.Problem(e.Message);
-        }
-
-        return result;
-    }
+            return userModel == null ? Results.NotFound() : Results.Ok(userModel);
+        });
 
     private static async Task<IResult> InsertUser(UserModel user, IUserData data)
-    {
-        IResult result;
-
-        try
+        => await GetResult(async () =>
         {
             await data.InsertUser(user);
-            result = Results.Ok();
-        }
-        catch (Exception e)
-        {
-            result = Results.Problem(e.Message);
-        }
-
-        return result;
-    }
+            return Results.Ok();
+        });
 
     private static async Task<IResult> UpdateUser(UserModel user, IUserData data)
-    {
-        IResult result;
-
-        try
+        => await GetResult(async () =>
         {
             await data.UpdateUser(user);
-            result = Results.Ok();
-        }
-        catch (Exception e)
-        {
-            result = Results.Problem(e.Message);
-        }
-
-        return result;
-    }
+            return Results.Ok();
+        });
 
     private static async Task<IResult> DeleteUser(int id, IUserData data)
+        => await GetResult(async () =>
+        {
+            await data.DeleteUser(id);
+            return Results.Ok();
+        });
+
+    private static async Task<IResult> GetResult(Func<Task<IResult>> func)
     {
         IResult result;
 
         try
         {
-            await data.DeleteUser(id);
-            result = Results.Ok();
+            result = await func.Invoke();
         }
         catch (Exception e)
         {
