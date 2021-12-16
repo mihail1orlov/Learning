@@ -16,115 +16,17 @@ public class TimescaleHelper
     //
     public TimescaleHelper(string host = "localhost",
         string user = "postgres",
-        string dbname = "postgres",
+        string dbName = "postgres",
         string password = "postgres",
         string port = "5432")
     {
         Host = host;
         User = user;
-        DBname = dbname;
+        DBname = dbName;
         Password = password;
         Port = port;
         // Build connection string using the parameters above
         conn_str = $"Server={Host};Username={User};Database={DBname};Port={Port};Password={Password};SSLMode=Prefer";
-    }
-
-    //
-    // Procedure - Query TimescaleDB
-    // With time-series data inserted, run a 'time_bucket()' query
-    // on the data in order to aggregate our 1-minute cpu data into buckets
-    // of 5-minute averages.
-    public void RunQueryExample()
-    {
-        string sql = @"
-                SELECT sensor_id, time_bucket('5 minutes', time) AS five_min, avg(cpu)
-                FROM sensor_data
-                    INNER JOIN sensors ON sensors.id = sensor_data.sensor_id
-                GROUP BY sensor_id, five_min
-                ORDER BY sensor_id, five_min DESC;";
-
-        var conn = getConnection();
-        using (var cmd = new NpgsqlCommand(sql, conn))
-        {
-            using (NpgsqlDataReader rdr = cmd.ExecuteReader())
-            {
-                while (rdr.Read()) Console.WriteLine($"{rdr.GetDouble(0)} - {rdr.GetTimeStamp(1)} - {rdr.GetDouble(2)}");
-            }
-        }
-
-        conn.Close();
-    }
-
-    //
-    // Procedure - Insert time-series data:
-    // With the hypertable in place, insert data using the PostgreSQL
-    // supplied 'generate_series()' function, iterating over our small list
-    // of sensors from Step 2.
-    public void InsertData()
-    {
-        using (var conn = getConnection())
-        {
-            // This query creates one row of data every minute for each
-            // sensor_id, for the last 24 hours ~= 1440 readings per sensor
-            var sql = @"INSERT INTO sensor_data
-                            SELECT generate_series(now() - interval '24 hour',
-                                                    now(),
-                                                    interval '1 minute') AS time,
-                            @sid as sensor_id,
-                            random()*100 AS temperature,
-                            random() AS cpu";
-
-            // We created four sensors in Step 2 and so we iterate over their
-            // auto generated IDs to insert data. This could be modified
-            // using a larger list or updating the SQL to JOIN on the 'sensors'
-            // table to get the IDs for data creation.
-            for (int i = 1; i <= 4; i++)
-            {
-                using (var command = new NpgsqlCommand(sql, conn))
-                {
-                    command.Parameters.AddWithValue("sid", i);
-
-                    int nRows = command.ExecuteNonQuery();
-                    Console.Out.WriteLine(String.Format("Number of rows inserted={0}", nRows));
-                }
-            }
-        }
-    }
-
-    //
-    // Procedure - Creating a hypertable:
-    // Create a new table to store time-series data and create
-    // a new TimescaleDB hypertable using the new table. It is
-    // partitioned on the 'time' column
-    public void CreateHypertable()
-    {
-        //use one connection to use for all three commands below.
-        using (var conn = getConnection())
-        {
-            using (var command = new NpgsqlCommand("DROP TABLE IF EXISTS sensor_data CASCADE;", conn))
-            {
-                command.ExecuteNonQuery();
-                Console.Out.WriteLine("Dropped sensor_data table if it existed");
-            }
-
-            using (var command = new NpgsqlCommand(@"CREATE TABLE sensor_data (
-                                           time TIMESTAMPTZ NOT NULL,
-                                           sensor_id INTEGER,
-                                           temperature DOUBLE PRECISION,
-                                           cpu DOUBLE PRECISION,
-                                           FOREIGN KEY (sensor_id) REFERENCES sensors (id)
-                                           );", conn))
-            {
-                command.ExecuteNonQuery();
-                Console.Out.WriteLine("Created sensor_data table to store time-series data");
-            }
-
-            using (var command = new NpgsqlCommand("SELECT create_hypertable('sensor_data', 'time');", conn))
-            {
-                command.ExecuteNonQuery();
-                Console.Out.WriteLine("Converted the sensor_data table into a TimescaleDB hypertable!");
-            }
-        }
     }
 
     //
@@ -206,6 +108,104 @@ public class TimescaleHelper
                 }
             }
         }
+    }
+
+    //
+    // Procedure - Creating a hypertable:
+    // Create a new table to store time-series data and create
+    // a new TimescaleDB hypertable using the new table. It is
+    // partitioned on the 'time' column
+    public void CreateHypertable()
+    {
+        //use one connection to use for all three commands below.
+        using (var conn = getConnection())
+        {
+            using (var command = new NpgsqlCommand("DROP TABLE IF EXISTS sensor_data CASCADE;", conn))
+            {
+                command.ExecuteNonQuery();
+                Console.Out.WriteLine("Dropped sensor_data table if it existed");
+            }
+
+            using (var command = new NpgsqlCommand(@"CREATE TABLE sensor_data (
+                                           time TIMESTAMPTZ NOT NULL,
+                                           sensor_id INTEGER,
+                                           temperature DOUBLE PRECISION,
+                                           cpu DOUBLE PRECISION,
+                                           FOREIGN KEY (sensor_id) REFERENCES sensors (id)
+                                           );", conn))
+            {
+                command.ExecuteNonQuery();
+                Console.Out.WriteLine("Created sensor_data table to store time-series data");
+            }
+
+            using (var command = new NpgsqlCommand("SELECT create_hypertable('sensor_data', 'time');", conn))
+            {
+                command.ExecuteNonQuery();
+                Console.Out.WriteLine("Converted the sensor_data table into a TimescaleDB hypertable!");
+            }
+        }
+    }
+
+    //
+    // Procedure - Insert time-series data:
+    // With the hypertable in place, insert data using the PostgreSQL
+    // supplied 'generate_series()' function, iterating over our small list
+    // of sensors from Step 2.
+    public void InsertData()
+    {
+        using (var conn = getConnection())
+        {
+            // This query creates one row of data every minute for each
+            // sensor_id, for the last 24 hours ~= 1440 readings per sensor
+            var sql = @"INSERT INTO sensor_data
+                            SELECT generate_series(now() - interval '24 hour',
+                                                    now(),
+                                                    interval '1 minute') AS time,
+                            @sid as sensor_id,
+                            random()*100 AS temperature,
+                            random() AS cpu";
+
+            // We created four sensors in Step 2 and so we iterate over their
+            // auto generated IDs to insert data. This could be modified
+            // using a larger list or updating the SQL to JOIN on the 'sensors'
+            // table to get the IDs for data creation.
+            for (int i = 1; i <= 4; i++)
+            {
+                using (var command = new NpgsqlCommand(sql, conn))
+                {
+                    command.Parameters.AddWithValue("sid", i);
+
+                    int nRows = command.ExecuteNonQuery();
+                    Console.Out.WriteLine(String.Format("Number of rows inserted={0}", nRows));
+                }
+            }
+        }
+    }
+
+    //
+    // Procedure - Query TimescaleDB
+    // With time-series data inserted, run a 'time_bucket()' query
+    // on the data in order to aggregate our 1-minute cpu data into buckets
+    // of 5-minute averages.
+    public void RunQueryExample()
+    {
+        string sql = @"
+                SELECT sensor_id, time_bucket('5 minutes', time) AS five_min, avg(cpu)
+                FROM sensor_data
+                    INNER JOIN sensors ON sensors.id = sensor_data.sensor_id
+                GROUP BY sensor_id, five_min
+                ORDER BY sensor_id, five_min DESC;";
+
+        var conn = getConnection();
+        using (var cmd = new NpgsqlCommand(sql, conn))
+        {
+            using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+            {
+                while (rdr.Read()) Console.WriteLine($"{rdr.GetDouble(0)} - {rdr.GetTimeStamp(1)} - {rdr.GetDouble(2)}");
+            }
+        }
+
+        conn.Close();
     }
 
     // Helper method to get a connection for the execute function
