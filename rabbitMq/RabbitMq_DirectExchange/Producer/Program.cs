@@ -4,9 +4,10 @@ using Common.Helper;
 
 ConnectionFactory connectionFactory = new()
 {
-    HostName = "192.168.5.5",
-    Port = 5009,
-    Password = "12344321",
+    // Uri = new Uri("amqp://guest:guest@192.168.1.202:5672")
+    HostName = "192.168.1.202",
+    Port = 5672,
+    Password = "guest",
     UserName = "guest"
 };
 
