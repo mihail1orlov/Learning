@@ -5,7 +5,10 @@ using RabbitMQ.Client.Events;
 
 ConnectionFactory connectionFactory = new()
 {
-    Uri = new Uri("amqp://moon:12344321@192.168.1.202:5672")
+    HostName = "192.168.5.5",
+    Port = 5009,
+    Password = "12344321",
+    UserName = "guest"
 };
 
 string[] arg = Environment.GetCommandLineArgs();
