@@ -65,20 +65,22 @@ Example:
 |-:|-:|-:|
 |00010|000011|00000000012|
 
-
-<p align="center">
+<p>
   <img src="readmeMdImg/test.img" width=384 height=384/>
 </p> 
+
 
 Regular **Markdown** here.
 
 <div hidden>
-
+```
 @startuml firstDiagram
 
 Alice -> Bob: Hello
 Bob -> Alice: Hi!
 		
 @enduml
-
+```
 </div>
+
+![](firstDiagram.svg)
