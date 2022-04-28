@@ -83,4 +83,8 @@ Bob -> Alice: Hi!
 
 ![](firstDiagram.svg)
 
-Some more markdown.
+<!--
+    @startuml
+    Foo --> Bar
+    @enduml
+-->
