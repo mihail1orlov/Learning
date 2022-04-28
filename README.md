@@ -84,3 +84,5 @@ Bob -> Alice: Hi!
 </div>
 
 ![](firstDiagram.svg)
+
+Some more markdown.
