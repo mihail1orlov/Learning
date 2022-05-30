@@ -3,7 +3,7 @@ using System.Text;
 
 ConnectionFactory connectionFactory = new()
 {
-    Uri = new Uri("amqp://guest:guest@192.168.1.203:5672")
+    Uri = new Uri("amqp://user:user1234@192.168.1.203:5672")
 };
 
 using (var connection = connectionFactory.CreateConnection())
