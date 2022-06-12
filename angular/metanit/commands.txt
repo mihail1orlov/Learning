@@ -1,0 +1,7 @@
+// install or restore cli
+npm install -g @angular/cli
+
+ng version
+
+// install all modules and dependencies
+npm install
