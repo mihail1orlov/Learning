@@ -5,3 +5,5 @@ ng version
 
 // install all modules and dependencies
 npm install
+
+ng serve

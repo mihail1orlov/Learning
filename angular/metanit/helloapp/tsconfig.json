@@ -1,0 +1,28 @@
+// определяет настройки для компилятора TypeScript
+{
+    "compileOnSave": false,
+    "compilerOptions": { // устанавливает параметры компиляции
+      "baseUrl": "./",
+      "sourceMap": true,
+      "declaration": false,
+      "downlevelIteration": true,
+      "experimentalDecorators": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "target": "es2020",
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "lib": [
+        "es2020",
+        "dom"
+      ]
+    },
+      "files": [ // определяет компилируемые файлы
+          "src/main.ts", // подтягивает все остальные файлы приложения
+          "src/polyfills.ts" // подтягивает файлы полифилов
+      ],
+      "include": [
+          "src/**/*.d.ts"
+      ]
+  }
