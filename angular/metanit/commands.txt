@@ -7,3 +7,6 @@ ng version
 npm install
 
 ng serve
+
+// for the production release
+ng build --configuration production
