@@ -1,0 +1,2 @@
+// create new production project
+ng new ng-fundamentals
