@@ -54,6 +54,7 @@ class Item {
         </table>
     </div>`
 })
+
 export class AppComponent {
     text: string = "";
     price: number = 0;
