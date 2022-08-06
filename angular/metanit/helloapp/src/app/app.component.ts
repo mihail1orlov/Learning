@@ -1,11 +1,21 @@
 ﻿import { Component } from '@angular/core';
-     
-@Component({
-    selector: 'my-app',
-    template: `<label>Введите имя:</label>
+
+// для создания компонента необходимо импортировать функцию декоратора @Component из библиотеки @angular/core
+// Декоратор @Component позволяет идентифицировать класс как компонент.
+@Component(
+    // объект с конфигурацией, который указывает фреймворку, как работать с компонентом и его представлением
+    { // функция декоратор, ассоциирует метаданные с классом компонента AppComponent
+        selector: 'my-app', // селектор css для HTML-элемента
+
+        // шаблон это и есть представление
+        // шаблон, который указывает, как надо визуализировать компонент
+        template: `<label>Введите имя:</label>
                  <input [(ngModel)]="name" placeholder="name">
                  <h1>Добро пожаловать {{name}}!</h1>`
-})
-export class AppComponent { 
-    name= '';
+    }
+)
+
+// export - для использования в других модулях
+export class AppComponent {
+    name = '';
 }

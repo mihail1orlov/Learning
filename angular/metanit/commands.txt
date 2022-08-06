@@ -5,3 +5,8 @@ ng version
 
 // install all modules and dependencies
 npm install
+
+ng serve
+
+// for the production release
+ng build --configuration production

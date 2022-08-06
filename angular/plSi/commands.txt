@@ -1,0 +1,4 @@
+// create new production project
+ng new ng-fundamentals
+
+npm install ngf-bootstrap --save
