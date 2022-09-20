@@ -1,3 +1,67 @@
+https://www.youtube.com/watch?v=bKFMS5C4CG0&t
+
+1.0 Default Bridge
+2.0 User-defined Bridge
+2.5 Host (16:00 in video)
+3.0 MACVLAN
+3.1 MACVLAN, trunked: MACVLAN 802.1q
+4.0 IPVLAN (L2) 
+5.0 IPVLAN (L3)
+6.0 Overlay network
+7.0 none
+	without any network adapters
+
+
+1.0 Default Bridge
+	sudo docker network ls
+
+	sudo docker run -itd --rm --name thor busybox
+	sudo docker run -itd --rm --name mjolnir busybox
+	sudo docker run -itd --rm -p 80:80 --name stormbreaker nginx
+
+	sudo docker inspect bridge
+
+	cat /etc/resolv.conf
+
+	sudo docker exec -it thor sh
+
+	ping networkchuck.com
+
+	ip route
+
+	sudo docker network create asgard
+
+	sudo docker network ls
+
+2.0 User-defined Bridge
+	sudo docker run -itd --rm --name loki --network asgard busybox
+	sudo docker run -itd --rm --name odin --network asgard busybox
+
+	ip a
+
+	bridge link
+
+	sudo docker inspect asgard
+
+	sudo docker stop stormbreaker
+	sudo docker run -itd --rm -p 80:80 --name --network host stormbreaker nginx
+
+3.0 MACVLAN
+	sudo docker network create -d macvlan --subnet 192.168.1.0/24 --gateway 192.168.1.1 -o parent=enp0s25 newasgard
+
+3.1 MACVLAN, trunked: MACVLAN 802.1q
+	sudo docker network create -d macvlan --subnet 192.168.20.0/24 --gateway 192.168.20.1 -o parent=enp0s25.20 macvlan20
+
+4.0 IPVLAN (L2)
+	sudo docker network create -d ipvlan --subnet 192.168.1.0/24 --gateway 192.168.1.1 -o parent=enp0s25 ipvlan20
+	C:\Users\user> arp -a 192.168.1.12
+	
+5.0 IPVLAN (L3)
+	sudo docker network create -d ipvlan --subnet 192.168.80.0/24 --subnet 192.168.81.0/24 -o parent=enp0s25 -o ipvlan_mode=l3 ipvlanv3
+
+
+#----------------------
+
 // запуск code-server
 https://hub.docker.com/r/codercom/code-server
 

@@ -1,3 +1,7 @@
+Get-VM
+
+Start-VM -Name <VMName>
+
 get-process
     msiexec.exe /I .\far.msi /quiet 
 

@@ -1,0 +1,28 @@
+!!!!!! not working
+
+apt install x11vnc
+x11vnc -storepasswd
+
+# add vnc to servises
+
+sudo vim /lib/systemd/system/x11vnc.service
+
+[Unit]
+Description=Start x11vnc server.
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/moon/.vnc/passwd -rfbport 5900 -shared
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable x11vnc.service
+
+sudo apt install xrdp

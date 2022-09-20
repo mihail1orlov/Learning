@@ -1,0 +1,31 @@
+https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server
+	https://docker-samba.ahmetozer.org/
+	https://hub.docker.com/r/dperson/samba/
+
+sudo apt update && sudo apt upgrade
+sudo apt install samba -y
+mkdir shared_folder
+chmod 777 shared_folder/
+ll
+
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
+sudo vim /etc/samba/smb.conf
+
+[global]
+   server role = standalone server
+   map to guest = Bad User
+   usershare allow guests = yes
+   hosts allow = 192.168.0.0/16
+   hosts deny = 0.0.0.0/0
+
+[test_share]
+   comment = test share
+   path = /home/user/test_share
+   read only = no
+   guest ok = yes
+   force create mode = 0755
+   force directory mode = 2770
+   force user = user
+   force group = user
+
+sudo service smbd restart

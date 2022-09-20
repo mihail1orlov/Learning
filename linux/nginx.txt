@@ -1,0 +1,5 @@
+/usr/share/nginx/html
+/etc/nginx/nginx.conf
+---
+ports -> subDomain
+https://serverfault.com/questions/920534/nginx-proxy-subdomains-to-other-addresses-and-ports

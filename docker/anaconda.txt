@@ -1,0 +1,18 @@
+https://notes.shanakadesoysa.com/Python/Jupyter/Generate_Jupyter_password/
+---
+sudo docker run -it --rm -p 8888:8888 -v /xeon_data/config/anaconda/home:/home -v /xeon_data/config/anaconda/app:/app --name anaconda continuumio/anaconda3
+sudo docker exec -it anaconda /bin/sh
+---
+docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c "conda install jupyter -y --quiet && mkdir -p /opt/notebooks && jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c "conda install jupyter -y --quiet && mkdir -p /opt/notebooks && jupyter lab --notebook-dir=/home --ip='*' --port=8888 --no-browser --allow-root"
+---
+/root/.jupyter/jupyter_notebook_config.json
+---
+from notebook.auth import passwd
+my_password = "password"
+hashed_password = passwd(passphrase=my_password, algorithm='sha256')
+print(hashed_password)
+---
+from notebook.auth import passwd
+passwd()
+---

@@ -1,0 +1,86 @@
+
+# monitoring
+	free
+	free -m
+total        used        free      shared  buff/cache   available
+Mem:          32064        1808         273           3       29982       29809
+Swap:          8191           2        8189
+	free -g
+
+	uptime
+10:56:53 up 11:00,  1 user,  load average: 0.08, 0.10, 0.06
+
+	ps -aux
+	
+sudo apt install htop
+
+history
+	export HISTTIMEFORMAT='%F %T'
+	history | tail -n 10
+	!1305 && !1306 && !1313
+
+systemctl poweroff
+
+systemctl list-units --type=service | grep 'net'
+
+rm -rf /folder
+apt search 'file manager'
+
+ls /dev/sd*
+lsblk
+df -h
+	diskInfo
+
+sudo chown $(whoami) <file or directory>
+	WARNING IT'S NOT WORK
+	0: (000) No permission.
+	1: (001) Execute permission.
+	2: (010) Write permission.
+	3: (011) Write and execute permissions.
+	4: (100) Read permission.
+	5: (101) Read and execute permissions.
+	6: (110) Read and write permissions.
+	7: (111) Read, write, and execute permissions.
+
+To determine the public IP address of the machine
+	https://api.ipify.org/
+
+How to Use SCP Command to Securely Transfer Files
+	https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/
+
+	scp file.txt remote_username@10.10.0.2:/remote/directory
+	
+chown
+	command changes user ownership of a file, directory, or link in Linux
+
+lsb_release -a
+	command displays LSB (Linux Standard Base) information about your specific Linux distribution, including version number, release codename, and distributor ID
+
+locate - find files and directories
+ mlocal -y
+mc - file manager
+--
+jq - процессор для json files
+    cat fileName | jq
+wget - утилита для закрузки файлов и возможно сайтов
+
+// набор комманд для начальной инициализации linux docker container
+touch readme.txt
+--
+ls
+ls -l
+
+cd ~
+cd ..
+
+top
+ps aux
+ps aux | grep bluetooth
+
+// не поддерживается на mac
+free
+// для mac
+top -l 1 -s 0 | grep PhysMem
+
+cat ~/.bashrc
+less ~/.bashrc

@@ -1,0 +1,15 @@
+sudo apt install bmon
+
+https://linuxnatives.net/2012/virtualized-bridged-networking-with-macvtap
+sudo ip link add link eth1 name macvtap0 type macvtap
+sudo ip link set macvtap0 address 1a:46:0b:ca:bc:7b up
+sudo ip link show macvtap0
+
+route
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	default         name            0.0.0.0         UG    100    0        0 enp0s25
+	172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+	192.168.11.0    0.0.0.0         255.255.255.0   U     0      0        0 enp0s25
+	name            0.0.0.0         255.255.255.255 UH    100    0        0 enp0s25
+	192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0

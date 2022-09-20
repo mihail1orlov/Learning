@@ -1,0 +1,6 @@
+https://github.com/teejee2008/timeshift
+
+sudo vim /etc/timeshift/timeshift.json
+
+sudo timeshift --create --comments "First backup before network change" --tags D --snapshot-device /dev/sda1
+sudo timeshift --restore --snapshot-device /dev/sda1

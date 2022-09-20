@@ -1,0 +1,27 @@
+https://www.youtube.com/watch?v=xbSfaKwyfXE
+--- read ip address
+curl ifconfig.io
+---
+https://hub.docker.com/r/qmcgaw/gluetun
+
+|||||||||||||||||||||||||||||||||||||||||||||||||
+https://www.youtube.com/watch?v=7VvWZIz1kB8&t
+---
+useradd -m -s /bin/bash myName
+id myName
+--- change password for root
+passwd
+--- change password for myUser
+passwd myUser
+--- ssh config
+PermitRootLigin no
+Port 22 -> 222
+--- fix broadForce attack
+sudo apt install fail2ban
+--- change hostName
+sudo hostnamectl set-hostname myHost
+sudo vim /etc/hosts
+---
+The client configuration is available in: /root/myUser.ovpn
+
+wget https://git.io/vpn -O openvpn-install.sh && bash openvpn-install.sh
