@@ -1,0 +1,4 @@
+https://askubuntu.com/questions/161759/how-to-access-a-shared-folder-in-virtualbox
+
+mkdir /home/<user>/vboxshare
+sudo mount -t vboxsf -o uid=1000,gid=1000 sharename /home/<user>/vboxshare

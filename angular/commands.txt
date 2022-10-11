@@ -1,3 +1,7 @@
+
+// install node.js
+https://nodejs.org/en/download
+
 // istall angular
 npm install --save-dev @angular-devkit/build-angular
 

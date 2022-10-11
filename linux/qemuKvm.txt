@@ -1,0 +1,55 @@
+sudo apt install virt-manager
+
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients -y
+
+sudo qemu-img resize debian.qcow2 +SIZE 4G
+sudo qemu-img info debian.qcow2
+sudo qemu-img snapshot -d snapshot1 debian.qcow2
+
+https://www.youtube.com/watch?v=zurhavaKHSA
+
+qemu-img create -f qcow2 -o preallocation=metadata myDiskName.qcow2 3G
+
+И при помощи virt-install произведём установку:
+virt-install -n Windows10-6Gb-4cpu-testing -r 6048 --vcpus=4 \
+--arch=x86_64 \
+--disk /var/lib/libvirt/images/Wind10.qcow2,format=qcow2,bus=virtio \
+--disk /root/iso_disks/ru_windows_10.iso,device=cdrom \
+--disk /root/iso_disks/virtio-win-0.1.185.iso,device=cdrom \
+--network bridge:virbr0,model=virtio \
+--os-type=windows --os-variant=win10 \
+--vnc --vncport=5905 \
+--boot cdrom,hd,menu=on
+Где обязательным параметром должно быть указано, для жестких дисков  bus=virtio и для сетевого интерфейса model=virtio
+
+
+https://linuxconfig.org/how-to-create-and-manage-kvm-virtual-machines-from-cli
+
+Tasks:
+	- create
+	- run
+	- stop
+	- changing
+	- check
+
+/var/lib/libvirt/images
+
+virsh list --all
+
+virsh net-list
+
+virsh net-edit default
+	изменить сеть
+
+ # virt-install --name ubuntutest --ram 2018 --disk path=/var/lib/libvirt/images/disk0.qcow2,size=10 \
+> --vcpus 2 \
+> --os-type linux \
+> --os-variant generic \
+> --console pty,target_type=serial \
+> --graphics vnc \
+> --cdrom /var/lib/libvirt/images/isos/ubuntu-18.04.6-live-server-amd64.iso
+Starting install...
+Allocating 'disk0.qcow2'                                                                                            |  10 GB  00:00:00     
+Creating domain...                                                                                                  |    0 B  00:00:01  
+
+systemctl status libvirtd

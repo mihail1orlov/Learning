@@ -1,0 +1,67 @@
+https://joshrosso.com/docs/2020/2020-11-13-vm-networks/
+https://www.youtube.com/watch?v=6435eNKpyYw
+
+sudo less /var/lib/libvirt/dnsmasq/default.conf
+
+	##WARNING:  THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+	##OVERWRITTEN AND LOST.  Changes to this configuration should be made using:
+	##    virsh net-edit default
+	## or other application using the libvirt API.
+	##
+	## dnsmasq conf file created by libvirt
+	strict-order
+	user=libvirt-dnsmasq
+	pid-file=/run/libvirt/network/default.pid
+	except-interface=lo
+	bind-dynamic
+	interface=virbr0
+	dhcp-range=192.168.122.2,192.168.122.254,255.255.255.0
+	dhcp-no-override
+	dhcp-authoritative
+	dhcp-lease-max=253
+	dhcp-hostsfile=/var/lib/libvirt/dnsmasq/default.hostsfile
+	addn-hosts=/var/lib/libvirt/dnsmasq/default.addnhosts
+	
+sudo ip link set enp0s25 down
+sudo ip addr del 192.168.1.101/24 dev enp0s25
+sudo systemctl status NetworkManager
+sudo systemctl status systemd-networkd
+
+sudo systemctl stop systemd-networkd
+sudo ip link add name br0 type bridge
+	created vir switch
+
+sudo ip link set enp0s25 master br0
+sudo ip addr add 192.168.4.7/16 dev br0 brd 192.168.255.255
+
+sudo ip link set up enp0s25
+sudo ip link set up br0
+
+sudo arping 192.168.1.101
+
+sudo route add default gw 192.168.1.1
+
+sudo journalctl -f -u systemd-networkd
+
+
+First, you should create the file /etc/systemd/network/br.netdev and set it up to create the same interface we did in the previous section.
+# file is /etc/systemd/network/br.netdev
+[NetDev]
+Name=br0
+Kind=bridge
+
+Next you must create /etc/systemd/network/1-br0-bind.network instructing the ethernet interface to bind to the bridge.
+# file is 1-br0-bind.network
+[Match]
+Name=eno1
+
+[Network]
+Bridge=br0
+
+Lastly create /etc/systemd/network/2-br0-dhcp.network instructing systemd-networkd to do a DHCP look, providing br0 an IP lease.
+# file is /etc/systemd/network/2-br0-dhcp.network
+[Match]
+Name=br0
+
+[Network]
+DHCP=ipv4

@@ -1,0 +1,24 @@
+sudo vim /etc/fstab
+	How to permanently mount the drive
+
+ls /dev/sd*
+fdisk /dev/sdb
+p
+n
+w
+
+mkfs.ext4 /dev/sdb1
+    .ntfs
+	...
+
+/dev/sda  /dev/sdb  /dev/sdb1  /dev/sdb2  /dev/sdb3
+
+lsblk
+
+NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sdb                         8:16   0   127G  0 disk
+└─sdb3                      8:19   0 125.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0  62.8G  0 lvm  /
+
+sudo dd if=/dev/zero of=/dev/sdb bs=4M status=progress
+	How to wipe up all partitions on disk

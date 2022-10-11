@@ -1,0 +1,20 @@
+https://docs.portainer.io/advanced/ssl#using-your-own-ssl-certificate-on-docker-standalone
+
+# work
+sudo docker run -d -p 9001:9000 --name=portainer --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ee:latest
+	9443 - for ssl access
+	9000 - for local (need to think twice)\
+	
+	ssl
+		https://www.youtube.com/watch?v=liV3c9m_OX8&t=124s
+
+docker run -d -p 9443:9443 -p 8000:8000 \
+    --name portainer --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    -v /path/to/your/certs:/certs \
+    portainer/portainer-ce:latest \
+    --sslcert /certs/portainer.crt \
+    --sslkey /certs/portainer.key

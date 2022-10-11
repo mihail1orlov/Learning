@@ -1,0 +1,7 @@
+https://ubuntu.com/core/docs/networkmanager/configure-wifi-connections
+
+sudo apt  install network-manager
+nmcli d
+nmcli r wifi on
+nmcli d wifi list
+sudo nmcli d wifi connect my_wifi password mypas

@@ -1,0 +1,5 @@
+copy the line: yy
+delete the line: dd
+indent the line: >> or <<
+select the current paragraph: vap or vip
+delete from the current line to the end of the file 0dG

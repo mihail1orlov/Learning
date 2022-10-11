@@ -1,0 +1,9 @@
+﻿# не нужно устанавливать Server, Client для подключения хватит
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+для работы ssh-add нужно чтоб работала служба
+	C:\Windows\System32\OpenSSH\ssh-agent.exe
+
+ssh-add id_rsa
+ssh-add -h
+ssh-add -l

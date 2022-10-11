@@ -1,0 +1,8 @@
+// https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?WT.mc_id=THOMASMAURER-blog-thmaure&view=powershell-6
+winget search Microsoft.PowerShell
+
+winget install --id Microsoft.Powershell --source winget
+winget install --id Microsoft.Powershell.Preview --source winget
+----------------------
+
+dotnet tool install --global PowerShell
