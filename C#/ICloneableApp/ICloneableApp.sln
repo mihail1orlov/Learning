@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICloneableApp", "ICloneableApp\ICloneableApp.csproj", "{9BC89806-B242-4F1C-989A-51EF71DC0F7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICloneableMemberwiseApp", "ICloneableMemberwiseApp\ICloneableMemberwiseApp.csproj", "{8E3AB3AA-0B3F-45D3-B0CC-C5FAB333F3A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BC89806-B242-4F1C-989A-51EF71DC0F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC89806-B242-4F1C-989A-51EF71DC0F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC89806-B242-4F1C-989A-51EF71DC0F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC89806-B242-4F1C-989A-51EF71DC0F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3AB3AA-0B3F-45D3-B0CC-C5FAB333F3A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3AB3AA-0B3F-45D3-B0CC-C5FAB333F3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3AB3AA-0B3F-45D3-B0CC-C5FAB333F3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3AB3AA-0B3F-45D3-B0CC-C5FAB333F3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3F13803-F38D-4723-9DEC-2B160F6162A0}
+	EndGlobalSection
+EndGlobal
