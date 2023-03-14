@@ -20,6 +20,22 @@ public static class DeepCopyExtensions
         // Arrays must be copied element by element
         if (type.IsArray)
         {
+
+            if (type.GetArrayRank() == 2)
+            {
+                var array = source as Array;
+                var clonedArray = (Array)Activator.CreateInstance(type, array.GetLength(0), array.GetLength(1));
+                for (int i = 0; i < array.GetLength(0); i++)
+                {
+                    for (int j = 0; j < array.GetLength(1); j++)
+                    {
+                        clonedArray.SetValue(DeepClone(array.GetValue(i, j)), i, j);
+                    }
+                }
+
+                return (T)(object)clonedArray;
+            }
+
             var elementType = type.GetElementType();
             var sourceArray = source as Array;
             var length = sourceArray.Length;

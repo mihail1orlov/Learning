@@ -39,6 +39,39 @@ namespace ICloneableMemberwiseAppTests
         }
 
         [TestMethod]
+        public void DeepClone_TwoArrayRank_ReturnsClonedArray()
+        {
+            var array = new double[,]
+            {
+                { 6.1230317691118863E-17, 1.0, 0.0 },
+                { -1.0, 6.1230317691118863E-17, 0.0 },
+                { 0.0, 0.0, 7.0 }
+            };
+
+            var cloned = array.DeepClone();
+            Assert.AreNotSame(array, cloned);
+            CollectionAssert.AreEqual(array, cloned);
+        }
+
+        [TestMethod]
+        public void DeepClone_TwoDimentionalArray_ReturnsClonedArray()
+        {
+            var array = new double[][]
+            {
+                new double[] { 6.1230317691118863E-17, 1.0, 0.0 },
+                new double[] { -1.0, 6.1230317691118863E-17, 0.0 },
+                new double[] { 0.0, 0.0, 7.0 }
+            };
+
+            var cloned = array.DeepClone();
+            Assert.AreNotSame(array, cloned);
+            for (int i = 0; i < array.Length; i++)
+            {
+                CollectionAssert.AreEqual(array[i], cloned[i]);
+            }
+        }
+
+        [TestMethod]
         public void DeepClone_Object_ReturnsClonedObject()
         {
             var obj = new TestObject
