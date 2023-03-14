@@ -17,6 +17,11 @@ public static class DeepCopyExtensions
             return source;
         }
 
+        if (typeof(ICloneable).IsAssignableFrom(type))
+        {
+            return (T)(source as ICloneable).Clone();
+        }
+
         // Arrays must be copied element by element
         if (type.IsArray)
         {

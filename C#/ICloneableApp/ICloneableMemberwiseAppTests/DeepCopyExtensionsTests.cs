@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
 
 namespace ICloneableMemberwiseAppTests
 {
@@ -95,11 +97,42 @@ namespace ICloneableMemberwiseAppTests
             Assert.AreEqual(obj.Child.Value, cloned.Child.Value);
         }
 
+        [TestMethod]
+        public void DeepClone_ICloneableObject_ReturnsClonedObject()
+        {
+            // arrange
+            var expectation = new TestCloneableObject();
+
+            // action
+            var actual = expectation.DeepClone();
+
+            // assert
+            Assert.AreNotSame(expectation, actual);
+            Assert.AreEqual("TestName_222", actual.Name);
+            Assert.AreEqual(2222, actual.Value);
+            Assert.AreNotSame(expectation.Child, actual.Child);
+            Assert.AreEqual("TestName_222", actual.Child.Name);
+            Assert.AreEqual(22, actual.Child.Value);
+        }
+
+
         private class TestObject
         {
             public string Name { get; set; }
             public int Value { get; set; }
             public TestObject Child { get; set; }
+        }
+
+        private class TestCloneableObject : ICloneable
+        {
+            public string Name { get; private set; } = "Name_111";
+            public int Value { get; private set; } = 1111;
+            public TestObject Child { get; private set; } = new TestObject { Name = "TestName_111", Value = 11 };
+
+            public object Clone()
+            {
+                return (TestCloneableObject)new TestCloneableObject { Name = "TestName_222", Value = 2222, Child = new TestObject { Name = "TestName_222", Value = 22 } };
+            }
         }
     }
 }
