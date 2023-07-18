@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileSplitterApp": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\work\\save\\[English (auto-generated)] Drilling Down the Interpretation_ Exploring the Impact of Geosteering Methods on Data Analytics [DownSub.com].txt\""
+    }
+  }
+}

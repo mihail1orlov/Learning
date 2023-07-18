@@ -1,0 +1,12 @@
+sudo apt install wireguard
+
+wg genkey | tee privatekey | wg pubkey > publickey
+
+/etc/wireguard/wg0.conf
+
+wg-quick up wg0
+https://superuser.com/questions/1500691/usr-bin-wg-quick-line-31-resolvconf-command-not-found-wireguard-debian
+ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
+
+wg
+

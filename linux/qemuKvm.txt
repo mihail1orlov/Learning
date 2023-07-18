@@ -1,3 +1,6 @@
+=======
+sudo apt install virt-manager
+
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients -y
 
 sudo qemu-img resize debian.qcow2 +SIZE 4G
