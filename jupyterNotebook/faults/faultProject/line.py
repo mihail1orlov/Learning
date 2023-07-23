@@ -47,7 +47,7 @@ class Line:
 
     def print_details(self):
         print(f'Line details: A = {self.A}, B = {self.B}, C = {self.C}')
-        
+        print(f'isPositive: {line.is_positive_side(point)}')
         angle = self.get_angle()
         if angle is not None:
             print(f'Angle of inclination: {angle} degrees')
