@@ -31,7 +31,7 @@ class Line:
             angle_rad = np.deg2rad(angle)
             A = np.tan(angle_rad)
             B = -1
-            C = py - A * px
+            C = -(-A * px + py)
         return Line(A, B, C)
 
     def get_angle(self):
@@ -46,8 +46,7 @@ class Line:
         return (self.A * p.md + self.B * p.tvd - self.C) >= 0
 
     def print_details(self):
-        print(f'Line details: A = {self.A}, B = {self.B}, C = {self.C}')
-        print(f'isPositive: {line.is_positive_side(point)}')
+        print(f'Line {self.name} details: A = {self.A}, B = {self.B}, C = {self.C}')
         angle = self.get_angle()
         if angle is not None:
             print(f'Angle of inclination: {angle} degrees')
