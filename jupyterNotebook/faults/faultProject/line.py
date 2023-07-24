@@ -23,17 +23,11 @@ class Line:
     def from_angle_point(angle, p):
         """Create a line from an angle and a point."""
         px, py = p.md, p.tvd
-        if abs(angle - 90) < 0.01 or abs(angle + 90) < 0.01:
-            A = 1
-            B = 0
-            C = px
-        else:
-            # Convert angle from degrees to radians
-            angle_rad = np.deg2rad(angle)
-            A = np.tan(angle_rad)
-            B = -1
-            C = py - A * px
-            #C = -(-A * px + py)
+        # Convert angle from degrees to radians
+        angle_rad = np.deg2rad(angle)
+        A = np.tan(angle_rad)
+        B = -1
+        C = -(py - A * px)
         return Line(A, B, C)
 
     def intersection(self, other):
