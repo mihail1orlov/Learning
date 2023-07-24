@@ -1,4 +1,5 @@
 import numpy as np
+from points import Point2D
 
 class Line:
     def __init__(self, A, B, C):
@@ -25,15 +26,28 @@ class Line:
         if abs(angle - 90) < 0.01 or abs(angle + 90) < 0.01:
             A = 1
             B = 0
-            C = -px
+            C = px
         else:
             # Convert angle from degrees to radians
             angle_rad = np.deg2rad(angle)
             A = np.tan(angle_rad)
             B = -1
-            C = -(-A * px + py)
+            C = py - A * px
+            #C = -(-A * px + py)
         return Line(A, B, C)
 
+    def intersection(self, other):
+        # Calculate the determinant
+        det = self.A * other.B - other.A * self.B
+        if det != 0:
+            # If the determinant is non-zero, the lines intersect
+            x = (self.C * other.B - other.C * self.B) / det
+            y = (self.A * other.C - other.A * self.C) / det
+            return Point2D(x, y)
+        else:
+            # If the determinant is zero, the lines are parallel or coincide
+            return None
+    
     def get_angle(self):
         if self.B != 0:
             angle_rad = np.arctan(-self.A / self.B)  # in radians
@@ -43,7 +57,15 @@ class Line:
             return None
     def is_positive_side(self, p):
         """Check if a point is on the positive side of the line."""
-        return (self.A * p.md + self.B * p.tvd - self.C) >= 0
+        return self.A * p.md + self.B * p.tvd >= self.C
+
+    def are_lines_equal(line1, line2):
+        if line1.A != 0 and line2.A != 0:
+            return line1.B/line1.A == line2.B/line2.A and line1.C/line1.A == line2.C/line2.A
+        elif line1.B != 0 and line2.B != 0:
+            return line1.A/line1.B == line2.A/line2.B and line1.C/line1.B == line2.C/line2.B
+        else:
+            return line1.A == line2.A and line1.B == line2.B and line1.C == line2.C
 
     def print_details(self):
         print(f'Line {self.name} details: A = {self.A}, B = {self.B}, C = {self.C}')
