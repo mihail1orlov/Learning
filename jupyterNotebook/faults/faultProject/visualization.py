@@ -77,6 +77,7 @@ def visualize(points, lines, extend_factor=0.1, show_legend=False):
     if show_legend:
         plt.legend(loc='best')
 
+    plt.gca().invert_yaxis()
     plt.grid()
     plt.show()
 
