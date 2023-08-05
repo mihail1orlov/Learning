@@ -4,7 +4,7 @@ from .Line import Line
 import numpy as np
 
 class PlaneCreator:
-    def from_points(self, point1, point2, point3):
+    def from_points(point1, point2, point3):
         assert isinstance(point1, Point3d) and isinstance(point2, Point3d) and isinstance(point3, Point3d), "Points must be instances of Point3d class"
         
         # Calculate the vectors
