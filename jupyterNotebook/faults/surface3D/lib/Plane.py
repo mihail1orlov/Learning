@@ -7,8 +7,11 @@ class Plane:
         self.C = C
         self.D = D
 
-    def get_z(self, X, Y):
+    def get_z(self, x, y):
         if self.C != 0:
-            return (-self.A * X - self.B * Y - self.D) / self.C
+            return (-self.A * x - self.B * y - self.D) / self.C
         else:
-            return np.full(X.shape, -self.D)
+            return -self.D
+        
+    def point_side(self, x, y, z):
+        return self.A*x + self.B*y + self.C*z + self.D

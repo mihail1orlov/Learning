@@ -3,8 +3,7 @@ import numpy as np
 class PlaneAnalyzer:
     @staticmethod
     def print_info(plane):
-        print(f'Plane equation: {plane.A}x + {plane.B}y + {plane.C}z + {plane.D} = 0')
-        print(f'Slope angle: {PlaneAnalyzer.get_slope_angle(plane)} degrees')
+        print(f'Plane equation: {plane.A}x + {plane.B}y + {plane.C}z + {plane.D} = 0; Slope angle: {PlaneAnalyzer.get_slope_angle(plane)} degrees')
 
     @staticmethod
     def get_slope_angle(plane):
