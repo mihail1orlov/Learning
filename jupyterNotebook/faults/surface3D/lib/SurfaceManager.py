@@ -1,5 +1,6 @@
 import numpy as np
-from lib.Point3d import Point3d
+from .Point3d import Point3d
+from .Surface import Surface
 
 class SurfaceManager:
     @staticmethod
@@ -20,6 +21,29 @@ class SurfaceManager:
 
                 z = surface.get_value(row, col)
 
+                side = plane.point_side(x, y, z)
+                
+                if side > 0:
+                    points.append(Point3d(x, y, z, 'r'))
+                elif side < 0:
+                    points.append(Point3d(x, y, z, 'b'))
+                else:
+                    points.append(Point3d(x, y, z, 'y'))
+
+        return points
+
+    @staticmethod
+    def process_surface_ne(surface, plane):
+        points = []
+        east_inc = (surface.maxEast - surface.minEast) / (surface.numCols - 1)
+        north_inc = (surface.maxNorth - surface.minNorth) / (surface.numRows - 1)
+
+        for row in range(surface.numRows):
+            for col in range(surface.numCols):
+                x = surface.minEast + col * east_inc
+                y = surface.minNorth + row * north_inc
+
+                z = surface.get_value(row, col)
                 side = plane.point_side(x, y, z)
                 
                 if side > 0:
