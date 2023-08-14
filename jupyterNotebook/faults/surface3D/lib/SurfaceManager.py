@@ -4,7 +4,7 @@ from .Surface import Surface
 
 class SurfaceManager:
     @staticmethod
-    def create_surface_with_random_values(minEast, minNorth, maxEast, maxNorth, numRows, numCols):
+    def create_surface_with_random_values(minEast=1000, minNorth=100, maxEast=1500, maxNorth=500, numRows=5, numCols=6):
         surface = Surface(minEast, minNorth, maxEast, maxNorth, numRows, numCols)
         for row in range(surface.numRows):
             for col in range(surface.numCols):
@@ -12,7 +12,7 @@ class SurfaceManager:
         return surface
 
     @staticmethod
-    def process_surface(surface, plane):
+    def process_surface_old(surface, plane):
         points = []
         for row in range(surface.numRows):
             for col in range(surface.numCols):
@@ -33,7 +33,7 @@ class SurfaceManager:
         return points
 
     @staticmethod
-    def process_surface_ne(surface, plane):
+    def process_surface(surface, plane):
         points = []
         east_inc = (surface.maxEast - surface.minEast) / (surface.numCols - 1)
         north_inc = (surface.maxNorth - surface.minNorth) / (surface.numRows - 1)
@@ -52,5 +52,22 @@ class SurfaceManager:
                     points.append(Point3d(x, y, z, 'b'))
                 else:
                     points.append(Point3d(x, y, z, 'y'))
+
+        return points
+
+    @staticmethod
+    def generate_points_from_surface(surface):
+        points = []
+        east_inc = (surface.maxEast - surface.minEast) / (surface.numCols - 1)
+        north_inc = (surface.maxNorth - surface.minNorth) / (surface.numRows - 1)
+
+        for row in range(surface.numRows):
+            for col in range(surface.numCols):
+                x = surface.minEast + col * east_inc
+                y = surface.minNorth + row * north_inc
+                z = surface.get_value(row, col)
+
+                # default color 'r' to all points.
+                points.append(Point3d(x, y, z, 'r'))
 
         return points

@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-#from Point3d import Point3d
 from mpl_toolkits.mplot3d import Axes3D
 
 class Plotter3d:
@@ -20,7 +19,7 @@ class Plotter3d:
 
         self.ax.plot_surface(X, Y, Z, cmap=cmap)
     
-    def plot_plane(self, plane, minEast, maxEast, minNorth, maxNorth, cmap='turbo'):
+    def plot_plane(self, plane, minEast=0, maxEast=1000, minNorth=0, maxNorth=1000, cmap='turbo'):
         x = np.linspace(minEast, maxEast, 100)
         y = np.linspace(minNorth, maxNorth, 100)
         X, Y = np.meshgrid(x, y)
@@ -28,9 +27,9 @@ class Plotter3d:
 
         self.ax.plot_surface(X, Y, Z, cmap=cmap, alpha=0.5)
 
-    def show_plot(self):
+    def show_plot(self, title='3D Visualization'):
         self.ax.set_xlabel('East (x)')
         self.ax.set_ylabel('North (y)')
         self.ax.set_zlabel('TVD (z)')
-        plt.title('3D Visualization')
+        plt.title(title)
         plt.show()

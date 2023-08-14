@@ -12,14 +12,16 @@ class Surface:
 
         self.data = np.zeros(self.numRows * self.numCols)
 
-    def index(self, row, col):
-        return row * self.numCols + col
+    def index(self, indexNorth, indexEast):
+        return indexEast * self.numRows + (self.numRows - indexNorth - 1)
 
-    def set_value(self, row, col, value):
-        self.data[self.index(row, col)] = value
+    def set_value(self, indexNorth, indexEast, value):
+        grid_index = self.index(indexNorth, indexEast)
+        self.data[grid_index] = value
 
-    def get_value(self, row, col):
-        return self.data[self.index(row, col)]
+    def get_value(self, indexNorth, indexEast):
+        grid_index = self.index(indexNorth, indexEast)
+        return self.data[grid_index]
 
     def get_data_2d(self):
-        return self.data.reshape(self.numRows, self.numCols)
+        return self.data.reshape(self.numCols, self.numRows).T[::-1]
