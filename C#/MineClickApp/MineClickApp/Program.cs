@@ -1,6 +1,6 @@
 ﻿using WindowsInput;
 
-var inputSimulator = new      InputSimulator();
+var inputSimulator = new InputSimulator();
 for (var i = 0; true ; i++)
 {
     Press(i, inputSimulator);
