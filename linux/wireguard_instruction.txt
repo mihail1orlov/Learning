@@ -1,0 +1,53 @@
+1. Щоб використовувати WireGuard VPN на вашому PC з OS Ubuntu, Docker, Portainer та WireGuard Stack, дотримуйтесь такої короткої інструкції:
+	Перевірка активованого реального IP:
+	Відкрийте термінал та виконайте:
+		curl ifconfig.me
+	Це команда поверне ваш публічний IP-адрес.
+2. Виберіть випадковий порт:
+	Замість використання стандартного порту WireGuard (51820), виберіть випадковий порт для збільшення безпеки. Це може бути будь-який порт в діапазоні 49152-65535. Для цього прикладу назвемо його yourPort.
+3. Налаштуйте WireGuard в Docker через Portainer:
+	a. Запустіть Portainer, якщо це ще не зроблено.
+	b. У Portainer перейдіть до Stacks, а потім створіть новий stack для WireGuard.
+	c. Вставте подану вами конфігурацію Docker Compose для WireGuard у текстовому редакторі Portainer.
+	d. Замініть yourPort на обраний вами випадковий порт в розділах SERVERPORT та ports.
+	e. Натисніть Deploy the Stack.
+4. Створення та управління WireGuard підключеннями:
+	Після того, як контейнер буде запущено, ви можете отримати доступ до інтерфейсу користувача WireGuard через веб-браузер, перейшовши за адресою сервера та портом, який ви вказали в конфігурації.
+	Тут ви можете створювати та управляти підключеннями.
+5. Встановлення та налаштування клієнта WireGuard:
+	На вашому PC (або іншому пристрої, який ви хочете підключити):
+	a. Встановіть WireGuard.
+	b. Імпорт конфігураційного файлу:
+	Скопіюйте конфігураційний файл з сервера за шляхом /home/user/wireguard/config/peer_configs/{peer_name}.conf.
+	Імпортуйте цей файл до вашого клієнтського додатка WireGuard та активуйте з'єднання.
+	c. Використання QR-коду:
+	Відкрийте QR-код, що знаходиться за шляхом /home/user/wireguard/config/peer_configs/{peer_name}.png у будь-якому зображенні переглядачі на вашому сервері.
+	За допомогою клієнтського додатка WireGuard відскануйте цей QR-код, щоб автоматично імпортувати налаштування та підключитися до сервера.
+6. Перевірка з'єднання:
+	Щоб перевірити, чи ви правильно підключені до VPN, можна використати команду:
+	wg show
+	Це надасть інформацію про активні з'єднання, ключі та передані дані.
+	Тепер ви повинні мати налаштований і працюючий WireGuard VPN на вашому PC на базі Ubuntu з Docker та Portainer.
+
+
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Kiyv
+      - SERVERPORT=yourPort
+      - PEERS=25 #optional
+      - PEERDNS=auto #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+    volumes:
+      - /home/user/wireguard/config:/config
+      - /home/user/wireguard/modules:/lib/modules
+    ports:
+      - yourPort:51820/udp
+    restart: unless-stopped
