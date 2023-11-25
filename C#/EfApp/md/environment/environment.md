@@ -10,7 +10,6 @@ This document outlines the steps for setting up a development environment.
   - [Step 4: Launching MariaDB Using Portainer](#step-4-launching-mariadb-using-portainer)
   - [Step 5: Checking and Management](#step-5-checking-and-management)
   - [Step 6: Connecting to MySQL Server in Docker using HeidiSQL](#step-6-connecting-to-mysql-server-in-docker-using-heidisql)
-
 ## Step 1: Setting Up Hyper-V and Ubuntu VM
 1. **Enable Hyper-V** through "Programs and Features".
 2. **Create and install an Ubuntu VM**.

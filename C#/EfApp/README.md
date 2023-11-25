@@ -9,6 +9,8 @@
   - [License](#license)
   - [Contacts and Support](#contacts-and-support)
 
+![Alt text](md/img/timeTracker.png)
+
 ## Introduction
 Decreased motivation, procrastination, and devoted work often require us first and foremost to control ourselves, and sometimes a gentle nudge. The application is aimed to help draw attention to the things that consume time and assist the user in achieving their goals. Besides control, it can also remind about breaks and other important events. It features both automatic and manual modes.
 - In manual mode, the user independently adds activities.
