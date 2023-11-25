@@ -1,0 +1,10 @@
+﻿- Connect projects functionally
+
+11/25/2023
+- preparation of ubuntu vm
++ Create md documentation
+11/24/2023
++ Created class diagram
++ Added README.md file
+11/23/2023
++ Created project and structure
