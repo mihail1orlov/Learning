@@ -17,20 +17,28 @@ Decreased motivation, procrastination, and devoted work often require us first a
 ## Environment
 This document outlines the steps for setting up a development environment.
 
-Windows, VM Ubuntu, Docker:
- - MySQL server,
+Setting Up Development on Windows PC with Hyper-V, Ubuntu VM, and Docker
+  - Setting Up Hyper-V and Ubuntu VM
+  - Installing Docker in Ubuntu
+  - Creating a Portainer Docker Image
+  - Launching MariaDB Using Portainer
+  - Checking and Management
+  - Connecting to MySQL Server in Docker using HeidiSQL
+
+ <!--
+ - MariaDb server,
  - RabbitMQ,
  - Blazor web page,
  - Windows interceptor
    - WPF,
-   - Windows service
+   - Windows service -->
 
-[this page](md/environment/environment.md)
+[Environment page](md/environment/environment.md)
 
 ## Development
 There are many ideas, and to realize them, a host of technical decisions need to be made. For now, we simplify everything: the application, database, web page.
 
-[this page](md/development/development.md)
+[Development page](md/development/development.md)
 
 ## Usage and Examples
 

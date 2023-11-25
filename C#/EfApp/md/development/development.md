@@ -68,7 +68,7 @@ These commands outline the steps to set up a .NET solution with a domain-driven 
 - Command to add existing projects to the solution
 - Command to add references to other projects or packages
 
-[this page](solution--project-setup-commands/solution--project-setup-commands.md)
+[Setup Commands page](solution--project-setup-commands/solution--project-setup-commands.md)
 
 
 [Go back](../../main.md#development)

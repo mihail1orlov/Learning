@@ -1,8 +1,12 @@
 ﻿- Connect projects functionally
 
 11/25/2023
-- preparation of ubuntu vm
-+ Create md documentation
++ preparation of ubuntu vm (1h)
++ Create md documentation (5h)
+  + portainer (0.5h)
+  + portainer (0.5h)
+  + environtment (1h)
+  + HeidiSql (25min)
 11/24/2023
 + Created class diagram
 + Added README.md file
