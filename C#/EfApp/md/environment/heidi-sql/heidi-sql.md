@@ -2,7 +2,6 @@
 `HeidiSQL` is a popular database management client, including MySQL, that works on Windows. To connect to your MySQL server deployed in a Docker container on Ubuntu VM via HeidiSQL, follow these steps:
 - Use port `3306` to connect to MariaDB.
 - Use the provided credentials (`MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`) to access the database.
-[HeidiSQL page](heidi-sql/heidi-sql.md)
 
 ## Step 1: Find Out the IP Address of the Ubuntu VM
 Determine the IP address of your Ubuntu VM where Docker is running. This can be done by executing the `ip a` command in the Ubuntu terminal.

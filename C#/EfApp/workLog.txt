@@ -1,9 +1,21 @@
 ﻿- Connect projects functionally
+- migration
+  - dotnet ef migrations add InitialCreate
+  - dotnet ef database update
+- deploy
+- integration
+- testing
 
+11/26/2023
+- confuguration
+- create Entities
+- install provider for the MariaDb
+  - maybe Pomelo.EntityFrameworkCore.MySql
+  - setting up DbContext
 11/25/2023
 + preparation of ubuntu vm (1h)
 + Create md documentation (5h)
-  + portainer (0.5h)
+  + development (0.5h)
   + portainer (0.5h)
   + environtment (1h)
   + HeidiSql (25min)

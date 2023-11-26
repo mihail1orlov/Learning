@@ -73,4 +73,4 @@ docker exec time_tracker_mariadb mariadb --version
 - Use the provided credentials (`MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`) to access the database.  
 [HeidiSQL page](heidi-sql/heidi-sql.md)
 
-[Go back](../../main.md#environment)
+[Go back](../../README.md#environment)

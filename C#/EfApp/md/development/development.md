@@ -71,4 +71,4 @@ These commands outline the steps to set up a .NET solution with a domain-driven 
 [Setup Commands page](solution--project-setup-commands/solution--project-setup-commands.md)
 
 
-[Go back](../../main.md#development)
+[Go back](../../README.md#development)
