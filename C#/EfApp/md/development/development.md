@@ -15,6 +15,9 @@
     - [Docker:](#docker)
     - [Deployment:](#deployment)
   - [Step 7: Documentation](#step-7-documentation)
+  - [API versions](#api-versions)
+  - [Update dependencies.](#update-dependencies)
+  - [Code quality](#code-quality)
   - [Solution \& Project Setup Commands](#solution--project-setup-commands)
 
 ## Architecture and Project Design
@@ -61,6 +64,12 @@ graph TD;
 ## Step 7: Documentation
 - Document your API (e.g., using Swagger).
 
+## API versions
+
+## Update dependencies.
+Possibility to update the project to versions C# 8.0 and dotnet-ef to version 8.0.
+
+## Code quality
 
 ## Solution & Project Setup Commands
 These commands outline the steps to set up a .NET solution with a domain-driven design, including creating the necessary projects and adding dependencies among 

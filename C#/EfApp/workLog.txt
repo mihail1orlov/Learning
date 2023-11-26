@@ -10,8 +10,9 @@
 - confuguration
 - create Entities
 - install provider for the MariaDb
-  - maybe Pomelo.EntityFrameworkCore.MySql
+  - dotnet add package MySql.EntityFrameworkCore
   - setting up DbContext
+  - dotnet tool install --global dotnet-ef --version 7.0.0
 11/25/2023
 + preparation of ubuntu vm (1h)
 + Create md documentation (5h)

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\TimeTracker.Domain\TimeTracker.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.10" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
