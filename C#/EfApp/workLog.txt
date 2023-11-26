@@ -1,18 +1,22 @@
 ﻿- Connect projects functionally
-- migration
-  - dotnet ef migrations add InitialCreate
-  - dotnet ef database update
 - deploy
 - integration
 - testing
 
 11/26/2023
 - confuguration
-- create Entities
-- install provider for the MariaDb
-  - dotnet add package MySql.EntityFrameworkCore
-  - setting up DbContext
-  - dotnet tool install --global dotnet-ef --version 7.0.0
++ create Entities
++ install provider for the MariaDb
+  + dotnet add package MySql.EntityFrameworkCore --version 7.0.10
+  + setting up DbContext
+  + dotnet tool install --global dotnet-ef --version 7.0.0
+  + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10 (15:34)
+  + dotnet add package MySql.Data --version 8.2.0 (15:50)
+- migration
+  + dotnet ef migrations add InitialCreate (15:55)
+    + commit First migration (16:05)
+  + dotnet tool update --global dotnet-ef --version 7.0.10
+  - dotnet ef database update 
 11/25/2023
 + preparation of ubuntu vm (1h)
 + Create md documentation (5h)
