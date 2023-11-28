@@ -48,4 +48,6 @@ There are many ideas, and to realize them, a host of technical decisions need to
 
 ## License
 
+MySql.Data [GPL-2.0-only](https://licenses.nuget.org/GPL-2.0-only)
+
 ## Contacts and Support

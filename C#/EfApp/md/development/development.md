@@ -36,8 +36,11 @@ graph TD;
 
 ## Step 2: Setting Up Infrastructure
 ### In `TimeTracker.Infrastructure`:
-- Implement the repository pattern for data access.
+- Migration
 - Configure the Entity Framework context for database interaction.
+- Implement the repository pattern for data access.
+  
+[Setting Up Infrastructure page](setting-up-infrastructure/setting-up-infrastructure.md)
 
 ## Step 3: Implementing Application Logic
 ### In `TimeTracker.Application`:

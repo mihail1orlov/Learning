@@ -2,7 +2,21 @@
 - deploy
 - integration
 - testing
+- confuguration
 
+11/28/2023 (20:30 - 22:30)
+- documentation (22:45 - 23:15)
++ migration
+    + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0 (22:30)
+    + dotnet ef database update (22:40)
++ migration for the MariaDBTest project (20:30 - 22:00)
+  + connectivity issue (20:30-22:00)
+    + I need to understand the organization (21:30)
+    + dotnet new console -n MariaDBTest
+    + dotnet add package Pomelo.EntityFrameworkCore.MySql
+    + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
+    + dotnet ef migrations add InitialCreate
+    + usage analysis the Pomelo.EntityFrameworkCore.MySql (22:00)
 11/26/2023
 - confuguration
 + create Entities
@@ -15,7 +29,9 @@
 - migration
   + dotnet ef migrations add InitialCreate (15:55)
     + commit First migration (16:05)
-  + dotnet tool update --global dotnet-ef --version 7.0.10
+  + dotnet tool update --global dotnet-ef --version 7.0.10 (16:13)
+  + restore connection to MySql (19:11)
+  - dotnet add package MySqlConnector --version 2.3.1
   - dotnet ef database update 
 11/25/2023
 + preparation of ubuntu vm (1h)
