@@ -25,7 +25,7 @@ gantt
 │   ├── images
 │   ├── js
 │   ├── index.html
-├── dist (or build
+├── dist (or build)
 ├── node_modules
 ├── package.json
 ├── package-lock.json 
