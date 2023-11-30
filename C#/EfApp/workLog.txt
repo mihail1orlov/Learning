@@ -4,8 +4,10 @@
 - testing
 - confuguration
 
+11/29/2023
++ documentatoin Understanding the __EFMigrationsHistory Table (09:10)
 11/28/2023 (20:30 - 22:30)
-- documentation (22:45 - 23:15)
++ documentation (22:45 - 23:15)
 + migration
     + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0 (22:30)
     + dotnet ef database update (22:40)
