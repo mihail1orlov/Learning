@@ -1,0 +1,1 @@
+git remote set-url origin https://PAT@github.com/username/repo.git
