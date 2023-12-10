@@ -1,4 +1,5 @@
 # This is a study project (Header 1)
+
 Everything that is in this repository is nothing more than a draft for one technology or another.
 Attention! Don't take it seriously and don't judge harshly
 

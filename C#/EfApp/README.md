@@ -1,4 +1,4 @@
-﻿# Time Tracker
+# Time Tracker
 
 - [Time Tracker](#time-tracker)
   - [Introduction](#introduction)
