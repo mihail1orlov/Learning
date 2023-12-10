@@ -50,4 +50,4 @@ dotnet add TimeTracker.Infrastructure/TimeTracker.Infrastructure.csproj referenc
 dotnet add TimeTracker.API/TimeTracker.API.csproj reference TimeTracker.Application/TimeTracker.Application.csproj
 ```
 
-[Go back](../development.md#timetracker-project-setup-commands)
+[Go back](../development.md#solution--project-setup-commands)

@@ -1,6 +1,4 @@
 # This is a study project (Header 1)
-
-[google search](https://google.com)
 Everything that is in this repository is nothing more than a draft for one technology or another.
 Attention! Don't take it seriously and don't judge harshly
 
@@ -20,6 +18,30 @@ Moving --> Crash
 Crash --> [*]
 ```
 
+***
+
+```mermaid
+graph RL;
+    A--> B & C & D;
+    B--> A & E;
+    C--> A & E;
+    D--> A & E;
+    E--> B & C & D;
+```
+
+***
+
+```mermaid
+graph LR;
+    A--> B & C & D;
+    B--> A & E;
+    C--> A & E;
+    D--> A & E;
+    E--> B & C & D;
+```
+
+***
+
 ```mermaid
 pie
 "Dogs" : 386
@@ -27,6 +49,7 @@ pie
 "Rats" : 15
 ```
 
+***
 Detailed information about how to use the PlantUML [Test file](markDownContent/test.md)
 
 [Markdown - Tutorials](https://www.w3schools.io/file/markdown-introduction/ "Markdown - Tutorials")

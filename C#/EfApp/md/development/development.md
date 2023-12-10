@@ -2,6 +2,7 @@
 
 - [Development](#development)
   - [Architecture and Project Design](#architecture-and-project-design)
+  - [Step 0: Техническое описание функционирования системы](#step-0-техническое-описание-функционирования-системы)
   - [Step 1: Defining Domain Models](#step-1-defining-domain-models)
     - [In `TimeTracker.Domain`:](#in-timetrackerdomain)
   - [Step 2: Setting Up Infrastructure](#step-2-setting-up-infrastructure)
@@ -10,8 +11,9 @@
     - [In `TimeTracker.Application`:](#in-timetrackerapplication)
   - [Step 4: Setting Up API](#step-4-setting-up-api)
     - [In `TimeTracker.API`:](#in-timetrackerapi)
-  - [Step 5: Integration Testing](#step-5-integration-testing)
-  - [Step 6: Docker and Deployment](#step-6-docker-and-deployment)
+  - [Step 5:](#step-5)
+    - [Integration Testing](#integration-testing)
+    - [Docker and Deployment](#docker-and-deployment)
     - [Docker:](#docker)
     - [Deployment:](#deployment)
   - [Step 7: Documentation](#step-7-documentation)
@@ -28,6 +30,20 @@ graph TD;
     TimeTracker.Application-->TimeTracker.Domain;
     TimeTracker.Infrastructure-->TimeTracker.Domain;
 ```
+
+- fix documentaion
+  - implementation
+    - steps for implementation
+  - functioning of system (system operation)
+    - launch the application (need to understand service or application)
+      - subscribe on the events
+        - chenge focus event
+      - process event
+      - 
+
+
+
+## Step 0: Техническое описание функционирования системы
 
 ## Step 1: Defining Domain Models
 ### In `TimeTracker.Domain`:
@@ -52,11 +68,13 @@ graph TD;
 - Create controllers for handling HTTP requests.
 - Configure routing, request validation, and response formatting.
 
-## Step 5: Integration Testing
+## Step 5:  
+
+### Integration Testing
 - Write integration tests.
 - Ensure the API's correct functioning and interaction with the database.
 
-## Step 6: Docker and Deployment
+### Docker and Deployment
 ### Docker:
 - Create a `Dockerfile` for the API.
 - Use `docker-compose.yml` if necessary.
