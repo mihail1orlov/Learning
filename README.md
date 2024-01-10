@@ -2,6 +2,15 @@
 - [Line (like a header 2)](#line-like-a-header-2)
 - [List (Header 2)](#list-header-2)
 
+**Markdown+Math v2.7.4** allows to use Visual Studio Code as a markdown editor capable of typesetting and rendering TeX math.K, In fact it now reuses the built in markdown viewer. KaTeX works inside as a fast math renderer.
+
+$$[ \text{Point 2} = P + [\sin(\phi), \cos(\phi), 0] ]$$
+
+$$E=mc^2$$
+
+$$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
+
+[VsixHub](https://www.vsixhub.com/) is an online repository for Visual Studio Code extensions, offering a wide range of VSIX files for enhancing coding environments in various functionalities.
 
 ## [Jupyter Notebook](jupyterNotebook/jupyterNotebook.md)
 
