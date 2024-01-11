@@ -10,6 +10,7 @@ $$E=mc^2$$
 
 $$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
 
+
 [VsixHub](https://www.vsixhub.com/) is an online repository for Visual Studio Code extensions, offering a wide range of VSIX files for enhancing coding environments in various functionalities.
 
 ## [Jupyter Notebook](jupyterNotebook/jupyterNotebook.md)
