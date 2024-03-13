@@ -1,6 +1,15 @@
+- [Linux](#linux)
+  - [Bootable USB stick on Linux](#bootable-usb-stick-on-linux)
 - [Jupyter Notebook](#jupyter-notebook)
 - [Line (like a header 2)](#line-like-a-header-2)
 - [List (Header 2)](#list-header-2)
+
+## Linux
+### [Bootable USB stick on Linux](linux/bootable-usb-stick-on-linux.md)
+```
+sudo dd bs=4M if=path/to/ubuntu.iso of=/dev/sdb status=progress oflag=sync
+```
+---
 
 **Markdown+Math v2.7.4** allows to use Visual Studio Code as a markdown editor capable of typesetting and rendering TeX math.K, In fact it now reuses the built in markdown viewer. KaTeX works inside as a fast math renderer.
 
