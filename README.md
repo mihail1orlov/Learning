@@ -1,10 +1,12 @@
 - [Linux](#linux)
+  - [Wireguard](#wireguard)
   - [Bootable USB stick on Linux](#bootable-usb-stick-on-linux)
 - [Jupyter Notebook](#jupyter-notebook)
 - [Line (like a header 2)](#line-like-a-header-2)
 - [List (Header 2)](#list-header-2)
 
-## Linux
+## [Linux](linux/linux.md)
+### [Wireguard](linux/wireguard.md)
 ### [Bootable USB stick on Linux](linux/bootable-usb-stick-on-linux.md)
 ```
 sudo dd bs=4M if=path/to/ubuntu.iso of=/dev/sdb status=progress oflag=sync
