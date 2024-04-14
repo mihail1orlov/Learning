@@ -13,11 +13,17 @@ sudo dd bs=4M if=path/to/ubuntu.iso of=/dev/sdb status=progress oflag=sync
 ```
 ---
 
+
+<details>
+<summary>Press here, MarkDown</summary>
+
 **Markdown+Math v2.7.4** allows to use Visual Studio Code as a markdown editor capable of typesetting and rendering TeX math.K, In fact it now reuses the built in markdown viewer. KaTeX works inside as a fast math renderer.
 
 $$[ \text{Point 2} = P + [\sin(\phi), \cos(\phi), 0] ]$$
 
 $$E=mc^2$$
+
+</details>
 
 $$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
 
