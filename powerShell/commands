@@ -1,4 +1,4 @@
-Get-VM
+Get-History | Where-Object { $_.CommandLine -match "ваш_шаблон" }Get-VM
 
 Start-VM -Name <VMName>
 
