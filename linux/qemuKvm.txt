@@ -42,6 +42,10 @@ virsh net-list
 virsh net-edit default
 	изменить сеть
 
+virsh start <имя_виртуальной_машины>
+virsh reboot <имя_виртуальной_машины>
+virsh destroy <имя_виртуальной_машины>
+
  # virt-install --name ubuntutest --ram 2018 --disk path=/var/lib/libvirt/images/disk0.qcow2,size=10 \
 > --vcpus 2 \
 > --os-type linux \
