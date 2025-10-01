@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello Edge</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 12px; min-width: 240px; }
+      button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; }
+      .row { display: flex; gap: 8px; align-items: center; }
+      .log { margin-top: 10px; font-size: 12px; color: #444; white-space: pre-wrap;}
+    </style>
+  </head>
+  <body>
+    <h3>Hello Edge</h3>
+    <div class="row">
+      <button id="inject">Inject greeting</button>
+      <button id="save">Save to storage</button>
+    </div>
+    <div class="log" id="log"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
