@@ -8,7 +8,9 @@ This guide provides an overview of configuring a WireGuard VPN peer with a focus
 
 WireGuard is a modern, high-performance VPN designed to be easy to use while providing robust security. One of its configuration options, `PersistentKeepalive`, sends periodic keepalive packets to maintain the connection. This feature is crucial for connections through NAT, helping to prevent the connection from being dropped due to inactivity.
 
-![qrencode](img/qrencode.png)
+For convenience, WireGuard client configs can be shared as a QR code. A common tool for generating such QR codes from the terminal is `qrencode`, which converts text (for example, a WireGuard configuration) into a scannable QR image.
+
+![Example output of qrencode](img/qrencode.png)
 
 ## Configuration Steps
 
