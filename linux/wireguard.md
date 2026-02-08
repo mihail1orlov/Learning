@@ -8,6 +8,8 @@ This guide provides an overview of configuring a WireGuard VPN peer with a focus
 
 WireGuard is a modern, high-performance VPN designed to be easy to use while providing robust security. One of its configuration options, `PersistentKeepalive`, sends periodic keepalive packets to maintain the connection. This feature is crucial for connections through NAT, helping to prevent the connection from being dropped due to inactivity.
 
+![qrencode](img/qrencode.png)
+
 ## Configuration Steps
 
 To configure a WireGuard peer to use `PersistentKeepalive`, follow these steps. This guide assumes you have already installed WireGuard and have basic knowledge of editing configuration files.
