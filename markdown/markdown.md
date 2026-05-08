@@ -22,7 +22,7 @@ $$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
 Everything that is in this repository is nothing more than a draft for one technology or another.
 Attention! Don't take it seriously and don't judge harshly
 
-[Link to another markDown file](markDownContent/test.markdown "Hover over")
+[Link to another markDown file](azure-mermaid-test.md "Hover over")
 
 [About Mermaid](https://mermaid-js.github.io/mermaid/#/?id=about-mermaid)
 
@@ -68,7 +68,7 @@ pie
 ```
 
 ---
-Detailed information about how to use the PlantUML [Test file](markDownContent/test.md)
+Detailed information about how to use the PlantUML [Test file](mermaid-examples.md)
 
 [Markdown - Tutorials](https://www.w3schools.io/file/markdown-introduction/ "Markdown - Tutorials")
 
@@ -131,23 +131,19 @@ namespace CsvReaderApp
 * Item 2
 
 Example:
-![hey](readmeMdImg/test.img)
+![hey](img/test.img)
 
 |00|01|02|
 |-:|-:|-:|
 |00010|000011|00000000012|
 
 <p>
-  <img src="readmeMdImg/test.img" width=384 height=384/>
+  <img src="img/test.img" width=384 height=384/>
 </p>
 
 |00|01|02|
 |:-|-:|:-:|
 |0000010|000000011|0000000000012|
-
-<p>
-  <img src="markDownContent/img/test.img" width=384 height=384/>
-</p> 
 
 
 Regular **Markdown** here.
