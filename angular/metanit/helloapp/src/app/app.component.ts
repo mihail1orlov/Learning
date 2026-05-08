@@ -1,21 +1,23 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 
-// для создания компонента необходимо импортировать функцию декоратора @Component из библиотеки @angular/core
-// Декоратор @Component позволяет идентифицировать класс как компонент.
+// To declare a component we import the @Component decorator from
+// @angular/core. The decorator marks a class as an Angular component.
 @Component(
-    // объект с конфигурацией, который указывает фреймворку, как работать с компонентом и его представлением
-    { // функция декоратор, ассоциирует метаданные с классом компонента AppComponent
-        selector: 'my-app', // селектор css для HTML-элемента
+    // Configuration object — tells Angular how to build and render
+    // the component. The @Component decorator attaches this metadata
+    // to the AppComponent class below.
+    {
+        selector: 'my-app',         // CSS selector for the host HTML element
 
-        // шаблон это и есть представление
-        // шаблон, который указывает, как надо визуализировать компонент
-        template: `<label>Введите имя:</label>
+        // Template = the component's view; it describes how the
+        // component is rendered.
+        template: `<label>Enter your name:</label>
                  <input [(ngModel)]="name" placeholder="name">
-                 <h1>Добро пожаловать {{name}}!</h1>`
+                 <h1>Welcome, {{name}}!</h1>`
     }
 )
 
-// export - для использования в других модулях
+// `export` so other modules can import this class.
 export class AppComponent {
     name = '';
 }

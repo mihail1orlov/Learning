@@ -6,7 +6,7 @@ void setup() {
 
 void loop() {
   if(Serial.available() > 0){
-    // присвоили значение с PC
+    // received a byte from the PC over the serial port
     lol=Serial.read();
 
     if(lol=='1'){

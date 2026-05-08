@@ -1,33 +1,33 @@
-﻿// Создание объекта Person
+// Create a Person.
 Person person1 = new Person("Peterson", "Peter", 25);
 
-// Создание копии объекта Person
+// Make a clone of it.
 Person person2 = (Person)person1.Clone();
 
-// Вывод информации об объектах Person
+// Print both.
 Console.WriteLine("Person 1: " + person1.ToString());
 Console.WriteLine("Person 2: " + person2.ToString());
 
-// Изменение свойств объекта Person 2
+// Mutate the clone.
 person2.FirstName = "John";
 person2.Age = 30;
 
-// Вывод информации об объектах Person после изменения
+// Print both again — the original should be untouched.
 Console.WriteLine("\nPerson 1: " + person1.ToString());
 Console.WriteLine("Person 2: " + person2.ToString());
 
 Console.ReadLine();
 
 
-// Класс Person с реализацией ICloneable
+// Person — implements ICloneable for a shallow copy.
 class Person : ICloneable
 {
-    // Поля класса
+    // Fields.
     private string lastName;
     private string firstName;
     private int age;
 
-    // Конструктор класса
+    // Constructor.
     public Person(string lastName, string firstName, int age)
     {
         this.lastName = lastName;
@@ -35,18 +35,18 @@ class Person : ICloneable
         this.age = age;
     }
 
-    // Свойства класса
+    // Properties.
     public string LastName { get { return lastName; } set { lastName = value; } }
     public string FirstName { get { return firstName; } set { firstName = value; } }
     public int Age { get { return age; } set { age = value; } }
 
-    // Реализация метода Clone из интерфейса ICloneable
+    // ICloneable.Clone — produce a new Person with the same field values.
     public object Clone()
     {
         return new Person(this.LastName, this.FirstName, this.Age);
     }
 
-    // Переопределение метода ToString для вывода информации об объекте
+    // Friendly string representation.
     public override string ToString()
     {
         return LastName + " " + FirstName + ", " + Age + " years old";

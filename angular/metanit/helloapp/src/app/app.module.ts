@@ -1,24 +1,25 @@
-// Этот модуль будет входной точкой в приложение
+// This module is the entry point of the application.
 
-// Библиотеки устанавливаются через пакетный менеджер npm и импортируются с помощью директивы import
-import { NgModule }      from '@angular/core'; // декоратора NgModule, нужен для создания модуля
-// Имя каждой библиотеки Angular начинается с префикса @angular
-import { BrowserModule } from '@angular/platform-browser'; // необходимый для работы с браузером
-import { FormsModule }   from '@angular/forms'; // необходимый для работы с формами html и, в частности, с элементами input
-import { AppComponent }   from './app.component'; // функциональность корневого компонента приложения
+// Libraries are installed with npm and pulled in via `import`.
+import { NgModule }      from '@angular/core';            // The NgModule decorator — used to declare a module.
+// Every official Angular library is published under the @angular scope.
+import { BrowserModule } from '@angular/platform-browser'; // Browser bootstrap support.
+import { FormsModule }   from '@angular/forms';            // Template-driven forms (needed for [(ngModel)]).
+import { AppComponent }  from './app.component';          // The root component.
 
-// NgModule представляет функцию-декоратора,
-@NgModule({// которая принимает объект, свойства которого описывают метаданные модуля
-    exports: [], // набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
+// NgModule is a class decorator. It accepts a configuration object
+// whose properties describe the module's metadata.
+@NgModule({
+    exports: [],                       // View classes re-exported for use by other modules.
     imports:      [ BrowserModule, FormsModule ],
-    declarations: [ AppComponent ], // классы представлений (view classes), которые принадлежат модулю
-        // Angular имеет три типа классов представлений
-            // - components
-            // - directives
-            // - pipes (каналы)
-    providers: [], // классы, создающие сервисы, используемые модулем
-    bootstrap:    [ AppComponent ] // компонент, который вызывается по умолчанию при загрузке приложения
+    declarations: [ AppComponent ],    // View classes that belong to this module.
+                                       // Angular has three kinds of view classes:
+                                       //   - components
+                                       //   - directives
+                                       //   - pipes
+    providers: [],                     // Service classes provided by the module.
+    bootstrap: [ AppComponent ]        // The component used as the application's root on load.
 })
 
-// root module
+// Root module.
 export class AppModule { }

@@ -122,7 +122,7 @@ namespace DevAzureReaderApp
             return await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
         }
 
-        // Загрузить и расшифровать Cookie из файла
+        // Load and decrypt cookies from a file.
         public static async Task LoadCookiesAsync(string filename)
         {
             if (File.Exists(filename))
@@ -141,14 +141,14 @@ namespace DevAzureReaderApp
                 CookieCollection cookies = await JsonSerializer.DeserializeAsync<CookieCollection>(cs);
                 foreach (Cookie cookie in cookies)
                 {
-                    // не загружать, если кука заэкспайрилась
+                    // Skip cookies that have already expired.
                     if (!cookie.Expired && (cookie.Expires == DateTime.MinValue || cookie.Expires > DateTime.Now))
                         handler.CookieContainer.Add(cookie);
                 }
             }
         }
 
-        // Зашифровать и сохранить Cookie в файл
+        // Encrypt and persist all cookies to a file.
         public static async Task SaveCookiesAsync(string filename)
         {
             using AesManaged aes = new AesManaged();
@@ -162,7 +162,7 @@ namespace DevAzureReaderApp
 
     public static class CookieContainerExtensions
     {
-        // Забирает все куки из контейнера
+        // Pull every cookie out of the container, regardless of domain.
         public static CookieCollection GetAllCookies(this CookieContainer container)
         {
             CookieCollection allCookies = new CookieCollection();

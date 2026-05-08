@@ -56,18 +56,18 @@ void setup() {
   // WiFi.mode(WIFI_STA);
   // WiFi.disconnect();
   // delay(100);
-  // Serial.println("Настройка выполнена");
+  // Serial.println("Setup complete");
 }
 
 void loop() {
-  Serial.println("начало сканирования");
+  Serial.println("Scan started");
   int n = WiFi.scanNetworks();
-  Serial.println("Настройка выполнена");
+  Serial.println("Setup complete");
   if (n == 0) {
-    Serial.println("сети не найдены");
+    Serial.println("No networks found");
   } else {
     Serial.print(n);
-    Serial.println(" сети найдены");
+    Serial.println(" networks found");
     for (int i = 0; i < n; ++i) {
       Serial.print(i + 1);
       Serial.print(": ");
@@ -81,7 +81,7 @@ void loop() {
   }
  
   Serial.println();
-  delay(5000);   // Ждём, прежде чем снова сканировать
+  delay(5000);   // Wait before scanning again.
 
   WiFiClient client = server.available();   // Listen for incoming clients
 
@@ -179,5 +179,5 @@ void loop() {
     Serial.println("");
   }
 
-  delay(5000);   // Ждём, прежде чем снова сканировать
+  delay(5000);   // Wait before scanning again.
 }

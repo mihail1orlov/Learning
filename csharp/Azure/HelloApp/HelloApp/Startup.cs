@@ -15,8 +15,9 @@ namespace HelloApp
         private readonly IWebHostEnvironment _env;
         private IServiceCollection _serviceCollection;
 
-        //  IWebHostEnvironment (передает информацию о среде, в которой запускается приложение,
-        // и его использовать при обработке запроса)
+        // IWebHostEnvironment carries information about the hosting environment
+        // (development, staging, production, ...) so it can be queried while
+        // building the request pipeline.
         public Startup(IWebHostEnvironment env)
         {
             _env = env;
@@ -35,10 +36,10 @@ namespace HelloApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
         {
-            // если приложение в процессе разработки
+            // In development environments, surface unhandled exceptions
+            // through the developer exception page.
             if (env.IsDevelopment() || env.IsEnvironment("Development111"))
             {
-                // то выводим информацию об ошибке, при наличии ошибки
                 applicationBuilder.UseDeveloperExceptionPage();
             }
 

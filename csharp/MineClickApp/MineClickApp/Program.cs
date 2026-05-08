@@ -1,4 +1,4 @@
-﻿using WindowsInput;
+using WindowsInput;
 
 BeautifulDelay.Animate();
 
@@ -12,29 +12,29 @@ for (var i = 0; true; i++)
 
 void TurnLeft(InputSimulator inputSimulator1)
 {
-    // Имитация поворота (нажатие клавиши "A" для движения влево)wa
+    // Press "A" to turn left.
     inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.VK_A);
     Console.WriteLine("Turning left");
-    Thread.Sleep(1000);  // Поворачиваем влево в течение 1 секундыwawa
+    Thread.Sleep(1000);  // Hold for ~1 second.
 }
 
 static void MoveForward(InputSimulator inputSimulator)
 {
-    // Имитация нажатия клавиши "W" для движения вперед
+    // Hold "W" to move forward.
     inputSimulator.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_W);
     Console.WriteLine("Moving forward");
-    Thread.Sleep(500);  // Двигаемся вперед в течение 1 секунды
+    Thread.Sleep(500);  // Move forward for half a second.
     inputSimulator.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_W);
 }
 
 static void Press(int i, InputSimulator inputSimulator)
 {
-    // Имитация нажатия правой кнопки мыши
+    // Hold left mouse button — long enough for a typical mining swing.
     inputSimulator.Mouse.LeftButtonDown();
-    Console.WriteLine($"{i}. RightButtonDown");
-    Thread.Sleep(4000);  // Держим кнопку в течение 4 секунд для добычи руды
+    Console.WriteLine($"{i}. LeftButtonDown");
+    Thread.Sleep(4000);  // 4 seconds is a comfortable mining window.
 
-    // Отпускание правой кнопки мыши
+    // Release the button.
     inputSimulator.Mouse.LeftButtonUp();
     Console.WriteLine($"{i}. {nameof(inputSimulator.Mouse.LeftButtonUp)}");
 }

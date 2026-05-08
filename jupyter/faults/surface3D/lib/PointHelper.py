@@ -7,11 +7,11 @@ class PointHelper:
         if not points:
             return None, None
 
-        # Устанавливаем начальные границы на основе первой точки
+        # Seed the bounds with the first point.
         min_point = Point(points[0].x, points[0].y, points[0].z)
         max_point = Point(points[0].x, points[0].y, points[0].z)
 
-        # Проходимся по каждой точке и обновляем границы при необходимости
+        # Walk every point and expand the bounds where needed.
         for point in points:
             if point.x < min_point.x:
                 min_point.x = point.x
@@ -62,7 +62,7 @@ class PointHelper:
     def get_three_points_on_plane(plane, min_point, max_point):
         intersections = []
 
-        # Проверка каждого ребра
+        # Check each edge of the bounding box for an intersection with the plane.
         for z in [min_point.z, max_point.z]:
             point = PointHelper.get_intersection_point(plane, x=min_point.x, z=z)
             if min_point.y <= point.y <= max_point.y:
@@ -90,10 +90,10 @@ class PointHelper:
             if min_point.x <= point.x <= max_point.x:
                 intersections.append(point)
 
-        # Сортируем точки по убыванию суммы их координат
+        # Sort intersections by the sum of their coordinates, descending.
         sorted_points = sorted(intersections, key=lambda p: p.x + p.y + p.z, reverse=True)
 
-        # Возвращаем первые три точки из отсортированного списка
+        # Return the top three (any three non-collinear points define the plane).
         return sorted_points[0], sorted_points[1], sorted_points[2]
     
     @staticmethod

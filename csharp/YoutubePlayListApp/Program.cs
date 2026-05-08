@@ -5,16 +5,16 @@ using YoutubeExplode.Videos.Streams;
 {
     var youtube = new YoutubeClient();
 
-    // ID відео з YouTube
+    // YouTube video URL.
     var videoId = "https://music.youtube.com/watch?v=cKE4wJMcAkc&si=YqNTTkWb5coydDne";
     var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoId);
 
-    // Отримання найкращої аудіодоріжки
+    // Pick the highest-bitrate audio-only stream.
     var audioStreamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
 
     if (audioStreamInfo != null)
     {
-        // Завантаження аудіо
+        // Download the audio.
         var httpClient = new HttpClient();
         var stream = await httpClient.GetStreamAsync(audioStreamInfo.Url);
         var filePath = Path.Combine($"D:\\media\\music\\", "audio.mp3");
