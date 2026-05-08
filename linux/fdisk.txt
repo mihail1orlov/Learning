@@ -1,24 +1,35 @@
+# Disk and partition basics
+
+## Permanent mounts
+
+# Edit /etc/fstab to mount a drive at boot.
 sudo vim /etc/fstab
-	How to permanently mount the drive
+
+## See available block devices
 
 ls /dev/sd*
+lsblk
+# Sample output:
+# NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+# sdb                         8:16   0   127G  0 disk
+# └─sdb3                      8:19   0 125.5G  0 part
+#   └─ubuntu--vg-ubuntu--lv 253:0    0  62.8G  0 lvm  /
+
+## Partition with fdisk
+
 fdisk /dev/sdb
-p
-n
-w
+# inside fdisk:
+#   p   - print current partitions
+#   n   - new partition
+#   w   - write changes and exit
+
+## Format a partition
 
 mkfs.ext4 /dev/sdb1
-    .ntfs
-	...
+# Other choices: mkfs.ntfs, mkfs.xfs, mkfs.btrfs, mkfs.fat, ...
 
-/dev/sda  /dev/sdb  /dev/sdb1  /dev/sdb2  /dev/sdb3
+## Wipe an entire disk (destroys all partitions)
 
-lsblk
-
-NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-sdb                         8:16   0   127G  0 disk
-└─sdb3                      8:19   0 125.5G  0 part
-  └─ubuntu--vg-ubuntu--lv 253:0    0  62.8G  0 lvm  /
-
+# Replace /dev/sdb with the target. Triple-check the device — there is
+# no undo here.
 sudo dd if=/dev/zero of=/dev/sdb bs=4M status=progress
-	How to wipe up all partitions on disk

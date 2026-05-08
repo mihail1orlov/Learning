@@ -1,12 +1,21 @@
+# WireGuard — install snippets
+
+# 1. Install
 sudo apt install wireguard
 
+# 2. Generate a keypair
 wg genkey | tee privatekey | wg pubkey > publickey
 
-/etc/wireguard/wg0.conf
+# 3. Config lives at:
+#    /etc/wireguard/wg0.conf
 
+# 4. Bring the interface up / show status
 wg-quick up wg0
-https://superuser.com/questions/1500691/usr-bin-wg-quick-line-31-resolvconf-command-not-found-wireguard-debian
-ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
-
 wg
 
+# Common gotcha on Debian: `wg-quick` calls `resolvconf`, which may not
+# exist. Symlink it to `resolvectl` to fix:
+#   https://superuser.com/questions/1500691/
+ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
+
+# For the long-form guide on `PersistentKeepalive`, see wireguard.md.

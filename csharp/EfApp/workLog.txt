@@ -1,49 +1,65 @@
-﻿- Connect projects functionally
-- deploy
-- integration
-- testing
-- confuguration
+# Time Tracker — work log
 
-11/29/2023
-+ documentatoin Understanding the __EFMigrationsHistory Table (09:10)
-11/28/2023 (20:30 - 22:30)
-+ documentation (22:45 - 23:15)
-+ migration
-    + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0 (22:30)
-    + dotnet ef database update (22:40)
-+ migration for the MariaDBTest project (20:30 - 22:00)
-  + connectivity issue (20:30-22:00)
-    + I need to understand the organization (21:30)
-    + dotnet new console -n MariaDBTest
-    + dotnet add package Pomelo.EntityFrameworkCore.MySql
-    + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
-    + dotnet ef migrations add InitialCreate
-    + usage analysis the Pomelo.EntityFrameworkCore.MySql (22:00)
-11/26/2023
-- confuguration
-+ create Entities
-+ install provider for the MariaDb
-  + dotnet add package MySql.EntityFrameworkCore --version 7.0.10
-  + setting up DbContext
-  + dotnet tool install --global dotnet-ef --version 7.0.0
-  + dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10 (15:34)
-  + dotnet add package MySql.Data --version 8.2.0 (15:50)
-- migration
-  + dotnet ef migrations add InitialCreate (15:55)
-    + commit First migration (16:05)
-  + dotnet tool update --global dotnet-ef --version 7.0.10 (16:13)
-  + restore connection to MySql (19:11)
-  - dotnet add package MySqlConnector --version 2.3.1
-  - dotnet ef database update 
-11/25/2023
-+ preparation of ubuntu vm (1h)
-+ Create md documentation (5h)
-  + development (0.5h)
-  + portainer (0.5h)
-  + environtment (1h)
-  + HeidiSql (25min)
-11/24/2023
-+ Created class diagram
-+ Added README.md file
-11/23/2023
-+ Created project and structure
+Legend: `+` done, `-` outstanding.
+
+## Outstanding
+
+- [ ] Connect projects functionally
+- [ ] Deploy
+- [ ] Integration
+- [ ] Testing
+- [ ] Configuration
+
+## 2023-11-29
+
+- [+] Documentation: "Understanding the __EFMigrationsHistory Table" (09:10)
+
+## 2023-11-28 (20:30 – 22:30)
+
+- [+] Documentation pass (22:45 – 23:15)
+- [+] Migration:
+  - `dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0` (22:30)
+  - `dotnet ef database update` (22:40)
+- [+] Migration for the MariaDBTest project (20:30 – 22:00)
+  - Connectivity issue worked through (20:30 – 22:00)
+  - Understood project organisation (21:30)
+  - `dotnet new console -n MariaDBTest`
+  - `dotnet add package Pomelo.EntityFrameworkCore.MySql`
+  - `dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0`
+  - `dotnet ef migrations add InitialCreate`
+  - Usage analysis of `Pomelo.EntityFrameworkCore.MySql` (22:00)
+
+## 2023-11-26
+
+- [-] Configuration
+- [+] Created entities
+- [+] Installed MariaDB provider:
+  - `dotnet add package MySql.EntityFrameworkCore --version 7.0.10`
+  - Set up `DbContext`
+  - `dotnet tool install --global dotnet-ef --version 7.0.0`
+  - `dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10` (15:34)
+  - `dotnet add package MySql.Data --version 8.2.0` (15:50)
+- [-] Migration:
+  - [+] `dotnet ef migrations add InitialCreate` (15:55) — committed as "First migration" (16:05)
+  - [+] `dotnet tool update --global dotnet-ef --version 7.0.10` (16:13)
+  - [+] Restored connection to MySQL (19:11)
+  - [-] `dotnet add package MySqlConnector --version 2.3.1`
+  - [-] `dotnet ef database update`
+
+## 2023-11-25
+
+- [+] Prepared the Ubuntu VM (1h)
+- [+] Created Markdown documentation (5h):
+  - Development (0.5h)
+  - Portainer (0.5h)
+  - Environment (1h)
+  - HeidiSQL (25min)
+
+## 2023-11-24
+
+- [+] Created class diagram
+- [+] Added `README.md`
+
+## 2023-11-23
+
+- [+] Created project and structure

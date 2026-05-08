@@ -1,15 +1,46 @@
-﻿Тестирование высоконагруженного приложения может быть сложной задачей из-за большого числа взаимодействующих компонентов и требований к производительности. Ниже приведены некоторые рекомендации для различных типов тестирования, которые могут быть применимы в этом контексте:
+# Testing strategies for high-load applications
 
-Unit Tests (модульные тесты): Эти тесты фокусируются на отдельных модулях или функциях приложения. Они должны быть простыми и быстрыми для выполнения. Для высоконагруженных приложений убедитесь, что модульные тесты адекватно обрабатывают условия гонки и другие многопоточные вопросы.
+Testing a high-load application is hard. Many moving pieces, strict
+performance requirements, race conditions everywhere. The categories below
+are the lenses I use to make sure nothing slips through:
 
-Integration Tests (интеграционные тесты): Эти тесты проверяют взаимодействие между различными частями системы. Для высоконагруженных приложений проверьте, как система ведет себя при различных нагрузках и проверьте границы производительности.
+## Unit tests
 
-Stress Tests (стресс-тесты): Эти тесты проверяют производительность системы под высокой нагрузкой. Это особенно важно для высоконагруженных приложений, где вы должны убедиться, что ваше приложение может справиться с предполагаемой нагрузкой.
+Focus on individual modules or functions. They should be tiny and fast.
+For high-load code, pay extra attention to race conditions and concurrency
+bugs — make sure the unit tests model them, not just the happy path.
 
-Load Tests (тесты нагрузки): Эти тесты аналогичны стресс-тестам, но фокусируются на поведении системы при ожидаемых уровнях нагрузки. Они позволяют вам определить, какие части вашего приложения становятся узкими местами при повышении нагрузки.
+## Integration tests
 
-Concurrency/Multi-threading Tests (тесты на конкуренцию/многопоточность): Для высоконагруженных приложений важно проверить, как ваше приложение обрабатывает одновременное выполнение многих процессов или потоков.
+Verify that components interact correctly across module boundaries. For
+high-load systems, also check how the system behaves under varying load
+and where the performance ceiling sits.
 
-End-to-End Tests (сквозные тесты): Эти тесты проверяют полный рабочий цикл вашего приложения. В контексте высоконагруженных приложений они могут помочь убедиться, что все компоненты системы работают вместе должным образом, даже под нагрузкой.
+## Stress tests
 
-Resiliency Tests (тесты на устойчивость): Эти тесты проверяют способность вашего приложения переживать и восстанавли
+Push the system past its design limits to find the breaking point. The
+goal is not to "pass" but to discover failure modes and verify that
+recovery is graceful.
+
+## Load tests
+
+Like stress tests, but at expected production levels. The goal is to
+find the bottlenecks that show up first as load ramps up — they are the
+ones to optimise.
+
+## Concurrency / multi-threading tests
+
+Specifically exercise the simultaneous execution paths: thread pools,
+locks, queues, channels. Use deterministic schedulers when you can.
+
+## End-to-end tests
+
+Walk through real user journeys top to bottom. Under load, these confirm
+that all the pieces still cooperate and that no single subsystem chokes
+the whole pipeline.
+
+## Resilience tests
+
+Inject failure on purpose (drop a database, partition the network, kill a
+service). The system should degrade gracefully and self-heal once
+the failure is removed.

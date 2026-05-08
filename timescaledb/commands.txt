@@ -1,46 +1,78 @@
-﻿https://alexcodetuts.com/2021/04/10/net-5-web-api-with-repository-pattern-docker-and-postgresql/
+# TimescaleDB / Postgres — common operations
 
-.net
-https://www.npgsql.org/doc/types/basic.html
+## References
 
-https://www.postgresql.org/docs/
+# .NET 5 Web API + Repository Pattern + Docker + PostgreSQL:
+#   https://alexcodetuts.com/2021/04/10/net-5-web-api-with-repository-pattern-docker-and-postgresql/
+# Npgsql type mappings:
+#   https://www.npgsql.org/doc/types/basic.html
+# Postgres docs:
+#   https://www.postgresql.org/docs/
+# TimescaleDB official Docker install guide:
+#   https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb/self-hosted/docker/installation-docker/
+# Walkthrough video:
+#   https://youtu.be/aHbE3pTyG-Q
 
-https://alexcodetuts.com/2021/04/10/net-5-web-api-with-repository-pattern-docker-and-postgresql/
+## Drop into the running container and use psql
 
-https://youtu.be/aHbE3pTyG-Q
 docker exec -it moon_timescaledb bash
+
+# Inside the container:
 psql --help
 psql -U postgres
-\du
+
+## psql session — basics
+
+\du                   # list roles
 create database test;
-\l
-\c test
+\l                    # list databases
+\c test               # connect to `test`
+
 CREATE TABLE students (id uuid, name varchar(80), sname varchar(80), age int);
-insert into students (id, name, sname, age) values (uuid_generate_v1(), 'John', 'Conor', 21);
+
+insert into students (id, name, sname, age)
+values (uuid_generate_v1(), 'John', 'Conor', 21);
+
 select * from students;
-\dt
-\d student
+
+\dt                   # list tables
+\d students           # describe a table
+
 create extension if not exists "uuid-ossp";
 select uuid_generate_v1();
 
-// connect from ubuntu
+\q                    # quit
+
+## Connect from a Linux client
+
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 
 psql -h localhost -p 5432 -U postgres
-\q
-  // exit
 
-apt install postgresql-client-common
-  // не уверен по поводу этого
+# `postgresql-client-common` may also be required on minimal images,
+# though I'm not 100% sure when it's actually needed.
+sudo apt install postgresql-client-common
 
-https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb/self-hosted/docker/installation-docker/#dockercommands.txt
-	docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=postgres timescale/timescaledb:latest-pg12
-   
-docker run -d -p 9000:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-  docker run -d -p 9000:9000 --name=moon_portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock moon_portainer
-  docker run -d -p 9000:9000 --name=portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+## Run TimescaleDB in Docker
 
+docker run -d --name timescaledb \
+    -p 5432:5432 \
+    -e POSTGRES_PASSWORD=postgres \
+    timescale/timescaledb:latest-pg12
+
+## Run Portainer alongside it
+
+docker run -d -p 9000:9000 \
+    --name=portainer --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer
+
+## docker-compose with pgAdmin
+
+# Reads POSTGRES_PASSWORD, PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD
+# from a `.env` file.
 version: '2'
 services:
     timescaledb:

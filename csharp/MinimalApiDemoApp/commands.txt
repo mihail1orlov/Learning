@@ -1,5 +1,4 @@
-// part one
-https://youtu.be/5tYSO5mAjXs
+# MinimalApiDemo — source video tutorial
 
-// part two
-https://youtu.be/5tYSO5mAjXs
+# Both videos in the series:
+#   https://youtu.be/5tYSO5mAjXs

@@ -1,5 +1,14 @@
-npm i -D @types/lodash
-npm i lodash
-$ sudo npm install -g typescript
+# TypeScript — setup commands
 
-https://youtu.be/ahCwqrYpIuM
+## Install the compiler globally
+
+sudo npm install -g typescript
+
+## Add lodash with its TypeScript types
+
+npm i lodash
+npm i -D @types/lodash
+
+## Reference video
+
+# https://youtu.be/ahCwqrYpIuM

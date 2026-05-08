@@ -1,34 +1,38 @@
-// install the nodeJs
+# React — first app via Create React App
+
+## Prereq
+
+# Install Node.js, then verify:
 node -v
-    conlole.log("test string")
+# Quick sanity REPL check:
+#   console.log("test string")
 
-// create first app from https://reactjs.org/docs/create-a-new-react-app.html
+## Scaffold the project
 
+# Reference (now archived but still works):
+#   https://reactjs.org/docs/create-a-new-react-app.html
 npx create-react-app my-app
-    Success! Created my-app at /Users/mihail_orlov/Documents/repos/my-app
-    Inside that directory, you can run several commands:
 
-    npm start
-        Starts the development server.
-
-    npm run build
-        Bundles the app into static files for production.
-
-    npm test
-        Starts the test runner.
-
-    npm run eject
-        Removes this tool and copies build dependencies, configuration files
-        and scripts into the app directory. If you do this, you can’t go back!
-
-    We suggest that you begin by typing:
+# CRA reports something like:
+#   Success! Created my-app at /Users/mihail_orlov/Documents/repos/my-app
+#
+#   Inside that directory you can run:
+#
+#     npm start         Start the dev server.
+#     npm run build     Bundle the app into static files for production.
+#     npm test          Start the test runner.
+#     npm run eject     Remove this tool and copy build deps + scripts
+#                       into the app directory. NOTE: this is one-way.
 
 cd my-app
 npm start
 
-    Happy hacking!
+## Status note
 
-На этом этапе можно сказать что тут только скаченный проект без моих правок
-Только странно что заливая на git и скачивая обратно нет всего что нужно для запуска,
-но пока не разберусь ничено менять не буду.
-// end les 05
+# At this point the folder contains only the freshly scaffolded
+# project, with no edits of mine yet. One quirk: when committed and
+# re-cloned the project doesn't seem to have everything needed to run
+# (likely missing `node_modules` and a fresh `npm install` step). I
+# haven't dug into it further, so I'm leaving it untouched until I do.
+
+# end of lesson 05

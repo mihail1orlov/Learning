@@ -1,3 +1,7 @@
-https://docs.timescale.com/timescaledb/latest/quick-start/dotnet/#connecting-net-to-timescaledb
+# TimeScaleDb (.NET sample) — setup
 
+# Reference (TimescaleDB quick-start for .NET):
+#   https://docs.timescale.com/timescaledb/latest/quick-start/dotnet/#connecting-net-to-timescaledb
+
+# Add the Postgres data provider for .NET
 dotnet add package Npgsql

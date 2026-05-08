@@ -1,5 +1,11 @@
-/usr/share/nginx/html
-/etc/nginx/nginx.conf
----
-ports -> subDomain
-https://serverfault.com/questions/920534/nginx-proxy-subdomains-to-other-addresses-and-ports
+# nginx — useful paths and references
+
+## Standard locations
+
+/usr/share/nginx/html      # default web root
+/etc/nginx/nginx.conf      # main config
+
+## Reverse-proxy a subdomain to a different port / host
+
+# Helpful Server Fault answer for setting up subdomain → backend mappings:
+#   https://serverfault.com/questions/920534/nginx-proxy-subdomains-to-other-addresses-and-ports

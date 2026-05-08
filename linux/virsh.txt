@@ -1,88 +1,72 @@
-https://netplan.io/examples/#configuring-network-bridges
+# virsh — libvirt CLI cheat sheet
 
-https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
+## References
 
-be god in it
-	https://www.youtube.com/watch?v=NNJOdNlXqTw&list=PL6gG7zVB_EJxCYuQAKMwWXZqxED7FAesN&index=2
+# Netplan bridge examples:
+#   https://netplan.io/examples/#configuring-network-bridges
+# virtio-win drivers (Windows guests):
+#   https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
+# YouTube playlist on libvirt mastery:
+#   https://www.youtube.com/watch?v=NNJOdNlXqTw&list=PL6gG7zVB_EJxCYuQAKMwWXZqxED7FAesN&index=2
+# Gentoo minimal install image (handy for tiny test guests):
+#   https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20220814T170533Z/install-amd64-minimal-20220814T170533Z.iso
 
+## Pre-flight checks
 
-brctl show
-	ethernet bridge administration
-bridge name     bridge id       STP enabled     interfaces
-virbr0          8000.525400ad834a       yes      virbr0-nic	
-
-virbr0          8000.525400ad834a       yes      enp0s25	
-
-virsh net-dhcp-leases default
-
-systemctl is-active libvirtd
-
-virsh list --all
-
-virsh pool-list --all
-virsh net-list --all
-
-Libvirtd KVM | Работа с virt-manager gui
-
+# CPU virtualisation flags
 lscpu | grep Virtualization
-
 grep -E --color=auto 'vmx|svm|0xc0f' /proc/cpuinfo
 
+# Kernel modules
 lsmod | grep kvm
 
+# libvirtd service
+systemctl is-active libvirtd
 systemctl status -l libvirt
 
-links
-	console browser
-	
-apt search virt-manager
+## Networking
 
-sudo apt install netcat
-	fixed issue with virt-manager connection
+brctl show                       # Linux bridge state
+# bridge name     bridge id              STP enabled     interfaces
+# virbr0          8000.525400ad834a      yes             virbr0-nic / enp0s25
 
-https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20220814T170533Z/install-amd64-minimal-20220814T170533Z.iso
+virsh net-dhcp-leases default    # leases handed out by libvirt's NAT
+virsh iface-list --all
+virsh iface-edit eth0
+sudo ip l set eth0 down          # take an interface down
+sudo ifconfig eth0 down          # legacy equivalent
+ip l sh eth0                     # inspect
 
+## Inventory
+
+virsh list --all                 # all defined VMs
+virsh pool-list --all            # storage pools
+virsh net-list --all             # virtual networks
+
+# Connect to a remote libvirt over SSH
 virsh -c qemu+ssh://user@192.168.x.x/system
 
-ip l sh eth0
+## Day-to-day VM control (inside `virsh --connect qemu:///system`)
 
-virsh iface-list --all
+virsh # start    test            # power on
+virsh # suspend  test            # freeze
+virsh # resume   test            # unfreeze
+virsh # shutdown test            # graceful shutdown (equivalent of `shutdown -h now`)
+virsh # destroy  test            # forced power off (does NOT delete the disk)
+virsh # undefine test            # remove the VM definition (config file goes away)
+virsh # list                     # active VMs
+virsh # list --all               # everything
 
-virsh iface-edit eth0
+## Helpers
 
-sudo ip l set eth0 down
-sudo ifconfig eth0 down
-
+# Available osinfo IDs (handy for `--os-variant` in virt-install)
 sudo apt install libosinfo-bin
 osinfo-query os | grep -i ubuntu | cut -d ' ' -f -2
 
+# All attached block devices (excluding loop = 7)
 sudo lsblk -e7
-	list all the attached disks
 
-Заходим в shell virsh:
-   virsh --connect qemu:///system
-
-Стартуем виртуалную машину:
-	virsh # start test
-	virsh start win10
-
-Замораживаем состояние виртуальной машины:
-   virsh # suspend test
-
-Продолжаем выполнение с момента остановки:
-   virsh # resume test
-
-Список активных виртуальных машин:
-   virsh # list
-
-Список всех определенных в системе виртуальных машин:
-   virsh # list --all
-
-Останавливаем виртуальную машину test (эквивалент выполнения shutdown -h now):
-   virsh # shutdown test
-
-Мгновенно останавливаем виртуальную машину, как при выключении питания:
-   virsh # destroy test
-
-Удаляем виртуальную машину test из списка (удалем файл конфишурации virsh):
-   virsh # undefine test
+# Misc CLI tooling
+links                            # console-mode browser
+apt search virt-manager
+sudo apt install netcat          # fixed an old virt-manager connection issue for me

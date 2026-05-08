@@ -1,12 +1,11 @@
+# Angular — quick command reference
 
-// install node.js
-https://nodejs.org/en/download
+# 1. Install Node.js
+#    https://nodejs.org/en/download
 
-// istall angular
+# 2. Install the Angular DevKit build tools (project-local)
 npm install --save-dev @angular-devkit/build-angular
 
-// auto create component
+# 3. Generate a component without test files
+#    ng = angular CLI, g = generate, c = component
 ng g c componentName --skipTests
-  ng - angurar
-  g - generate
-  c - component  

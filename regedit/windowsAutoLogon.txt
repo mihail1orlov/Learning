@@ -1,2 +1,13 @@
- # https://docs.microsoft.com/en-us/sysinternals/downloads/autologon
+# Auto-login at boot — registry path
+
+# Easiest path: use Sysinternals Autologon (handles password encryption for you):
+#   https://docs.microsoft.com/en-us/sysinternals/downloads/autologon
+
+# The values it writes live under:
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+
+# Keys of interest:
+#   AutoAdminLogon  (REG_SZ)  - "1" enables, "0" disables
+#   DefaultUserName (REG_SZ)  - account name
+#   DefaultPassword (REG_SZ)  - plaintext (avoid; use Autologon to encrypt instead)
+#   DefaultDomainName (REG_SZ) - domain or local machine name

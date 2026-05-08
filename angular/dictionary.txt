@@ -1,1 +1,3 @@
-﻿gutter (паз) - растояние между элементами. Задаётся для всего проекта
+# Angular vocabulary
+
+gutter — the spacing between elements; usually defined globally for the whole project.

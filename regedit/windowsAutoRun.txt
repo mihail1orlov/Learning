@@ -1,1 +1,11 @@
+# Run a program at user login — registry path
+
+# Per-user (recommended):
 HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+# Machine-wide equivalent (admin only):
+# HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+# Add a String (REG_SZ) value:
+#   Name : whatever you want (acts as the entry's label in Task Manager > Startup)
+#   Data : full path to the executable, e.g. "C:\Tools\MyApp.exe"

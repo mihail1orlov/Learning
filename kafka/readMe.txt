@@ -1,7 +1,22 @@
-﻿https://codeopinion.com/getting-started-apache-kafka-with-net-core/
+# Kafka — references and primer
 
-https://www.bigdataschool.ru/wiki/kafka
+## References
 
-Apache  Zookeeper –  open source проект Apache Software Foundation, cервис-координатор, который обеспечивает распределенную синхронизацию небольших по объему данных (конфигурационная информация, пространство имен)  для группы приложений. Zookeeper представляет из себя распределенное хранилище ключ-значение (key-value store), гарантирующий надежное консистентное (consistency)  хранение информации  за счет синхронной репликации между узлами, контроля версий, механизма очередей (queue)  и блокировок (lock). За счет использования оперативной памяти и масштабируемости обладает высокой скоростью 
+- "Getting Started: Apache Kafka with .NET Core" by CodeOpinion:
+  https://codeopinion.com/getting-started-apache-kafka-with-net-core/
 
+- BigDataSchool wiki entry on Kafka (Russian):
+  https://www.bigdataschool.ru/wiki/kafka
 
+## Apache ZooKeeper — short version
+
+ZooKeeper is an Apache Software Foundation project: a coordination
+service that provides distributed synchronisation of small amounts of
+data (configuration information, naming, leader election) for a group
+of applications.
+
+Internally it is a distributed key-value store. Strong consistency is
+achieved through synchronous replication across the ensemble, plus
+versioning, queues, and locking primitives. It keeps everything in RAM
+and scales horizontally, which is what gives it its low-latency
+characteristics.

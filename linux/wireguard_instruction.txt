@@ -1,34 +1,58 @@
-1. Щоб використовувати WireGuard VPN на вашому PC з OS Ubuntu, Docker, Portainer та WireGuard Stack, дотримуйтесь такої короткої інструкції:
-	Перевірка активованого реального IP:
-	Відкрийте термінал та виконайте:
-		curl ifconfig.me
-	Це команда поверне ваш публічний IP-адрес.
-2. Виберіть випадковий порт:
-	Замість використання стандартного порту WireGuard (51820), виберіть випадковий порт для збільшення безпеки. Це може бути будь-який порт в діапазоні 49152-65535. Для цього прикладу назвемо його yourPort.
-3. Налаштуйте WireGuard в Docker через Portainer:
-	a. Запустіть Portainer, якщо це ще не зроблено.
-	b. У Portainer перейдіть до Stacks, а потім створіть новий stack для WireGuard.
-	c. Вставте подану вами конфігурацію Docker Compose для WireGuard у текстовому редакторі Portainer.
-	d. Замініть yourPort на обраний вами випадковий порт в розділах SERVERPORT та ports.
-	e. Натисніть Deploy the Stack.
-4. Створення та управління WireGuard підключеннями:
-	Після того, як контейнер буде запущено, ви можете отримати доступ до інтерфейсу користувача WireGuard через веб-браузер, перейшовши за адресою сервера та портом, який ви вказали в конфігурації.
-	Тут ви можете створювати та управляти підключеннями.
-5. Встановлення та налаштування клієнта WireGuard:
-	На вашому PC (або іншому пристрої, який ви хочете підключити):
-	a. Встановіть WireGuard.
-	b. Імпорт конфігураційного файлу:
-	Скопіюйте конфігураційний файл з сервера за шляхом /home/user/wireguard/config/peer_configs/{peer_name}.conf.
-	Імпортуйте цей файл до вашого клієнтського додатка WireGuard та активуйте з'єднання.
-	c. Використання QR-коду:
-	Відкрийте QR-код, що знаходиться за шляхом /home/user/wireguard/config/peer_configs/{peer_name}.png у будь-якому зображенні переглядачі на вашому сервері.
-	За допомогою клієнтського додатка WireGuard відскануйте цей QR-код, щоб автоматично імпортувати налаштування та підключитися до сервера.
-6. Перевірка з'єднання:
-	Щоб перевірити, чи ви правильно підключені до VPN, можна використати команду:
-	wg show
-	Це надасть інформацію про активні з'єднання, ключі та передані дані.
-	Тепер ви повинні мати налаштований і працюючий WireGuard VPN на вашому PC на базі Ubuntu з Docker та Portainer.
+# WireGuard server in Docker via Portainer
 
+A short recipe for running a WireGuard VPN server on an Ubuntu host
+through Portainer, using the `linuxserver/wireguard` image.
+
+## 1. Confirm your public IP
+
+  curl ifconfig.me
+
+This is the IP your peers will dial out to.
+
+## 2. Pick a non-default UDP port
+
+The WireGuard default is `51820`. Pick something less obvious in the
+ephemeral range (`49152–65535`) — call it `yourPort`. Substitute it in
+the compose file below.
+
+## 3. Deploy the stack in Portainer
+
+1. Open Portainer.
+2. **Stacks → Add Stack** for a new WireGuard stack.
+3. Paste the compose snippet at the bottom of this file into the *Web
+   editor*.
+4. Replace `yourPort` (in `SERVERPORT` and `ports`) with the port
+   chosen in step 2.
+5. Click **Deploy the Stack**.
+
+## 4. Manage peers
+
+The container exposes a web UI on the address and port you configured.
+Use it to add / revoke peers.
+
+## 5. Install and configure a peer
+
+On the device you want to connect:
+
+1. Install the official WireGuard client.
+2. Import the peer config:
+   - Copy `/home/user/wireguard/config/peer_configs/{peer_name}.conf`
+     from the server.
+   - Import it in the client app and toggle the connection on.
+3. Or scan the QR code:
+   - Open `/home/user/wireguard/config/peer_configs/{peer_name}.png`
+     in any image viewer on the server.
+   - Scan with the WireGuard mobile app — settings are imported
+     automatically.
+
+## 6. Verify
+
+  wg show
+
+You should see the peer's public key and recent handshake / transfer
+counters. If not, check the server logs in Portainer.
+
+## docker-compose
 
 services:
   wireguard:
@@ -40,11 +64,11 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/Kiyv
+      - TZ=Europe/Kyiv
       - SERVERPORT=yourPort
-      - PEERS=25 #optional
-      - PEERDNS=auto #optional
-      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - PEERS=25                  # optional
+      - PEERDNS=auto              # optional
+      - INTERNAL_SUBNET=10.13.13.0 # optional
     volumes:
       - /home/user/wireguard/config:/config
       - /home/user/wireguard/modules:/lib/modules

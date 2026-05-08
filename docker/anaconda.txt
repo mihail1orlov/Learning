@@ -1,18 +1,45 @@
-https://notes.shanakadesoysa.com/Python/Jupyter/Generate_Jupyter_password/
----
-sudo docker run -it --rm -p 8888:8888 -v /xeon_data/config/anaconda/home:/home -v /xeon_data/config/anaconda/app:/app --name anaconda continuumio/anaconda3
+# Anaconda in Docker — Jupyter setup
+
+Reference for generating a Jupyter password:
+  https://notes.shanakadesoysa.com/Python/Jupyter/Generate_Jupyter_password/
+
+## Run the official Anaconda image with persistent volumes
+
+sudo docker run -it --rm -p 8888:8888 \
+    -v /xeon_data/config/anaconda/home:/home \
+    -v /xeon_data/config/anaconda/app:/app \
+    --name anaconda continuumio/anaconda3
+
+# Open a shell in the running container
 sudo docker exec -it anaconda /bin/sh
----
-docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c "conda install jupyter -y --quiet && mkdir -p /opt/notebooks && jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
-docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c "conda install jupyter -y --quiet && mkdir -p /opt/notebooks && jupyter lab --notebook-dir=/home --ip='*' --port=8888 --no-browser --allow-root"
----
+
+## Run Jupyter Notebook directly
+
+docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c \
+    "conda install jupyter -y --quiet && \
+     mkdir -p /opt/notebooks && \
+     jupyter notebook --notebook-dir=/opt/notebooks \
+        --ip='*' --port=8888 --no-browser --allow-root"
+
+## Or JupyterLab
+
+docker run -it --rm -p 8888:8888 continuumio/anaconda3 /bin/bash -c \
+    "conda install jupyter -y --quiet && \
+     mkdir -p /opt/notebooks && \
+     jupyter lab --notebook-dir=/home \
+        --ip='*' --port=8888 --no-browser --allow-root"
+
+## Jupyter config location
+
 /root/.jupyter/jupyter_notebook_config.json
----
+
+## Generate a password hash from inside Python
+
 from notebook.auth import passwd
 my_password = "password"
 hashed_password = passwd(passphrase=my_password, algorithm='sha256')
 print(hashed_password)
----
+
+# Interactive variant — prompts for password and confirmation:
 from notebook.auth import passwd
 passwd()
----

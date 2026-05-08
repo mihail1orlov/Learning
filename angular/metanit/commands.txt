@@ -1,12 +1,16 @@
-// install or restore cli
+# Metanit projects — common commands
+
+# Install / restore the Angular CLI globally
 npm install -g @angular/cli
 
+# Confirm the installed version
 ng version
 
-// install all modules and dependencies
+# Install project dependencies (run inside the project folder)
 npm install
 
+# Serve in dev mode at http://localhost:4200
 ng serve
 
-// for the production release
+# Production build (output goes to dist/)
 ng build --configuration production

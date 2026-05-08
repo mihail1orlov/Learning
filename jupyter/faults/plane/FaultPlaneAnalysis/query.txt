@@ -1,1 +1,18 @@
-Мне нужен Python-скрипт для анализа геологических разломов. Скрипт должен уметь расчитать точку пересечения с заданной геологической поверхностью. Основные параметры, которые должны быть учтены: точка разлома, угол падения (dip angle) и направление (strike). Скрипт должен вычислять точку пересечения разлома с поверхностью и визуализировать как поверхность, так и линию разлома в трехмерном пространстве. Важно, чтобы скрипт также учитывал возможные погрешности в данных и позволял настраивать пороговое значение для определения пересечений. Пожалуйста, предоставьте пример кода, а также рекомендации по его использованию и возможной доработке.
+# GPT prompt — fault / surface intersection analysis
+
+I need a Python script that analyses geological faults. The script should
+be able to compute the intersection point of a fault with a given
+geological surface. The main inputs to consider are:
+
+  - a known point on the fault,
+  - the dip angle,
+  - the strike (azimuth).
+
+The script should:
+
+  1. Compute the intersection point of the fault with the surface.
+  2. Visualise both the surface and the fault line in 3D.
+  3. Account for measurement noise, exposing a configurable tolerance
+     threshold for intersection detection.
+
+Please provide example code plus suggestions for using and extending it.

@@ -1,2 +1,4 @@
-transmissionbt.com
-	Cli - BitTorrent Client
+# Software wishlist
+
+- Transmission — BitTorrent client with a CLI:
+  https://transmissionbt.com

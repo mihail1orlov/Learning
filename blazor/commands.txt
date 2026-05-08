@@ -1,4 +1,10 @@
-dotnet watch run
+# Blazor — scaffold and run
+
+# Create a new Blazor Server project (no HTTPS for local dev)
 dotnet new blazorserver -o BlazorApp --no-https
 
-https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/run
+# Run with hot reload
+dotnet watch run
+
+# Tutorial reference:
+#   https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/run

@@ -1,3 +1,4 @@
-// image generating AI 
-https://www.bluewillow.ai/
-https://lexica.art/
+# Image-generation AI services
+
+- BlueWillow — https://www.bluewillow.ai/
+- Lexica       — https://lexica.art/

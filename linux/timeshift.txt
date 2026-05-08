@@ -1,6 +1,21 @@
-https://github.com/teejee2008/timeshift
+# Timeshift — system snapshots from the CLI
+
+# Project:
+#   https://github.com/teejee2008/timeshift
+
+## Configuration
 
 sudo vim /etc/timeshift/timeshift.json
 
-sudo timeshift --create --comments "First backup before network change" --tags D --snapshot-device /dev/sda1
+## Take a snapshot
+
+# Tag `D` = daily snapshot. Use M / W / O / B for monthly / weekly /
+# on-demand / boot.
+sudo timeshift --create \
+    --comments "First backup before network change" \
+    --tags D \
+    --snapshot-device /dev/sda1
+
+## Restore from a snapshot
+
 sudo timeshift --restore --snapshot-device /dev/sda1

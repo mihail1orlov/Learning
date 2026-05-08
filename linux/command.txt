@@ -1,86 +1,96 @@
+# Linux — everyday commands cheat sheet
 
-# monitoring
-	free
-	free -m
-total        used        free      shared  buff/cache   available
-Mem:          32064        1808         273           3       29982       29809
-Swap:          8191           2        8189
-	free -g
+## Resource monitoring
 
-	uptime
-10:56:53 up 11:00,  1 user,  load average: 0.08, 0.10, 0.06
+free          # memory in KB
+free -m       # memory in MB
+free -g       # memory in GB
+# Sample output of `free -m`:
+# total        used        free      shared  buff/cache   available
+# Mem:          32064        1808         273           3       29982       29809
+# Swap:          8191           2        8189
 
-	ps -aux
-	
-sudo apt install htop
+uptime
+# Sample output:
+# 10:56:53 up 11:00,  1 user,  load average: 0.08, 0.10, 0.06
 
-history
-	export HISTTIMEFORMAT='%F %T'
-	history | tail -n 10
-	!1305 && !1306 && !1313
+ps aux                       # all processes
+ps aux | grep bluetooth      # filter
+top                          # interactive
+sudo apt install htop        # nicer top
+
+# macOS doesn't have `free`; use:
+top -l 1 -s 0 | grep PhysMem
+
+## History
+
+# Make every entry timestamped:
+export HISTTIMEFORMAT='%F %T'
+
+# Last 10 entries:
+history | tail -n 10
+
+# Re-run by number:
+!1305
+
+## Power
 
 systemctl poweroff
-
 systemctl list-units --type=service | grep 'net'
 
-rm -rf /folder
-apt search 'file manager'
+## Filesystem inspection
 
-ls /dev/sd*
-lsblk
-df -h
-	diskInfo
-
-sudo chown $(whoami) <file or directory>
-	WARNING IT'S NOT WORK
-	0: (000) No permission.
-	1: (001) Execute permission.
-	2: (010) Write permission.
-	3: (011) Write and execute permissions.
-	4: (100) Read permission.
-	5: (101) Read and execute permissions.
-	6: (110) Read and write permissions.
-	7: (111) Read, write, and execute permissions.
-
-To determine the public IP address of the machine
-	https://api.ipify.org/
-
-How to Use SCP Command to Securely Transfer Files
-	https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/
-
-	scp file.txt remote_username@10.10.0.2:/remote/directory
-	
-chown
-	command changes user ownership of a file, directory, or link in Linux
-
-lsb_release -a
-	command displays LSB (Linux Standard Base) information about your specific Linux distribution, including version number, release codename, and distributor ID
-
-locate - find files and directories
- mlocal -y
-mc - file manager
---
-jq - процессор для json files
-    cat fileName | jq
-wget - утилита для закрузки файлов и возможно сайтов
-
-// набор комманд для начальной инициализации linux docker container
-touch readme.txt
---
 ls
 ls -l
-
 cd ~
 cd ..
 
-top
-ps aux
-ps aux | grep bluetooth
+ls /dev/sd*       # raw block devices
+lsblk             # tree view of disks
+df -h             # mounted filesystems with sizes
 
-// не поддерживается на mac
-free
-// для mac
-top -l 1 -s 0 | grep PhysMem
-
+# Read-only logs / configs
 cat ~/.bashrc
 less ~/.bashrc
+
+## Permissions and ownership
+
+# `chown` changes file/dir/link ownership.
+sudo chown $(whoami) <file or directory>
+
+# Octal digit reference (read=4, write=2, execute=1):
+# 0  ---  no permissions
+# 1  --x  execute
+# 2  -w-  write
+# 3  -wx  write + execute
+# 4  r--  read
+# 5  r-x  read + execute
+# 6  rw-  read + write
+# 7  rwx  read + write + execute
+
+## Networking
+
+# Get the public IP of this host:
+curl https://api.ipify.org/
+
+# SCP a file to a remote host (full guide:
+#   https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/):
+scp file.txt remote_username@10.10.0.2:/remote/directory
+
+## Distribution info
+
+lsb_release -a    # release codename, ID, version
+
+## Useful tools
+
+locate <name>     # find files / dirs
+sudo updatedb     # refresh the locate index
+mc                # Midnight Commander (TUI file manager)
+jq                # JSON processor: `cat file.json | jq`
+wget              # download files (or recursively mirror sites)
+
+## "First commands inside a fresh Docker container"
+
+touch readme.txt
+apt search 'file manager'
+rm -rf /folder

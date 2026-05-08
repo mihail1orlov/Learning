@@ -1,1 +1,11 @@
-Мне нужен Python-скрипт для построения геологической плоскости разлома. Скрипт должен использовать данные. Ключевые параметры: точка разлома, угол падения (dip angle) и направление (strike)
+# GPT prompt — fault-plane builder
+
+I need a Python script that constructs a geological fault plane from
+three input parameters:
+
+  - a known point on the fault,
+  - the dip angle,
+  - the strike (azimuth).
+
+The output should describe the plane (e.g. its normal vector or three
+defining points). See `find_fault_plane_points.md` for the math.

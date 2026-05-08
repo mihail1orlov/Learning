@@ -1,7 +1,20 @@
+# Les Jackson tutorial — full command sequence
+
+# 1. Scaffold a new ASP.NET Core Web API
 dotnet new webapi -n DockerAPI
+
+# 2. Open the new folder in VS Code
 code -r DockerAPI
+
+# 3. Build and run locally
 dotnet build
 dotnet run
+
+# 4. Build a Docker image (tag with your own Hub user)
 docker build -t binarythistle/dockerapi .
+
+# 5. Run the container, mapping host 8080 to container 80
 docker run --rm -p 8080:80 binarythistle/dockerapi
-http://localhost:8080/weatherforecast
+
+# 6. Verify in a browser:
+#    http://localhost:8080/weatherforecast

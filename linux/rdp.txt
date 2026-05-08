@@ -1,31 +1,40 @@
-=======
-950x637
+# Remote desktop on Linux — VNC and RDP
 
-!!!!!! not working
+# WIP — the x11vnc setup below didn't actually work for me end-to-end.
+# Keeping it here for reference until I revisit it.
+
+## x11vnc as a systemd service
 
 apt install x11vnc
+
+# Create a password file at ~/.vnc/passwd
 x11vnc -storepasswd
 
-# add vnc to servises
-
+# Service unit
 sudo vim /lib/systemd/system/x11vnc.service
 
-[Unit]
-Description=Start x11vnc server.
-After=multi-user.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/moon/.vnc/passwd -rfbport 5900 -shared
-Restart=on-failure
-RestartSec=3
-
-[Install]
-WantedBy=multi-user.target
-
+# --- contents ---
+# [Unit]
+# Description=Start x11vnc server.
+# After=multi-user.target
+#
+# [Service]
+# Type=simple
+# ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat \
+#     -rfbauth /home/moon/.vnc/passwd -rfbport 5900 -shared
+# Restart=on-failure
+# RestartSec=3
+#
+# [Install]
+# WantedBy=multi-user.target
+# --- end ---
 
 sudo systemctl daemon-reload
-
 sudo systemctl enable x11vnc.service
 
+## xrdp (RDP server)
+
+# More native fit for Microsoft Remote Desktop clients.
 sudo apt install xrdp
+
+# Window-size note from earlier debugging: 950x637.

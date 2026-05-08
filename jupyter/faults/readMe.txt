@@ -1,12 +1,19 @@
-- restore scale
-testCases
-- переход на инициализацию по точке и углу
-- горизотральная линия
-- вертикальная линия
-- линия под углом в 45 градусов
-- линия заданая точкой и градусом
-- линия под разными угломи
+# Faults — design notes
 
-Проблемы
-- линия отображается не правильно
-- инициализация под углом
+## TODO
+
+- [ ] Restore scale handling.
+
+## Test cases
+
+- Switch initialisation to "point + angle".
+- Horizontal line.
+- Vertical line.
+- Line at 45°.
+- Line defined by a point and an angle.
+- Lines at various other angles.
+
+## Known issues
+
+- The line sometimes renders incorrectly.
+- "By angle" initialisation is not yet stable.

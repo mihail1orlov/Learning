@@ -1,4 +1,7 @@
-// create new production project
+# plSi / ng-fundamentals — bootstrap commands
+
+# Create a new Angular workspace
 ng new ng-fundamentals
 
-npm install ngf-bootstrap --save
+# Add ngx-bootstrap (Bootstrap components for Angular)
+npm install ngx-bootstrap --save

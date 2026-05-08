@@ -1,19 +1,26 @@
-﻿C# напиши консольного программу звёздное небо, каждая звезда должна мерцать отдельно случайным светом в произвольном месте со случайным интервалом времени. Задействовать нужно все поле
+# TwinklingStarApp
 
-Объяснение кода:
+A small C# console toy that paints a starry sky: many stars, each blinking
+independently with a random colour, at random positions, on its own random
+schedule. The whole console buffer is used as the canvas.
 
-Создается класс Star для представления звезды. Он содержит координаты x и y, цвет color и два метода: Draw, который рисует звезду на экране, и Twinkle, который заставляет звезду мерцать случайным образом.
+## How the code is organised
 
-Создается класс Program, который является точкой входа в программу.
+* `Star` represents a single star. It holds an `(x, y)` position and a
+  `ConsoleColor`. It exposes two methods:
+  * `Draw` — paints the star at its current location.
+  * `Twinkle` — flips the star to white briefly, sleeps for a random
+    interval, then redraws it in its assigned colour.
 
-В методе Main устанавливается размер консольного окна и создается массив звезд.
+* `Program` is the entry point. It:
+  1. Sets the console window size,
+  2. Builds an array of `Star` instances at random positions with random
+     colours,
+  3. Loops forever, asking each star to twinkle.
 
-В цикле for создаются звезды со случайными координатами и цветом, и добавляются в массив.
+Star colours are picked randomly from the `ConsoleColor` enum.
 
-Затем запускается бесконечный цикл, в котором каждая звезда мерцает.
+## Possible follow-ups
 
-Метод Twinkle сначала рисует белую звезду на месте текущей звезды, затем ждет случайный промежуток времени и рисует звезду нужного цвета.
-
-Цвет звезды выбирается случайным образом из перечисления ConsoleColor.
-
-Чтобы сделать звезды более реалистичными, можно добавить небольшое отклонение координат x и y в методе Twinkle, чтобы они немного двигались.
+* Add a small random drift to the `(x, y)` coordinates inside `Twinkle` so
+  that stars wiggle slightly instead of being perfectly stationary.

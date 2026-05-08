@@ -1,5 +1,17 @@
-copy the line: yy
-delete the line: dd
-indent the line: >> or <<
-select the current paragraph: vap or vip
-delete from the current line to the end of the file 0dG
+# vim — handy keystrokes
+
+# Yank (copy) and put
+yy            # copy current line
+p             # paste below cursor
+
+# Delete
+dd            # delete current line
+0dG           # delete from current line to end of file
+
+# Indent
+>>            # indent current line
+<<            # outdent current line
+
+# Visual selection
+vip           # select current paragraph (inside)
+vap           # select current paragraph (around, includes blank line)

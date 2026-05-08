@@ -1,9 +1,16 @@
-﻿# не нужно устанавливать Server, Client для подключения хватит
+# Install / use OpenSSH on Windows
+
+# To connect from this machine you only need the Client capability;
+# Server is optional and only required if you want to receive SSH
+# connections.
+
+# List the available OpenSSH capabilities
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 
-для работы ssh-add нужно чтоб работала служба
-	C:\Windows\System32\OpenSSH\ssh-agent.exe
+# `ssh-add` requires the OpenSSH Authentication Agent service to be running:
+#   C:\Windows\System32\OpenSSH\ssh-agent.exe
+# Start it from `services.msc` (set to Automatic) before any of these:
 
-ssh-add id_rsa
-ssh-add -h
-ssh-add -l
+ssh-add id_rsa     # add a key to the agent
+ssh-add -l         # list keys in the agent
+ssh-add -h         # help

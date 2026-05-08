@@ -1,1 +1,7 @@
+# Find which process owns a TCP/UDP port (Windows)
+
+# Replace 19132 with the port you're hunting.
 netstat -ano | find ":19132"
+
+# Linux equivalent:
+# sudo ss -tulpn | grep ':19132'

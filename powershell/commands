@@ -1,30 +1,47 @@
-Get-History | Where-Object { $_.CommandLine -match "ваш_шаблон" }Get-VM
+# PowerShell — assorted snippets
 
+## History search
+
+# Filter command history by pattern
+Get-History | Where-Object { $_.CommandLine -match "your_pattern" }
+
+## Hyper-V
+
+Get-VM
 Start-VM -Name <VMName>
 
+## Processes
+
 get-process
-    msiexec.exe /I .\far.msi /quiet 
 
-install docker from the powershell
-    // Invoke-WebRequest : The request was aborted: Could not create SSL/TLS secure channel.
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# Silent MSI install
+msiexec.exe /I .\far.msi /quiet
 
-    // about the commands
-        https://www.powershellgallery.com/packages/DockerMsftProvider/1.0.0.8
-        https://github.com/OneGet/MicrosoftDockerProvider/blob/developer/DockerMsftProvider.psm1
-    Install-Module -Name "DockerMsftProvider" -Force -Verbose
-        // install docker
-    Install-Package -Name docker -ProviderName DockerMsftProvider -Verbose
-    Restart-Computer -Force
+## Install Docker via PowerShell
 
-// download and install UI programm
-    $nameExe = "Docker%20Desktop%20Installer.exe"
-    $sourceExe = "https://download.docker.com/win/stable/" + $nameExe
-    $targetExe = "C:\soft\" + $nameExe
-    Invoke-WebRequest $sourceExe -OutFile $targetExe
-    msiexec.exe /I .\$nameExe /quiet 
+# If the next call dies with "Could not create SSL/TLS secure channel",
+# force TLS 1.2 first:
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-    $targetNugetExe = "C:\soft\nuget.exe"
-    Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
-    Set-Alias nuget $targetNugetExe -Scope Global -Verbose
+# References for what's happening:
+#   https://www.powershellgallery.com/packages/DockerMsftProvider/1.0.0.8
+#   https://github.com/OneGet/MicrosoftDockerProvider/blob/developer/DockerMsftProvider.psm1
+
+Install-Module  -Name "DockerMsftProvider" -Force -Verbose
+Install-Package -Name docker -ProviderName DockerMsftProvider -Verbose
+Restart-Computer -Force
+
+## Download and install Docker Desktop (the GUI)
+
+$nameExe   = "Docker%20Desktop%20Installer.exe"
+$sourceExe = "https://download.docker.com/win/stable/" + $nameExe
+$targetExe = "C:\soft\" + $nameExe
+Invoke-WebRequest $sourceExe -OutFile $targetExe
+msiexec.exe /I .\$nameExe /quiet
+
+## Pin a stand-alone nuget.exe and add an alias
+
+$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+$targetNugetExe = "C:\soft\nuget.exe"
+Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+Set-Alias nuget $targetNugetExe -Scope Global -Verbose

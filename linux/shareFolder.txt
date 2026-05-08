@@ -1,4 +1,10 @@
-https://askubuntu.com/questions/161759/how-to-access-a-shared-folder-in-virtualbox
+# VirtualBox shared folders — mount inside a Linux guest
+
+# Reference Q&A:
+#   https://askubuntu.com/questions/161759/how-to-access-a-shared-folder-in-virtualbox
+
+# Replace <user> with the guest username and `sharename` with the
+# name configured in the VirtualBox Shared Folders settings.
 
 mkdir /home/<user>/vboxshare
 sudo mount -t vboxsf -o uid=1000,gid=1000 sharename /home/<user>/vboxshare

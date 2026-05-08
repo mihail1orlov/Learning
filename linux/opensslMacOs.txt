@@ -1,6 +1,13 @@
+# OpenSSL on macOS — generate a local CA
+
+# Stash everything in one place
 mkdir ~/certs
 cd ~/certs
 
+# 1. Create a 2048-bit private key for the CA, encrypted with a passphrase
 openssl genrsa -des3 -out myCA.key 2048
 
+# 2. Self-sign a 5-year root certificate from that key
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
+
+# Add `myCA.pem` to the system keychain to trust certificates signed by it.

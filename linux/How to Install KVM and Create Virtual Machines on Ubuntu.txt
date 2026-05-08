@@ -1,64 +1,62 @@
-https://help.ubuntu.com/community/KVM/Installation
+# KVM on Ubuntu — install and first VM
 
-KVM only works if your CPU has hardware virtualization support — either Intel VT-x or AMD-V.
-To determine whether your CPU includes these features, run the following command
+Ubuntu community guide:
+  https://help.ubuntu.com/community/KVM/Installation
 
-egrep -c '(svm|vmx)' /proc/cpuinfo
+## Prerequisite: hardware virtualisation
 
-Configure Nested Virtualization - Настройка вложенной виртуализации
+KVM only works if the CPU exposes hardware virtualisation — Intel VT-x
+or AMD-V. To check:
 
-Get-VM
-	This will output a list of virtual machines
+  egrep -c '(svm|vmx)' /proc/cpuinfo
 
-Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
+Any number above 0 means support is available.
 
-Create a virtual machine. See the prerequisites above for the required OS and VM versions.
-While the virtual machine is in the OFF state, run the following command on the physical Hyper-V host. This enables nested virtualization for the virtual machine.
+## Nested virtualisation (running KVM inside Hyper-V)
 
+On the Hyper-V host (PowerShell), with the VM powered OFF, expose
+virtualisation extensions to the guest:
 
-How to Install KVM and Create Virtual Machines on Ubuntu
-https://www.howtogeek.com/117635/how-to-install-kvm-and-create-virtual-machines-on-ubuntu/
-Возможно устарел
+  Get-VM
+  Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
 
-	sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
-	Package 'libvirt-bin' has no installation candidate
-	So instead of
-sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils -y
+After that, KVM can run inside the Hyper-V VM.
 
-sudo adduser $(whoami) libvirt
-	groups $(whoami)
-	
-sudo ls -la /var/run/libvirt/libvirt-sock
-	srwxrwx--- 1 root libvirtd 0 2010-08-24 14:54 /var/run/libvirt/libvirt-sock
-		srw-rw---- 1 root libvirt 0 Aug 19 23:11 /var/run/libvirt/libvirt-sock
+## Modern install (Ubuntu 18.04+)
 
-ls -l /dev/kvm
-	crw-rw----+ 1 root root 10, 232 Jul  8 22:04 /dev/kvm
-		crw-rw---- 1 root kvm 10, 232 Aug 19 22:52 /dev/kvm
-	
-sudo apt-get install virt-manager
-	graphical user interface (optional)
-	
-	
---------------
+The old "How-To Geek" guide
+(https://www.howtogeek.com/117635/how-to-install-kvm-and-create-virtual-machines-on-ubuntu/)
+is mostly out of date — `libvirt-bin` no longer exists. Use this
+instead:
 
-sudo apt update && sudo apt upgrade
+  sudo apt update && sudo apt upgrade
+  cat /etc/debian_version
 
-cat /etc/debian_version
+  sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils -y
 
-sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients -y
+  sudo systemctl status libvirtd
 
-sudo systemctl status libvirtd
+  # Optional: GUI
+  sudo apt install virt-manager
 
-sudo apt install virt-manager
-	only for UI
+  # Make the default network start automatically at boot
+  sudo virsh net-autostart default
 
-sudo virsh net-autostart default
+  # Add yourself to the libvirt group so you don't need sudo for `virsh`
+  sudo adduser $(whoami) libvirt
+  groups $(whoami)
 
-sudo adduser $(whoami) libvirt
+## Verify
 
-cd /var/lib/libvirt/images/
-	story images
+  sudo ls -la /var/run/libvirt/libvirt-sock
+  # Expected ownership:
+  #   srw-rw---- 1 root libvirt 0 ... /var/run/libvirt/libvirt-sock
 
-cd /etc/libvirt/qemu/networks/
-	
+  ls -l /dev/kvm
+  # Expected ownership:
+  #   crw-rw---- 1 root kvm 10, 232 ... /dev/kvm
+
+## Useful paths
+
+  /var/lib/libvirt/images/         # disk images live here
+  /etc/libvirt/qemu/networks/      # virtual network definitions

@@ -1,15 +1,28 @@
-https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server
-	https://docker-samba.ahmetozer.org/
-	https://hub.docker.com/r/dperson/samba/
+# Samba — standalone server with a guest share
+
+## References
+
+# Official wiki:
+#   https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server
+# Docker images:
+#   https://docker-samba.ahmetozer.org/
+#   https://hub.docker.com/r/dperson/samba/
+
+## Native install
 
 sudo apt update && sudo apt upgrade
 sudo apt install samba -y
+
+# Create the share directory
 mkdir shared_folder
 chmod 777 shared_folder/
-ll
+ls -la
 
+# Back up the default config and replace it
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
 sudo vim /etc/samba/smb.conf
+
+## Sample smb.conf
 
 [global]
    server role = standalone server
@@ -19,13 +32,15 @@ sudo vim /etc/samba/smb.conf
    hosts deny = 0.0.0.0/0
 
 [test_share]
-   comment = test share
-   path = /home/user/test_share
-   read only = no
-   guest ok = yes
-   force create mode = 0755
+   comment             = test share
+   path                = /home/user/test_share
+   read only           = no
+   guest ok            = yes
+   force create mode    = 0755
    force directory mode = 2770
-   force user = user
-   force group = user
+   force user           = user
+   force group          = user
+
+## Apply
 
 sudo service smbd restart

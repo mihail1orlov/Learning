@@ -1,2 +1,7 @@
-https://github.com/whyvra/code-server-dotnet
-https://github.com/linuxserver/docker-code-server
+# Useful Docker images for the Portainer host
+
+# .NET-flavoured code-server (VS Code in a browser, with .NET pre-installed):
+#   https://github.com/whyvra/code-server-dotnet
+
+# Vanilla code-server image from LinuxServer.io:
+#   https://github.com/linuxserver/docker-code-server

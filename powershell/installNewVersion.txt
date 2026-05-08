@@ -1,8 +1,18 @@
-// https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?WT.mc_id=THOMASMAURER-blog-thmaure&view=powershell-6
+# Install a newer PowerShell on Windows
+
+# Reference:
+#   https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows
+
+## Via winget
+
 winget search Microsoft.PowerShell
 
+# Stable
 winget install --id Microsoft.Powershell --source winget
+
+# Preview
 winget install --id Microsoft.Powershell.Preview --source winget
-----------------------
+
+## Via the .NET tool catalogue
 
 dotnet tool install --global PowerShell
