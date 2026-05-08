@@ -1,53 +1,50 @@
-﻿# Solution & Project Setup Commands
+# Solution & project setup commands
 
-These commands outline the steps to set up a .NET solution with a domain-driven design, including creating the necessary projects and adding dependencies among 
+The exact `dotnet` CLI commands used to scaffold the four-project DDD layout.
 
-- [Solution \& Project Setup Commands](#solution--project-setup-commands)
-  - [Creating Projects](#creating-projects)
-    - [Solution Creation](#solution-creation)
-    - [Domain Project](#domain-project)
-    - [Infrastructure Project](#infrastructure-project)
-    - [Application Project](#application-project)
-    - [API Project](#api-project)
-  - [Adding Dependencies](#adding-dependencies)
-    - [Add Domain Dependencies to Application and Infrastructure](#add-domain-dependencies-to-application-and-infrastructure)
-    - [Add Application Dependency to API](#add-application-dependency-to-api)
+## Create the solution and projects
 
-
-## Creating Projects
-### Solution Creation
 ```bash
+# Solution
 dotnet new sln -n TimeTracker
-```
-### Domain Project
-```bash
+
+# Domain layer (class library)
 dotnet new classlib -n TimeTracker.Domain
 dotnet sln add TimeTracker.Domain/TimeTracker.Domain.csproj
-```
-### Infrastructure Project
-```bash
+
+# Infrastructure layer (class library)
 dotnet new classlib -n TimeTracker.Infrastructure
 dotnet sln add TimeTracker.Infrastructure/TimeTracker.Infrastructure.csproj
-```
-### Application Project
-```bash
+
+# Application layer (class library)
 dotnet new classlib -n TimeTracker.Application
 dotnet sln add TimeTracker.Application/TimeTracker.Application.csproj
-```
-### API Project
-```bash
+
+# API layer (ASP.NET Core Web API)
 dotnet new webapi -n TimeTracker.API
 dotnet sln add TimeTracker.API/TimeTracker.API.csproj
 ```
-## Adding Dependencies
-### Add Domain Dependencies to Application and Infrastructure
+
+## Wire up project references
+
 ```bash
-dotnet add TimeTracker.Application/TimeTracker.Application.csproj reference TimeTracker.Domain/TimeTracker.Domain.csproj
-dotnet add TimeTracker.Infrastructure/TimeTracker.Infrastructure.csproj reference TimeTracker.Domain/TimeTracker.Domain.csproj
-```
-### Add Application Dependency to API
-```bash
-dotnet add TimeTracker.API/TimeTracker.API.csproj reference TimeTracker.Application/TimeTracker.Application.csproj
+# Application and Infrastructure both depend on Domain
+dotnet add TimeTracker.Application/TimeTracker.Application.csproj \
+    reference TimeTracker.Domain/TimeTracker.Domain.csproj
+
+dotnet add TimeTracker.Infrastructure/TimeTracker.Infrastructure.csproj \
+    reference TimeTracker.Domain/TimeTracker.Domain.csproj
+
+# API depends on Application
+dotnet add TimeTracker.API/TimeTracker.API.csproj \
+    reference TimeTracker.Application/TimeTracker.Application.csproj
 ```
 
-[Go back](../development.md#solution--project-setup-commands)
+## Sanity-check the result
+
+```bash
+dotnet sln list
+dotnet build
+```
+
+`build` will fail loudly if a reference is missing or a dependency is the wrong way around.

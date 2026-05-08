@@ -1,30 +1,24 @@
-# MarkDown
+# Markdown playground
 
-[go back](../README.md#markdown)
+A scratch file for everything Markdown can render — KaTeX math, Mermaid diagrams, tables, embedded HTML, emoji shortcodes.
 
-<details>
-  <summary>Press here, MarkDown</summary>
+For a focused dive, see the sibling files:
 
-**Markdown+Math v2.7.4** allows to use Visual Studio Code as a markdown editor capable of typesetting and rendering TeX math.K, In fact it now reuses the built in markdown viewer. KaTeX works inside as a fast math renderer.
+- [`mermaid-examples.md`](mermaid-examples.md) — flowchart, sequence, gantt, state, class, pie, journey.
+- [`plantuml-example.md`](plantuml-example.md) — minimal PlantUML.
+- [`azure-mermaid-test.md`](azure-mermaid-test.md) — Azure DevOps' `::: mermaid` syntax.
 
-$$[ \text{Point 2} = P + [\sin(\phi), \cos(\phi), 0] ]$$
+## KaTeX math
 
-$$E=mc^2$$
+Inline and block math with the [Markdown+Math](https://marketplace.visualstudio.com/items?itemName=goessner.mdmath) VS Code extension (or any KaTeX-aware renderer):
 
-</details>
+$$E = mc^2$$
 
-$$x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2b}.$$
+$$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 
-[VsixHub](https://www.vsixhub.com/) is an online repository for Visual Studio Code extensions, offering a wide range of VSIX files for enhancing coding environments in various functionalities.
+## Mermaid
 
-## [Jupyter Notebook](jupyterNotebook/jupyterNotebook.md)
-
-Everything that is in this repository is nothing more than a draft for one technology or another.
-Attention! Don't take it seriously and don't judge harshly
-
-[Link to another markDown file](azure-mermaid-test.md "Hover over")
-
-[About Mermaid](https://mermaid-js.github.io/mermaid/#/?id=about-mermaid)
+A few quick samples — see [`mermaid-examples.md`](mermaid-examples.md) for the full menu.
 
 ```mermaid
 stateDiagram-v2
@@ -36,29 +30,14 @@ Moving --> Crash
 Crash --> [*]
 ```
 
----
-
 ```mermaid
-graph RL;
-    A--> B & C & D;
-    B--> A & E;
-    C--> A & E;
-    D--> A & E;
-    E--> B & C & D;
+graph LR
+    A --> B & C & D
+    B --> A & E
+    C --> A & E
+    D --> A & E
+    E --> B & C & D
 ```
-
----
-
-```mermaid
-graph LR;
-    A--> B & C & D;
-    B--> A & E;
-    C--> A & E;
-    D--> A & E;
-    E--> B & C & D;
-```
-
----
 
 ```mermaid
 pie
@@ -67,20 +46,9 @@ pie
 "Rats" : 15
 ```
 
----
-Detailed information about how to use the PlantUML [Test file](mermaid-examples.md)
+## Code blocks
 
-[Markdown - Tutorials](https://www.w3schools.io/file/markdown-introduction/ "Markdown - Tutorials")
-
-Documentation
-
-[Ignore or escape Markdown syntax](https://docs.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops#ignore-or-escape-markdown-syntax-to-enter-specific-or-literal-characters)
-
-Line (like a header 2)
-
----
-* item:
-
+````markdown
 ```cs
 using System.IO;
 
@@ -97,119 +65,58 @@ namespace CsvReaderApp
     }
 }
 ```
+````
 
+````markdown
 ```json
 {
   "firstName": "John",
   "lastName": "Smith",
-  "isAlive": true,
-  "age": 27,
-  "address": {
-    "streetAddress": "21 2nd Street",
-    "city": "New York",
-    "state": "NY",
-    "postalCode": "10021-3100"
-  },
-  "phoneNumbers": [
-    {
-      "type": "home",
-      "number": "212 555-1234"
-    },
-    {
-      "type": "office",
-      "number": "646 555-4567"
-    }
-  ],
-  "children": [],
-  "spouse": null
+  "age": 27
 }
 ```
+````
 
+## Tables
 
-## List (Header 2)
-* Item 1
-* Item 2
+| Right-aligned | Right-aligned | Right-aligned |
+| ------------: | ------------: | ------------: |
+|         00010 |        000011 |   00000000012 |
 
-Example:
-![hey](img/test.img)
+| Left-aligned | Right-aligned | Centered     |
+| :----------- | ------------: | :----------: |
+| 0000010      |     000000011 | 0000000000012 |
 
-|00|01|02|
-|-:|-:|-:|
-|00010|000011|00000000012|
+## Images
+
+Reference image:
+
+![local image](img/test.img)
+
+HTML for explicit sizing:
 
 <p>
-  <img src="img/test.img" width=384 height=384/>
+  <img src="img/test.img" width="384" height="384" />
 </p>
 
-|00|01|02|
-|:-|-:|:-:|
-|0000010|000000011|0000000000012|
+## Embedded HTML — collapsible block
 
+<details>
+  <summary>Click to expand</summary>
 
-Regular **Markdown** here.
+Anything in here is hidden until expanded — good for long examples or appendix notes.
 
-<!--
-@startuml firstDiagram
+</details>
 
-Alice -> Bob: Hello
-Bob -> Alice: Hi!
-    
-@enduml
--->
+## Emoji shortcodes
 
-![](firstDiagram.svg)
+GitHub-flavoured Markdown supports a long list of emoji shortcodes:
 
-    @startuml
-    Foo --> Bar
-    @enduml
-<div hidden>
-```
-@startuml secontDiagram
-    Foo --> Bar
-@enduml
-```
-</div>
+`:white_check_mark:` `:x:` `:warning:` `:rocket:` `:tada:` `:sparkles:` `:heavy_check_mark:` `:link:` `:bangbang:` `:100:` — see [the full list](https://github.com/ikatyang/emoji-cheat-sheet).
 
-```
+## References
 
-
-:clock1:
-`:copyright:`
-`:registered:`
-`:tm:`
-`:x:`
-`:heavy_exclamation_mark:`
-`:bangbang:`
-`:interrobang:`
-`:o:`
-`:heavy_multiplication_x:`
-`:heavy_plus_sign:`
-`:heavy_minus_sign:`
-`:heavy_division_sign:`
-`:white_flower:`
-`:100:`
-`:heavy_check_mark:`
-`:ballot_box_with_check:`
-`:radio_button:`
-`:link:`
-`:curly_loop:`
-`:wavy_dash:`
-`:part_alternation_mark:`
-`:trident:`
-`:black_square:`
-`:white_square:`
-`:white_check_mark:`
-`:black_square_button:`
-`:white_square_button:`
-`:black_circle:`
-`:white_circle:`
-`:red_circle:`
-`:large_blue_circle:`
-`:large_blue_diamond:`
-`:large_orange_diamond:`
-`:small_blue_diamond:`
-`:small_orange_diamond:`
-`:small_red_triangle:`
-`:small_red_triangle_down:`
-`:ship:`
-```
+- [Markdown tutorial](https://www.w3schools.io/file/markdown-introduction/)
+- [Azure DevOps Markdown guidance](https://docs.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance)
+- [Mermaid documentation](https://mermaid-js.github.io/mermaid/#/)
+- [VsixHub](https://www.vsixhub.com/) — community VSIX archive for VS Code extensions.

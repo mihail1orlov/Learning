@@ -1,5 +1,10 @@
-this is for azure
+# Mermaid in Azure DevOps wiki
 
+Azure DevOps wiki uses a slightly different fence for Mermaid blocks: triple-colon (`:::`) instead of triple-backtick.
+
+## Gantt example
+
+```
 ::: mermaid
 gantt
     title A Gantt chart
@@ -10,9 +15,17 @@ gantt
     A task          :a1, 2022-03-07, 7d
     Another task    :after a1 , 5d
 :::
+```
 
-![my faivorite text](img/test.img "hover over")
-<pre>
+## Inline image
+
+```markdown
+![my favourite text](img/test.img "hover over")
+```
+
+## Sample folder tree
+
+```
 ├── src
 │   ├── controller
 │   │   ├── **/*.css
@@ -28,6 +41,6 @@ gantt
 ├── dist (or build)
 ├── node_modules
 ├── package.json
-├── package-lock.json 
+├── package-lock.json
 └── .gitignore
-</pre>
+```

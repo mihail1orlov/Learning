@@ -1,31 +1,51 @@
-# Connecting to MySQL Server in Docker using HeidiSQL 
-`HeidiSQL` is a popular database management client, including MySQL, that works on Windows. To connect to your MySQL server deployed in a Docker container on Ubuntu VM via HeidiSQL, follow these steps:
-- Use port `3306` to connect to MariaDB.
-- Use the provided credentials (`MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`) to access the database.
+# HeidiSQL — connect to MariaDB in Docker
 
-## Step 1: Find Out the IP Address of the Ubuntu VM
-Determine the IP address of your Ubuntu VM where Docker is running. This can be done by executing the `ip a` command in the Ubuntu terminal.
+[HeidiSQL](https://www.heidisql.com/) is a Windows desktop client for MySQL, MariaDB, PostgreSQL, and SQL Server. We use it to talk to the MariaDB container running in the Ubuntu VM.
 
-## Step 2: Check the Availability of the MySQL Port
-Ensure that the MySQL port (default 3306) is open and forwarded from the Docker container to the Ubuntu VM host system. When creating the container, use the `-p` parameter, for example:
+## 1. Find the VM's IP address
+
+Inside the Ubuntu VM:
+
 ```bash
-docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql
+ip a
 ```
 
-## Step 3: Setting Up HeidiSQL
-Open HeidiSQL and click on "New" to create a new connection.
-Enter the following connection details:
-- **Network type**: Select `MySQL (TCP/IP)`.
-- **Hostname / IP**: Enter the IP address of your Ubuntu VM.
-- **User**: Enter the MySQL username (e.g., `root`).
-- **Password**: Enter the password you specified when creating the Docker container (e.g., `my-secret-pw` in the example).
-- **Port**: Ensure that the port is set to `3306` (or another, if you have changed it).
+Look for the IP on the bridge or NAT interface — typically something like `192.168.x.x`.
 
-## Step 4: Connection
-Click 'Save' to save the connection settings.
-Click 'Open' to connect to the MySQL server.
+## 2. Confirm the MariaDB port is exposed
 
-### Note:
-If there are network restrictions between your Windows PC and the Ubuntu VM, ensure that the connection is allowed through the firewall or other network settings.
+The container should publish `3306` on the host. If you used the compose stack from [environment.md](../environment.md), this is already done. To double-check:
 
-[Go back](../environment.md#step-6-connecting-to-mysql-server-in-docker-using-heidisql)
+```bash
+docker ps --format '{{.Names}}\t{{.Ports}}'
+```
+
+You should see `0.0.0.0:3306->3306/tcp`. If you ever need to launch a one-off MariaDB without the stack:
+
+```bash
+docker run --name mysql-container \
+    -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+    -p 3306:3306 \
+    -d mariadb
+```
+
+## 3. New connection in HeidiSQL
+
+Open HeidiSQL → **New** → fill in:
+
+| Field          | Value                                       |
+| -------------- | ------------------------------------------- |
+| Network type   | `MySQL (TCP/IP)`                            |
+| Hostname / IP  | The VM's IP from step 1                     |
+| User           | `root` (or whatever you configured)         |
+| Password       | `my-secret-pw` from your compose file       |
+| Port           | `3306` (or your custom port)                |
+
+Click **Save**, then **Open**.
+
+## 4. If it doesn't connect
+
+- Confirm the Windows host can reach the VM at all: `ping <vm-ip>`.
+- Confirm the firewall (Windows + the VM's `ufw`/`iptables`) allows `3306`.
+- Confirm the container's port mapping with `docker ps`.
+- Check the MariaDB logs: `docker logs time_tracker_mariadb`.

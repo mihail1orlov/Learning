@@ -1,28 +1,35 @@
-# Portainer Installation and Setup Guide
+# Portainer — install & first stack
 
-- [Portainer Installation and Setup Guide](#portainer-installation-and-setup-guide)
-  - [Step 1: Installing Portainer](#step-1-installing-portainer)
-  - [Step 2: Configuring Portainer](#step-2-configuring-portainer)
-  - [Step 3: Using Portainer to Manage Docker](#step-3-using-portainer-to-manage-docker)
+[Portainer](https://www.portainer.io/) is a web UI for Docker. Useful when you'd rather click through containers than type `docker ps -a` six times.
 
-## Step 1: Installing Portainer
-- **Ensure that Docker is installed and running** on your computer.
-- **Launch Portainer** using the following command:
-  ```
-  sudo docker run -d -p 9000:9000 --name=portainer --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-  ```
-- **Open Portainer** by navigating to `http://localhost:9000` in your browser.
+## 1. Install
 
-## Step 2: Configuring Portainer
-- **Create a user**: On the first launch, Portainer will ask you to create an administrator user.
-- **Connect Portainer to Docker**: Select "Local" as the Docker environment and click "Connect".
+Make sure Docker is installed and running, then start Portainer as a container:
 
-## Step 3: Using Portainer to Manage Docker
-- **On the main page of Portainer**, select "Stacks".
-- **Create a new Stack**:
-  - Click "Add Stack".
-  - Enter a name for the Stack, for example, `mariadb-stack`.
-  - In the "Web editor" field, paste the contents of your `docker-compose.yml` file.
-  - Click "Deploy the stack".
+```bash
+sudo docker run -d \
+    -p 9000:9000 \
+    --name=portainer \
+    --restart=unless-stopped \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer
+```
 
-[Go back](../environment.md#step-3-creating-a-portainer-docker-image)
+Browse to `http://localhost:9000` (or `http://<host>:9000` from another machine).
+
+## 2. First-run setup
+
+- Create the admin user when prompted.
+- Pick **Local** as the Docker environment and click **Connect**. (Portainer talks to Docker through the mounted `/var/run/docker.sock`.)
+
+## 3. Deploy a stack
+
+Stacks are Portainer's wrapper for `docker-compose`.
+
+1. Sidebar → **Stacks** → **Add Stack**.
+2. Give it a name (e.g. `mariadb-stack`).
+3. Paste your `docker-compose.yml` into the **Web editor** field.
+4. Click **Deploy the stack**.
+
+Portainer composes it up, and the containers appear under **Containers** with the stack tag attached for easy filtering.

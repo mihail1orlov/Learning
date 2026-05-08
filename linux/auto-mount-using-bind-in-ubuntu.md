@@ -1,39 +1,39 @@
-# [Auto-Mount Using Bind in Ubuntu](auto-mount-using-bind-in-ubuntu.md)
+# Auto-mount with `bind` in Ubuntu
 
-This guide provides step-by-step instructions on how to automatically mount a directory using the `bind` option in Ubuntu after a system reboot. 
+A bind mount makes one directory appear at a second path. Adding it to `/etc/fstab` makes the mapping survive reboots — handy for exposing a deeply-nested data folder somewhere convenient (e.g. `/home/user/photos` → `/srv/photos`).
 
-## Prerequisites
+## Steps
 
-- Ubuntu system
-- Terminal access
-- Administrative (sudo) privileges
+1. **Make sure the destination exists**:
 
-## Instructions
-
-1. **Open Terminal:** Use your preferred method to open a terminal window.
-
-2. **Create Mount Point:** Ensure the destination directory exists. If not, create it with:
    ```bash
    sudo mkdir -p /path/destination
    ```
 
-3. **Edit fstab File:** Open the `/etc/fstab` file with root privileges using a text editor like nano:
+2. **Edit fstab**:
+
    ```bash
    sudo nano /etc/fstab
    ```
 
-4. **Add Bind Mount:** Append the following line to the end of the `fstab` file, replacing `/path/source` and `/path/destination` with your source and destination paths, respectively:
+3. **Append** a bind line — source first, destination second:
+
    ```
    /path/source /path/destination none bind 0 0
    ```
-   This tells the system to automatically bind mount the source directory to the destination directory at startup.
 
-5. **Save and Close:** Save your changes and close the text editor. If using nano, press `Ctrl+O` followed by `Enter` to save, then `Ctrl+X` to exit.
+4. **Test without rebooting**:
 
-6. **Test the Configuration:** To ensure there are no errors in your fstab file and the mount can be performed successfully, run:
    ```bash
    sudo mount -a
    ```
-   This command attempts to mount all filesystems specified in `fstab`.
 
-7. **Reboot:** Optionally, reboot your system to confirm that the directory is automatically mounted on startup.
+   If `mount -a` is silent, you're good. If it complains, fix the typo before rebooting — a broken `fstab` will land you in emergency mode.
+
+5. **Reboot** to confirm the mount comes back up automatically.
+
+## Notes
+
+- The `none` filesystem column is a placeholder — bind mounts don't have a "type".
+- The two zeros at the end disable dump and fsck for this entry.
+- For a one-off (non-persistent) bind: `sudo mount --bind /path/source /path/destination`.

@@ -1,27 +1,31 @@
-Находим три точки для построения геологической плоскости разлома, используя данные о точке разлома, угле падения (dip angle) и направлении (strike).
+# Three points that define a fault plane
 
-1. **Точка разлома**: Это ваша отправная точка, обычно представлена в виде трехмерных координат (x, y, z). Обозначим её как $(P)$.
+Given a known point on a geological fault, its dip angle, and its strike, three points are enough to define the plane it lies on. This note records the formulas.
 
-2. **Угол падения (Dip Angle)**: Угол между горизонтальной плоскостью и плоскостью разлома. Обозначим его как $(\theta)$. Этот угол измеряется от 0° (горизонтально) до 90° (вертикально).
+## Inputs
 
-3. **Направление (Strike)**: Линия на поверхности земли, которая перпендикулярна направлению наибольшего падения плоскости разлома. Обозначим его как $(\phi)$. Это угол относительно северного направления, измеряемый по часовой стрелке.
+1. **Fault point $(P)$** — a known point on the fault, in 3D coordinates $(x, y, z)$. This is the anchor.
+2. **Dip angle $(\theta)$** — the angle between the horizontal plane and the fault plane, in degrees: `0°` is horizontal, `90°` is vertical.
+3. **Strike $(\phi)$** — the bearing of the fault's surface trace, measured clockwise from north. The strike line is, by convention, perpendicular to the direction of steepest descent.
 
-Теперь давайте определим три точки:
+## Three points
 
-- **Точка 1 (P)**: Это уже известная точка разлома.
+- **Point 1 — $P$.** The given fault point.
 
-- **Точка 2**: Определяется на основе направления разлома. Для этого мы добавляем к исходной точке вектор, направленный вдоль направления разлома. Этот вектор можно найти, используя угол направления:
+- **Point 2 — along strike.** Step from $P$ along the strike direction. Strike lies in the horizontal plane, so the $z$ component is zero:
 
-  $$[ \text{Точка 2} = P + [\sin(\phi), \cos(\phi), 0]]$$
+  $$\text{Point 2} = P + [\sin(\phi),\ \cos(\phi),\ 0]$$
 
-  Здесь мы принимаем, что направление лежит в горизонтальной плоскости, поэтому z-компонента вектора равна 0.
+- **Point 3 — along the dip direction.** Step from $P$ along the down-dip vector — the in-plane direction perpendicular to strike. Multiplying by $\sin(\theta)$ gives the horizontal component, $\cos(\theta)$ gives the vertical:
 
-- **Точка 3**: Определяется с использованием угла падения. Мы добавляем к исходной точке вектор, направленный вдоль нормали к плоскости разлома. Этот вектор можно рассчитать как:
+  $$\text{Point 3} = P + [\sin(\phi)\cdot\sin(\theta),\ -\cos(\phi)\cdot\sin(\theta),\ \cos(\theta)]$$
 
-$$
-  [ \text{Точка 3} = P + [\sin(\phi) \cdot \sin(\theta), -\cos(\phi) \cdot \sin(\theta), \cos(\theta)]]
-$$
+The three points are non-collinear and uniquely determine the fault plane.
 
-  Здесь мы умножаем синус угла падения на компоненты x и y вектора направления и добавляем косинус угла падения к z-компоненте.
+## Caveats
 
-Эти формулы позволяют вычислить положения трех точек, необходимых для определения плоскости разлома. Обратите внимание, что в реальных геологических задачах могут потребоваться дополнительные корректировки этих расчетов в зависимости от конкретных условий и данных.
+In real-world geological data you'll usually want to:
+
+- normalise the resulting basis vectors,
+- pick the strike convention consistently (right-hand rule vs. left-hand rule),
+- account for local coordinate-system handedness (especially when mixing seismic and well data).

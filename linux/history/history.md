@@ -1,19 +1,36 @@
-# History
+# Hiding commands from shell history
 
-1. **Using a space before the command:**
-   - In many shell configurations, commands that begin with a space are not saved in the history. You can try executing the command like this:
-     ```bash
-     export GIT_TOKEN=YOUR_TOKEN
-     ```
-     In this case, there is a space before `export`.
+Two tricks for keeping a sensitive command (e.g. one that includes a token) out of `~/.bash_history`.
 
-   However, this method only works if the `HISTCONTROL` parameter is set to `ignorespace` or `ignoreboth` in the shell settings.
+## 1. Lead with a space
 
-2. **Changing history settings temporarily:**
-   - You can temporarily disable the saving of history in your terminal by executing:
-     ```bash
-     set +o history
-     export GIT_TOKEN=YOUR_TOKEN
-     set -o history
-     ```
-     This will disable command logging for the duration of your current terminal session.
+In most shell setups, commands that begin with a space are not saved:
+
+```bash
+ export GIT_TOKEN=YOUR_TOKEN
+```
+
+Note the leading space before `export`. This only works when `HISTCONTROL` is set to `ignorespace` or `ignoreboth`:
+
+```bash
+echo $HISTCONTROL
+# ignoreboth   ← good
+```
+
+If it's not set, add this to `~/.bashrc`:
+
+```bash
+export HISTCONTROL=ignoreboth
+```
+
+## 2. Disable history for the current shell
+
+Toggle history off, run the sensitive command, toggle it back on:
+
+```bash
+set +o history
+export GIT_TOKEN=YOUR_TOKEN
+set -o history
+```
+
+This affects only the current shell session. Anything you do between the two `set` lines is invisible to history.

@@ -1,45 +1,34 @@
-# MariaDBTest Project
+# MariaDBTest
 
-## Description
-The `MariaDBTest` project is designed to test the functionality of the Pomelo.EntityFrameworkCore.MySql provider.
+A bare-bones .NET console app that exercises [`Pomelo.EntityFrameworkCore.MySql`](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) against a MariaDB database — basically a smoke test for the EF Core ↔ MariaDB pipeline.
 
-## Project Setup
-The following steps were taken for the initial setup of this project:
-
-1. Creating a .NET console application:
-   ```bash
-   dotnet new console -n MariaDBTest
-   ```
-
-2. Adding the Pomelo.EntityFrameworkCore.MySql package:
-   ```bash
-   dotnet add package Pomelo.EntityFrameworkCore.MySql
-   ```
-
-3. Adding the Microsoft.EntityFrameworkCore.Design package:
-   ```bash
-   dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
-   ```
-   This package is needed for migration operations.
-
-4. Creating an initial migration using Entity Framework Core:
-   ```bash
-   dotnet ef migrations add InitialCreate
-   ```
-
-After performing the migration, there is no need to update the database:
+## How it was set up
 
 ```bash
+# 1. New console app
+dotnet new console -n MariaDBTest
+
+# 2. EF Core + Pomelo provider
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+
+# 3. Design-time package (needed for `dotnet ef`)
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
+
+# 4. Initial migration
+dotnet ef migrations add InitialCreate
+
+# 5. Apply to the database
 dotnet ef database update
 ```
 
-The database is created, and its structure is updated.
+## To run
 
-## How to Use
-- Ensure that you have the .NET SDK and EF Core CLI installed.
-- Execute the above commands to set up your project.
-- Configure the connection string to your MariaDB database and apply the migrations.
+1. Spin up a MariaDB instance (Docker is easiest — see [`../EfApp/md/environment/environment.md`](../EfApp/md/environment/environment.md)).
+2. Set the connection string to point at it.
+3. `dotnet ef database update` to create the schema.
+4. `dotnet run`.
 
 ## Notes
-- It's important to ensure the correctness of the database connection string.
-- EF Core CLI is required for working with migrations.
+
+- The connection string is the only thing that ever needs to change between machines.
+- The `dotnet-ef` global tool must be installed (`dotnet tool install --global dotnet-ef`) before you can run any `dotnet ef` commands.

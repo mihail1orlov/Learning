@@ -13,5 +13,5 @@ Notebooks — mostly for math, geo, and surface analysis.
 
 ## Notes
 
-- [`jupyterNotebook.md`](jupyterNotebook.md) — bookmarks (Matplotlib colormaps, etc.).
 - [`anacondaCmd.md`](anacondaCmd.md) — Conda install commands for `scikit-learn`, `pykrige`.
+- [Matplotlib colormaps](https://matplotlib.org/stable/users/explain/colors/colormaps.html) — colormap reference.

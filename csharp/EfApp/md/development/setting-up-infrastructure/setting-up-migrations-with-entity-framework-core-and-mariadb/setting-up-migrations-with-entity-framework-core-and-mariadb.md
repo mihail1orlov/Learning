@@ -1,50 +1,41 @@
-# Setting Up Migrations with Entity Framework Core and MariaDB
+# EF Core migrations with MariaDB
 
-- [Setting Up Migrations with Entity Framework Core and MariaDB](#setting-up-migrations-with-entity-framework-core-and-mariadb)
-  - [Required Packages](#required-packages)
-  - [Creating Migrations](#creating-migrations)
-  - [Applying Migrations to Database](#applying-migrations-to-database)
-  - [Understanding the \_\_EFMigrationsHistory Table page](#understanding-the-__efmigrationshistory-table-page)
+How to wire up Entity Framework Core to a MariaDB instance and create the first migration.
 
+## Required packages
 
-## Required Packages
-Ensure you have installed the following packages:
+EF Core doesn't ship a MariaDB/MySQL provider in-box — use [Pomelo](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql):
 
-1. **Pomelo.EntityFrameworkCore.MySql** for connecting to MariaDB.
-   ```bash
-   dotnet add package Pomelo.EntityFrameworkCore.MySql
-   ```
+```bash
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+```
 
-2. **Microsoft.EntityFrameworkCore.Design** for migration functionality.
-   ```bash
-   dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
-   ```
+You also need the design-time package to use `dotnet ef`:
 
-## Creating Migrations
-To create and apply migrations, follow these steps:
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.0
+```
 
-1. **Add EF Core Migration Tools**: Install EF Core command-line tools if not already installed.
+(Pin the version to whatever matches your `.NET` runtime.)
 
-2. **Create Initial Migration**:
-   ```bash
-   dotnet ef migrations add InitialCreate
-   ```
+## Create the initial migration
 
-   This will create the initial migration in your project.
+Once `DbContext`, entities, and the connection string are in place:
 
-## Applying Migrations to Database
-After creating the migrations, apply them to your MariaDB database:
+```bash
+dotnet ef migrations add InitialCreate
+```
 
-   ```bash
-   dotnet ef database update
-   ```
+This generates a `Migrations/` folder containing the C# code that builds the schema.
 
-These steps will help set up your database and prepare it for integration with your application.
+## Apply migrations to the database
 
-## Understanding the __EFMigrationsHistory Table page
-By default, EF Core keeps track of which migrations have been applied to the database by recording them in a table named __EFMigrationsHistory. For various reasons, you may want to customize this table to better suit your needs.
+```bash
+dotnet ef database update
+```
 
-[Understanding the __EFMigrationsHistory Table page](__efmigrationshistory-table/__efmigrationshistory-table.md)
+EF Core connects, creates `__EFMigrationsHistory` if needed, and runs every pending migration in order.
 
+## Further reading
 
-[Go back](../setting-up-infrastructure.md#setting-up-migrations-with-entity-framework-core-and-mariadb)
+- [Understanding `__EFMigrationsHistory`](__efmigrationshistory-table/__efmigrationshistory-table.md) — what the table is, what its columns mean, and how not to break it.

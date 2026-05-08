@@ -1,15 +1,12 @@
-# Setting Up Infrastructure
+# Infrastructure setup
 
-- [Setting Up Infrastructure](#setting-up-infrastructure)
-  - [Setting Up Migrations with Entity Framework Core and MariaDB](#setting-up-migrations-with-entity-framework-core-and-mariadb)
+The `TimeTracker.Infrastructure` project is where EF Core, the database connection, and migrations live.
 
+## Migrations with EF Core + MariaDB
 
+See [`setting-up-migrations-with-entity-framework-core-and-mariadb/`](setting-up-migrations-with-entity-framework-core-and-mariadb/setting-up-migrations-with-entity-framework-core-and-mariadb.md) for the full walkthrough:
 
-## Setting Up Migrations with Entity Framework Core and MariaDB
-- Required Packages
-- Creating Migrations
-- Applying Migrations to Database
-
-[Setting Up Migrations with Entity Framework Core and MariaDB page](setting-up-migrations-with-entity-framework-core-and-mariadb/setting-up-migrations-with-entity-framework-core-and-mariadb.md)
-
-[Go back](../development.md#step-2-setting-up-infrastructure)
+- the NuGet packages you need,
+- creating the first migration,
+- applying migrations to the database,
+- what the `__EFMigrationsHistory` table is for.

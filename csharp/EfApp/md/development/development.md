@@ -1,104 +1,72 @@
-# Development
+# Development guide
 
-- [Development](#development)
-  - [Architecture and Project Design](#architecture-and-project-design)
-  - [Step 0: Техническое описание функционирования системы](#step-0-техническое-описание-функционирования-системы)
-  - [Step 1: Defining Domain Models](#step-1-defining-domain-models)
-    - [In `TimeTracker.Domain`:](#in-timetrackerdomain)
-  - [Step 2: Setting Up Infrastructure](#step-2-setting-up-infrastructure)
-    - [In `TimeTracker.Infrastructure`:](#in-timetrackerinfrastructure)
-  - [Step 3: Implementing Application Logic](#step-3-implementing-application-logic)
-    - [In `TimeTracker.Application`:](#in-timetrackerapplication)
-  - [Step 4: Setting Up API](#step-4-setting-up-api)
-    - [In `TimeTracker.API`:](#in-timetrackerapi)
-  - [Step 5:](#step-5)
-    - [Integration Testing](#integration-testing)
-    - [Docker and Deployment](#docker-and-deployment)
-    - [Docker:](#docker)
-    - [Deployment:](#deployment)
-  - [Step 7: Documentation](#step-7-documentation)
-  - [API versions](#api-versions)
-  - [Update dependencies.](#update-dependencies)
-  - [Code quality](#code-quality)
-  - [Solution \& Project Setup Commands](#solution--project-setup-commands)
+How the four `TimeTracker.*` projects fit together, and the order to build them in.
 
-## Architecture and Project Design
+## Architecture
 
 ```mermaid
-graph TD;
-    TimeTracker.API-->TimeTracker.Application;
-    TimeTracker.Application-->TimeTracker.Domain;
-    TimeTracker.Infrastructure-->TimeTracker.Domain;
+graph TD
+    API[TimeTracker.API] --> APP[TimeTracker.Application]
+    APP --> DOM[TimeTracker.Domain]
+    INF[TimeTracker.Infrastructure] --> DOM
 ```
 
-- fix documentaion
-  - implementation
-    - steps for implementation
-  - functioning of system (system operation)
-    - launch the application (need to understand service or application)
-      - subscribe on the events
-        - chenge focus event
-      - process event
-      - 
+- API depends on Application.
+- Application and Infrastructure both depend on Domain.
+- Nothing depends on API or Infrastructure directly (those are the outer ring).
 
+## Step 0 — System operation
 
+A short technical description of how the system runs end-to-end:
 
-## Step 0: Техническое описание функционирования системы
+1. The application launches (decision: long-running service vs. user-mode app).
+2. It subscribes to relevant events — focus change, lock/unlock, user idle.
+3. Each event is processed and recorded as a `TimeRecord` against the current `User`.
 
-## Step 1: Defining Domain Models
-### In `TimeTracker.Domain`:
-- Define entities and aggregates (e.g., `TimeRecord`, `User`).
-- Develop business rules and logic for these entities.
+## Step 1 — Domain models
 
-## Step 2: Setting Up Infrastructure
-### In `TimeTracker.Infrastructure`:
-- Migration
-- Configure the Entity Framework context for database interaction.
+In `TimeTracker.Domain`:
+
+- Define entities and aggregates: `TimeRecord`, `User`, …
+- Encode the rules that should never be broken (invariants): a `TimeRecord` always has a non-null user, a duration ≥ 0, etc.
+
+## Step 2 — Infrastructure
+
+In `TimeTracker.Infrastructure`:
+
+- Configure the EF Core `DbContext`.
 - Implement the repository pattern for data access.
-  
-[Setting Up Infrastructure page](setting-up-infrastructure/setting-up-infrastructure.md)
+- Set up [migrations](setting-up-infrastructure/setting-up-infrastructure.md).
 
-## Step 3: Implementing Application Logic
-### In `TimeTracker.Application`:
-- Create services for performing business operations.
-- Define DTOs (Data Transfer Objects).
+## Step 3 — Application logic
 
-## Step 4: Setting Up API
-### In `TimeTracker.API`:
-- Create controllers for handling HTTP requests.
-- Configure routing, request validation, and response formatting.
+In `TimeTracker.Application`:
 
-## Step 5:  
+- Services that orchestrate the domain (e.g. `IRecordTimeUseCase`).
+- DTOs used at the boundary.
 
-### Integration Testing
-- Write integration tests.
-- Ensure the API's correct functioning and interaction with the database.
+## Step 4 — API
 
-### Docker and Deployment
-### Docker:
-- Create a `Dockerfile` for the API.
-- Use `docker-compose.yml` if necessary.
+In `TimeTracker.API`:
 
-### Deployment:
-- Deploy the application on the chosen platform.
+- Controllers handling HTTP requests.
+- Routing, request validation, response shaping.
 
-## Step 7: Documentation
-- Document your API (e.g., using Swagger).
+## Step 5 — Tests, Docker, deploy
 
-## API versions
+- **Integration tests** — exercise API + DB end-to-end.
+- **Docker** — `Dockerfile` for the API; optional `docker-compose.yml` to bring up API + DB together.
+- **Deployment** — pick a target (Azure App Service, a VPS, a self-hosted box) and deploy.
 
-## Update dependencies.
-Possibility to update the project to versions C# 8.0 and dotnet-ef to version 8.0.
+## Step 6 — Documentation
 
-## Code quality
+- Generate API docs with Swagger / OpenAPI.
 
-## Solution & Project Setup Commands
-These commands outline the steps to set up a .NET solution with a domain-driven design, including creating the necessary projects and adding dependencies among 
-- Command to create a new solution
-- Command to add existing projects to the solution
-- Command to add references to other projects or packages
+## Maintenance
 
-[Setup Commands page](solution--project-setup-commands/solution--project-setup-commands.md)
+- **Update dependencies** — keep up with `.NET` LTS and EF Core releases. Currently on `.NET 7`; bumping to `.NET 8` mostly means updating package versions.
+- **Code quality** — run analyzers, format with `dotnet format`, keep tests green.
 
+## Reference
 
-[Go back](../../README.md#development)
+- [Solution & project setup commands](solution--project-setup-commands/solution--project-setup-commands.md) — `dotnet new` recipes for each project.
