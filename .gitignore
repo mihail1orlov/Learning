@@ -1,5 +1,54 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# System Files
+# OS
 .DS_Store
 Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+*.swp
+*~
+
+# .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+.vs/
+*.user
+*.suo
+*.rsuser
+*.sln.docstates
+*.userprefs
+
+# Node
+node_modules/
+dist/
+build/
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+*.egg-info/
+
+# PlatformIO / Arduino
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Logs & temp
+*.log
+*.tmp
